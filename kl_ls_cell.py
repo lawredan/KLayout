@@ -26,7 +26,7 @@ else:
 
 #Create the LS array
 if iso:
-    line_vert = Unit.shapes(l_line).insert(pya.Box((length-size)/2,0,(length+size)/2,length))
+    line_vert = Unit.shapes(l_line).insert(pya.Box(-size/2,0,size/2,length))
 else:
     for num in range(0,math.floor(pitch_check/2),1):
         if num == 0:
