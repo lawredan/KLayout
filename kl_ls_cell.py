@@ -9,9 +9,9 @@ import pya
 # length = int(input("Length of the line (in nm): "))
 tone = "D"
 size = 100
-pitch = 200
+pitch = 5001
 length = 10000
-angle = 22
+angle = 0
 
 layout = pya.Layout()
 Unit = layout.create_cell(f"LS_Array_{tone}_{size}_{pitch}_{angle}")
@@ -24,10 +24,7 @@ overlay = Unit.shapes(l_outline).insert(pya.Box((-length/2),-length/2,(length/2)
 
 #Check pitch of the LS array
 pitch_check = math.floor(length/pitch)
-if pitch_check < 2:
-    iso = True
-else:
-    iso = False
+iso = pitch_check < 2 #boolean
 
 #Create the LS array
 if iso:
