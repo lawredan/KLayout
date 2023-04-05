@@ -53,7 +53,7 @@ def ls_cell(tone="D",size=100,pitch=200,dimension=10000,angle=0,x2y=1):
     layout.write(f"LS_test_t{tone}_s{size}_p{pitch}_l{dimension}_a{angle}.gds")
 
 
-def contact_cell(tone="D",size=100,pitch=200,dimension=10000,angle=22,x2y=2):
+def contact_cell(tone="D",size=100,pitch=200,dimension=10000,angle=0,x2y=3):
 
     layout = pya.Layout()
     Unit = layout.create_cell(f"HD_Array_{tone}_{size}_{pitch}_{angle}_{x2y}to1")
@@ -65,10 +65,11 @@ def contact_cell(tone="D",size=100,pitch=200,dimension=10000,angle=22,x2y=2):
     overlay = Unit.shapes(l_outline).insert(pya.Box((-dimension/2),-dimension/2,(dimension/2),dimension/2))
 
     #Define the true pitch, after taking x2y into account
-    true_pitch = (pitch-size) + (size*x2y)
+    true_pitch_x = (pitch-size) + (size*x2y)
+    true_pitch_y = (pitch)
 
     #Check pitch of the cont array
-    pitch_check = math.floor(dimension/true_pitch)
+    pitch_check = math.floor(dimension/true_pitch_y)
     iso = pitch_check < 2 #boolean
 
     #Set contact dimensions
@@ -83,8 +84,8 @@ def contact_cell(tone="D",size=100,pitch=200,dimension=10000,angle=22,x2y=2):
     else:
         for i in range(-pitch_check,pitch_check,1):
             for j in range(-pitch_check,pitch_check,1):
-                coord_x = i*true_pitch
-                coord_y = j*true_pitch
+                coord_x = i*true_pitch_x
+                coord_y = j*true_pitch_y
                 cont = Unit.shapes(l_cont).insert(pya.Box(coord_x+c_left,coord_y+c_bottom,coord_x+c_right,coord_y+c_top))
 
 
