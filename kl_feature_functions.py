@@ -3,7 +3,7 @@ import math
 import klayout
 import pya
 
-def ls_cell(tone="D",size=100,pitch=200,dimension=10000,angle=0,x2y=1):
+def ls_cell(tone="D",size=100,pitch=200,dimension=10000,angle=45,x2y=1):
 
     layout = pya.Layout()
     Unit = layout.create_cell(f"LS_Array_{tone}_{size}_{pitch}_{angle}")
@@ -30,12 +30,10 @@ def ls_cell(tone="D",size=100,pitch=200,dimension=10000,angle=0,x2y=1):
     if iso:
         line_vert = Unit.shapes(l_line).insert(pya.Box(l_left, l_bottom, l_right, l_top))
     else:
-        for num in range(0,math.floor(pitch_check),1):
-            if num == 0:
-                line_vert = Unit.shapes(l_line).insert(pya.Box((num*pitch)+l_left,l_2bottom,(num*pitch)+l_right,l_2top))
-            else:
-                line_vert = Unit.shapes(l_line).insert(pya.Box((num*pitch)+l_left,l_2bottom,(num*pitch)+l_right,l_2top))
-                line_vert = Unit.shapes(l_line).insert(pya.Box((-num*pitch)+l_left,l_2bottom,(-num*pitch)+l_right,l_2top))
+        for num in range(-pitch_check,pitch_check,1):
+                coord_x = num*pitch
+                line_vert = Unit.shapes(l_line).insert(pya.Box(coord_x+l_left,l_2bottom,coord_x+l_right,l_2top))
+
 
     #Does the angle transformation for the lines for rotations
     t = pya.ICplxTrans(1,angle,0,0,0)
@@ -101,7 +99,8 @@ def contact_cell(tone="D",size=100,pitch=200,dimension=10000,angle=0,x2y=3):
     r_diff = Unit.shapes(l_diff).insert(r_and)
 
 
+
     #Export GDS
     layout.write(f"Contact_test_t{tone}_s{size}_p{pitch}_l{dimension}_a{angle}_{x2y}to1.gds")
 
-contact_cell()
+ls_cell()
