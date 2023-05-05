@@ -1,13 +1,15 @@
 # KLayout
 Foray into SPC chip design!
 
-## Objective
+## SPC Toolbox
+
+### Objective
 Design a program to generate control structures for photomask SPC.
-Provide cell structures that can be arrayed for linearity, through pitch, and other monitoring strategies
+Provide cell structures that can be arrayed for linearity, through pitch, and other monitoring strategies (create PCells for these)
 Provide framework for generating SPC cell based on user input
 Uses KLayout to output a .gds file for use
 
-## Design
+### Design
 
 GUI (maybe)
 |
@@ -20,7 +22,7 @@ Wrapper script  -----> .gds output
 v           |
 Control structures
 
-### Control structures
+#### Control structures
 Create functions to generate the following feature types.
 Returns structure(s) back to the wrapper script to be placed in layout.
 
@@ -82,7 +84,7 @@ Note: Will have option (Y/N) for MFX generation
     - Pitch
     - Verticies (3 to 12)
 
-### Wrapper Script
+#### Wrapper Script
 This will...
 - Pull from user inputs (including PEC window to define the size of each cell)
 - Pass inputs to cell functions, which return cell geometries
@@ -97,7 +99,13 @@ Inputs are:
 - Cell requests (to pass to control structures functions)
 - Cell placement(s)
 
-### User inputs
+#### User inputs
 Inputs are...
 - Wrapper script inputs in list format
 - Cell calls in nested lists
+
+
+## Positional Data Biasing (PDB)
+
+### Objective
+Create a function that can be fed a mesh with data bias values, and then apply those biasing values to the structures within each mesh cell throughout a given design.
