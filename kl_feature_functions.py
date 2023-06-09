@@ -150,7 +150,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
     TopCell.prune_cell()
 
     #Export GDS
-    layout.write("LS_Tester.gds")
+    #layout.write("LS_Tester.gds")
 
     return output_cell
 
@@ -351,7 +351,7 @@ def contact_cell(tone:str="D",size:float=0.100,pitch:float=0.100,cell_size:float
     TopCell.prune_cell()
 
     #Export GDS
-    layout.write("Cont_Tester.gds")
+    #layout.write("Cont_Tester.gds")
 
     return output_cell
 
@@ -514,7 +514,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
     TopCell.prune_cell()
 
     #Export GDS
-    layout.write("SRAF_Tester.gds")
+    #layout.write("SRAF_Tester.gds")
 
     return output_cell
 
@@ -649,7 +649,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
     TopCell.prune_cell()
 
     #Export GDS
-    layout.write("LEnd_Tester.gds")
+    #layout.write("LEnd_Tester.gds")
 
     return output_cell
 
@@ -709,7 +709,7 @@ def Spiral_cell(tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spa
            SpiralCell.clear_shapes()
            SpiralCell.shapes(l_spiral).insert(ClearSpiral)
 
-    layout.write("Sprial_tester.gds")
+    #layout.write("Sprial_tester.gds")
 
     return SpiralCell
 
@@ -791,7 +791,7 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
         HornCell.shapes(l_horn).insert(poly_region)
 
 
-    layout.write("Horn_tester.gds")
+    #layout.write("Horn_tester.gds")
 
     return HornCell
 
@@ -911,7 +911,7 @@ def contact_pdm(tone:str="C",size:float=0.26,pitch:float=0.78,cell_size:float=20
     TopCell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch}pitch_w_{defecttype}")
 
     #Export GDS
-    layout.write("Cont_PDM.gds")
+    #layout.write("Cont_PDM.gds")
 
     return TopCell
 
@@ -1037,7 +1037,7 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
     TopCell.name = (f"LS_Array_{tone}_{size}umSize_{angle}degrees_w_{defecttype}")
     
     #Export GDS
-    layout.write("LS_PDM.gds")
+    #layout.write("LS_PDM.gds")
 
     return TopCell
 
@@ -1186,7 +1186,7 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
     TopCell.name = (f"Line_w_SRAF_{tone}_{size}umSize_{angle}degrees_{sraf_num}SRAFs_{sraf_size}um_size_w_{defecttype}")
 
     #Export GDS
-    layout.write("SRAF_PDM.gds")
+    #layout.write("SRAF_PDM.gds")
 
     return TopCell
 
@@ -1273,6 +1273,6 @@ def FullField_PDM(tone:str="C",size:float=0.520,cell_size:float=20,defect_num:in
     TopCell.name = (f"FullField_{tone}_{size}umSize_w_{defecttype}")
 
     #Export GDS
-    layout.write("FullField_PDM.gds")
+    #layout.write("FullField_PDM.gds")
 
     return TopCell
