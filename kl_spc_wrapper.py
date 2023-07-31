@@ -14,6 +14,8 @@ mask_ly = layout.layer(2,0)
 TopBox = db.DBox(0,0,2398.6,4405)
 TopCell.shapes(mask_ly).insert(TopBox)
 
+spc_coords = []
+pdm_coords = []
 
 def Line_Array(xpos:float=0,ypos:float=0):
     LineArray = layout.create_cell("LineArray")
@@ -32,16 +34,6 @@ def Line_Array(xpos:float=0,ypos:float=0):
     current_x = initial_x
     current_y = initial_y
 
-    #min_size = size[0]
-    #max_size = size[-1]
-    #TextCell = layout.create_cell("Line_Array_Text")
-    #LineText = db.DText(f"Line Array {min_size}um to {max_size}um",0,0)
-    #LinePoly = db.DPolygon(LineText)
-    #TextRegion = db.Region(LinePoly)
-    #TextCell.shapes(layer).insert(TextRegion)
-    #temparray = db.DCellInstArray(TextCell,db.DVector(initial_x,0))
-
-
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
             holder=LS_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
@@ -49,6 +41,10 @@ def Line_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -63,6 +59,10 @@ def Line_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -95,6 +95,10 @@ def Space_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -109,6 +113,10 @@ def Space_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -140,6 +148,10 @@ def Litho_Gain_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LithoGainArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -170,6 +182,10 @@ def Dot_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             DotArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -184,6 +200,10 @@ def Dot_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             DotArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -214,6 +234,10 @@ def Hole_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             HoleArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -228,6 +252,10 @@ def Hole_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             HoleArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -258,6 +286,10 @@ def AnyAngle_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -288,6 +320,8 @@ def Line_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -302,6 +336,8 @@ def Line_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -334,6 +370,8 @@ def Space_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -348,6 +386,8 @@ def Space_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -378,6 +418,8 @@ def LineSpaceEnd_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -411,6 +453,8 @@ def LS_SRAF_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -441,6 +485,8 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             CurveArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -457,6 +503,8 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             CurveArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -487,6 +535,8 @@ def LCDU_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
+            name = holder[1]
+            spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -523,6 +573,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -535,6 +587,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -547,6 +601,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -559,6 +615,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -571,6 +629,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -587,6 +647,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -599,6 +661,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -611,6 +675,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -623,6 +689,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -635,6 +703,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -651,6 +721,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -663,6 +735,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -675,6 +749,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -687,6 +763,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -699,6 +777,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -718,6 +798,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -730,6 +812,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -742,6 +826,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -754,6 +840,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -766,6 +854,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -782,6 +872,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -794,6 +886,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -806,6 +900,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -818,6 +914,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -830,6 +928,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -850,6 +950,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -862,6 +964,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -874,6 +978,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -886,6 +992,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -898,6 +1006,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -914,6 +1024,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -926,6 +1038,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -938,6 +1052,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -950,6 +1066,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -962,6 +1080,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -984,6 +1104,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -996,6 +1118,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1008,6 +1132,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1020,6 +1146,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1032,6 +1160,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1050,6 +1180,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1062,6 +1194,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1074,6 +1208,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1086,6 +1222,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1098,6 +1236,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1120,6 +1260,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1132,6 +1274,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1144,6 +1288,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1156,6 +1302,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1168,6 +1316,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1186,6 +1336,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1198,6 +1350,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1210,6 +1364,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1222,6 +1378,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1234,6 +1392,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1253,6 +1413,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1267,6 +1429,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1281,6 +1445,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1295,6 +1461,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1309,6 +1477,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1327,6 +1497,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1341,6 +1513,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1355,6 +1529,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1369,6 +1545,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1383,6 +1561,8 @@ def PDM_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             ContArray.insert(temparray)
+            name = holder[1]
+            pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1459,4 +1639,11 @@ PDM_Array(start_pos_x+3*step_size,start_pos_y)
 xtime = time.time()-startTime
 print(f"Done w/ PDM Array after {xtime} sec")
 
-layout.write("Wrapper.gds")
+startTime=time.time()
+print("Writing .gds file...")
+layout.write("SPC.gds")
+xtime = time.time()-startTime
+print(f"Finished writing file after {xtime} sec")
+
+print(spc_coords)
+print(pdm_coords)
