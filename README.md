@@ -1,5 +1,5 @@
 # KLayout
-Foray into SPC chip design!
+Photomask SPC design
 
 ## SPC Toolbox
 
@@ -11,10 +11,10 @@ Uses KLayout to output a .gds file for use
 
 ### Design
 
-GUI (maybe)
+GUI (not implemented)
 |
 v
-User inputs
+User inputs (not implemented)
 |
 v
 Wrapper script  -----> .gds output
@@ -26,10 +26,10 @@ Control structures
 Create functions to generate the following feature types.
 Returns structure(s) back to the wrapper script to be placed in layout.
 
-Note: Metro mark(s) (Y/N) to be available for all features
-Note: Will have option (Y/N) for printed text adjacent to cell/array describing cell structure
-Note: PEC window information will be passed from the wrapper script, to define the overall size of these cells
-Note: Will have option (Y/N) for MFX generation
+Note: Metro mark(s) (Y/N) to be available for all features --> Done
+Note: Will have option (Y/N) for printed text adjacent to cell/array describing cell structure --> not implemented
+Note: PEC window information will be passed from the wrapper script, to define the overall size of these cells --> not implemented
+Note: Will have option (Y/N) for MFX generation --> done in wrapper script
 
 - Line/space
     - Orientation (H/V)
@@ -73,12 +73,12 @@ Note: Will have option (Y/N) for MFX generation
     - Feature size
     - L/S pitch
     - Line end separation
-- Polygons (Corner rounding)
+- Polygons (Corner rounding) --> not implemented
     - Tone (C/D)
     - Feature size
     - Pitch (iso outline, 1:1, full)
     - Verticies (3 to 12)
-- Polygon array
+- Polygon array --> not implemented
     - Tone (C/D)
     - Feature size
     - Pitch
@@ -93,7 +93,7 @@ This will...
 
 Inputs are:
 - SPC Area
-- PEC window
+- PEC window --> not implemented
 - Edge margins
 - Cell margins (if applicable)
 - Cell requests (to pass to control structures functions)
@@ -102,7 +102,6 @@ Inputs are:
 #### User inputs
 Inputs are...
 - Wrapper script inputs in list format
-- Cell calls in nested lists
 
 
 ## Positional Data Biasing (PDB)
