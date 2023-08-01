@@ -2,6 +2,7 @@
 import math
 import klayout.db as db
 import time
+import pandas as pd
 from kl_feature_functions import *
 from kl_pdm_functions import *
 
@@ -41,9 +42,7 @@ def Line_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -59,9 +58,7 @@ def Line_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -95,9 +92,7 @@ def Space_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -113,9 +108,7 @@ def Space_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -148,9 +141,7 @@ def Litho_Gain_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LithoGainArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -182,9 +173,7 @@ def Dot_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             DotArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -200,9 +189,7 @@ def Dot_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             DotArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -234,9 +221,7 @@ def Hole_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             HoleArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -252,9 +237,7 @@ def Hole_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             HoleArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -286,9 +269,7 @@ def AnyAngle_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
-            spc_coords.append([current_x,current_y,name])
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -320,7 +301,7 @@ def Line_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -336,7 +317,7 @@ def Line_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -370,7 +351,7 @@ def Space_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -386,7 +367,7 @@ def Space_Fidcol_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             SpaceArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -418,7 +399,7 @@ def LineSpaceEnd_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -453,7 +434,7 @@ def LS_SRAF_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -485,7 +466,7 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             CurveArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -503,7 +484,7 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             CurveArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -535,7 +516,7 @@ def LCDU_Array(xpos:float=0,ypos:float=0):
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
             LineArray.insert(temparray)
-            name = holder[1]
+            name = holder[1:]
             spc_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
@@ -1570,6 +1551,7 @@ def PDM_Array(xpos:float=0,ypos:float=0):
     TopCell.insert(db.DCellInstArray(ContArray,db.DVector(xpos,ypos)))
 
 
+#Generate the .gds file
 start_pos_x = 50
 start_pos_y = 50
 step_size = 650
@@ -1645,5 +1627,69 @@ layout.write("SPC.gds")
 xtime = time.time()-startTime
 print(f"Finished writing file after {xtime} sec")
 
-print(spc_coords)
-print(pdm_coords)
+
+#### Write the MFX file: ####
+with open('SPC_coord_file.mfx','w') as f:
+    
+    #Set up initial lines in text file
+    f.write('mfxjob,')
+    f.write('\n')
+    f.write('align,1,10700,76200,cross,')
+    f.write('\n')
+    f.write('align,2,141700,76200,cross,')
+    f.write('\n')
+
+    #Iterate over coordinate list to fill out the file
+    site = 1
+
+    for lines in range(len(spc_coords)):
+        
+        #Define coords and feature name
+        x_coord = spc_coords[lines][0]
+        y_coord = spc_coords[lines][1]
+        feat_name = spc_coords[lines][2][0]
+
+        #Check angle for scan direction
+        angle = spc_coords[lines][2][4]
+
+        #Fix the contact scan direction since it was set up rotated from the LS function
+        if 'Cont' in feat_name:
+            angle = 90-angle
+            feat_type = 'cont'
+        else:
+            feat_type = 'line'
+
+        if angle == 0:
+            scan_dir = 'X'
+        elif angle == 90:
+            scan_dir = 'Y'
+        else:
+            scan_dir = 'A'
+        
+
+        #Define nominal and tone
+        nominal = spc_coords[lines][2][2]
+        
+        if spc_coords[lines][2][1] == 'D':
+            tone = 'o'
+        elif spc_coords[lines][2][1] == 'C':
+            tone = 'c'
+
+        f.write(f'site,{site},{x_coord},{y_coord},{feat_name},{scan_dir},{nominal},{feat_type},{tone},na,')
+        f.write('\n')
+        site+=1
+    
+    f.write('end,')
+
+
+#### Write the PDM coordinate file ####
+pdm_xcoords = []
+pdm_ycoords = []
+pdm_name = []
+for z in range(len(pdm_coords)):
+    pdm_xcoords.append(pdm_coords[z][0])
+    pdm_ycoords.append(pdm_coords[z][1])
+    pdm_name.append(pdm_coords[z][2])
+
+df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
+df.to_csv('SPC_PDM_Coordinates.csv')

@@ -155,7 +155,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
     #Export GDS
     #layout.write(output_cell.name + ".gds")
 
-    return output_region,output_cell.name
+    return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
 def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True):
 
@@ -375,7 +375,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Export GDS
     #layout.write("Cont_Tester.gds")
 
-    return output_region,output_cell.name
+    return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
 def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25,angle:float=45,sraf_size:float=0.05,sraf_step:float=0.2,sraf_num:int=4,metro_structure:bool = True):
 
@@ -541,7 +541,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
     #Export GDS
     #layout.write("SRAF_Tester.gds")
 
-    return output_region,output_cell.name
+    return output_region,output_cell.name,tone,size,pitch_type,angle,sraf_num,sraf_size,sraf_step
 
 def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25,angle:float=40,end_spacing:float=0.2,metro_structure:bool = True):
 
@@ -679,7 +679,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
     #Export GDS
     #layout.write("LEnd_Tester.gds")
 
-    return output_region, output_cell.name
+    return output_region, output_cell.name,tone,size,pitch_type,angle,end_spacing,metro_structure
 
 def Spiral_cell(tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spacing:float=0.2,cell_size:float=25,rampancy:bool=False):
     
@@ -747,7 +747,7 @@ def Spiral_cell(tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spa
     SpiralCell.flatten(-1,True)
     Spiral_region = db.Region(SpiralCell.shapes(l_spiral))
 
-    return Spiral_region,SpiralCell.name
+    return Spiral_region,SpiralCell.name,tone,size,spacing,0,inner_r,outer_r,spacing,rampancy
 
 def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:float=1,spacing:float=1,cell_size:float=25,angle:float=45):
     
@@ -833,4 +833,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
     #layout.write("Horn_tester.gds")
 
-    return Horn_region,HornCell.name
+    return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
