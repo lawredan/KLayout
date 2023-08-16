@@ -18,42 +18,21 @@ TopCell.shapes(mask_ly).insert(TopBox)
 spc_coords = []
 pdm_coords = []
 
-def Line_Array(xpos:float=0,ypos:float=0):
-    LineArray = layout.create_cell("LineArray")
-    tone="D"
-    size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.18,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
-    pitch=[1,0.6,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.01]
-    cell_size=25 #um
-    angle=0
-    x2y=1
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
-    spacing = 5 #um
-    big_space = 50 #um
+#Define number of cells in array
+array_x_num = 18
+array_y_num = 18
 
-    initial_x = big_space
-    initial_y = big_space
+def Line_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    LineArray = layout.create_cell("LineArray")
+
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=LS_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
-            tempcell=layout.create_cell(holder[1])
-            tempcell.shapes(layer).insert(holder[0])
-            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
-            LineArray.insert(temparray)
-            name = holder[1:]
-            spc_coords.append([current_x,current_y,name])
-            current_x+=(spacing+cell_size)
-        current_x=initial_x
-        current_y+=(spacing+cell_size)
-
-    ## Horiz Line array
-    angle=90
-
-    for j in range(0,len(pitch)):
-        for i in range(0,len(size)):
-            holder=LS_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
+            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -66,28 +45,18 @@ def Line_Array(xpos:float=0,ypos:float=0):
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Space_Array(xpos:float=0,ypos:float=0):
+def Space_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
 
     SpaceArray = layout.create_cell("SpaceArray")
 
-    size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.18,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
-    pitch=[1,0.6,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.01]
-    cell_size=25 #um
-    x2y=1
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
-    spacing = 5 #um
-    big_space = 50 #um
-    tone="C"
-    angle=0
-
-    initial_x = big_space
-    initial_y = big_space
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=LS_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
+            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -97,46 +66,20 @@ def Space_Array(xpos:float=0,ypos:float=0):
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
-
-    ## Horiz Line array
-    angle=90
-
-    for j in range(0,len(pitch)):
-        for i in range(0,len(size)):
-            holder=LS_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
-            tempcell=layout.create_cell(holder[1])
-            tempcell.shapes(layer).insert(holder[0])
-            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
-            SpaceArray.insert(temparray)
-            name = holder[1:]
-            spc_coords.append([current_x,current_y,name])
-            current_x+=(spacing+cell_size)
-        current_x=initial_x
-        current_y+=(spacing+cell_size)
-    
+   
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
-def Litho_Gain_Array(xpos:float=0,ypos:float=0):
+def Litho_Gain_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     LithoGainArray = layout.create_cell("GainArray")
-    tone=["D","D","C","C","D","D","C","C","D","D","C","C","D","D","C","C"]
-    size=[0.8,0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
-    pitch=0.5
-    cell_size=25 #um
-    angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
 
-    x2y=1
-    metro_structure=True
-    spacing = 5 #um
-    big_space = 50 #um
-
-    initial_x = big_space
-    initial_y = big_space
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(angle)):
+    for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch,cell_size,angle[j],x2y,metro_structure)
+            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -149,26 +92,17 @@ def Litho_Gain_Array(xpos:float=0,ypos:float=0):
     
     TopCell.insert(db.DCellInstArray(LithoGainArray,db.DVector(xpos,ypos)))
 
-def Dot_Array(xpos:float=0,ypos:float=0):
+def Dot_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     DotArray = layout.create_cell("DotArray")
-    tone="D"
-    size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.18,0.2,0.3,0.4,0.5,0.6,0.8,1.0]
-    pitch=[1,0.6,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.01]
-    cell_size=25 #um
-    angle=0
-    x2y=1
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False]
-    spacing = 5 #um
-    big_space = 50 #um
 
-    initial_x = big_space
-    initial_y = big_space
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
+            holder=contact_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -178,61 +112,20 @@ def Dot_Array(xpos:float=0,ypos:float=0):
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
-
-    ## 1:3 array
-    x2y=3
-
-    for j in range(0,len(pitch)):
-        for i in range(0,len(size)):
-            holder=contact_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
-            tempcell=layout.create_cell(holder[1])
-            tempcell.shapes(layer).insert(holder[0])
-            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
-            DotArray.insert(temparray)
-            name = holder[1:]
-            spc_coords.append([current_x,current_y,name])
-            current_x+=(spacing+cell_size)
-        current_x=initial_x
-        current_y+=(spacing+cell_size)
-    
+   
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
-def Hole_Array(xpos:float=0,ypos:float=0):
+def Hole_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     HoleArray = layout.create_cell("HoleArray")
-    tone="C"
-    size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.18,0.2,0.3,0.4,0.5,0.6,0.8,1.0]
-    pitch=[1,0.6,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.01]
-    cell_size=25 #um
-    angle=0
-    x2y=1
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False]
-    spacing = 5 #um
-    big_space = 50 #um
 
-    initial_x = big_space
-    initial_y = big_space
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
-            tempcell=layout.create_cell(holder[1])
-            tempcell.shapes(layer).insert(holder[0])
-            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
-            HoleArray.insert(temparray)
-            name = holder[1:]
-            spc_coords.append([current_x,current_y,name])
-            current_x+=(spacing+cell_size)
-        current_x=initial_x
-        current_y+=(spacing+cell_size)
-    
-    ## 1:3 array
-    x2y=3
-
-    for j in range(0,len(pitch)):
-        for i in range(0,len(size)):
-            holder=contact_cell(tone,size[i],size[i]/pitch[j],cell_size,angle,x2y,metro_structure[i])
+            holder=contact_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -250,7 +143,6 @@ def AnyAngle_Array(xpos:float=0,ypos:float=0):
     tone=["D","D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C","C",]
     size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,1,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,1]
     pitch=0.5
-    cell_size=25 #um
     angle=[0,11.25,22.5,33.75,45,56.25,67.5,78.75,90,101.25,112.5,123.75,135,146.25,157.5,168.75,180]
     x2y=1
     metro_structure=False
@@ -282,7 +174,6 @@ def Line_Fidcol_Array(xpos:float=0,ypos:float=0):
     tone="D"
     size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.18,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
     pitch=[1,0.6,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.01]
-    cell_size=25 #um
     angle=0
     x2y=1
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
@@ -331,7 +222,6 @@ def Space_Fidcol_Array(xpos:float=0,ypos:float=0):
 
     size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.18,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
     pitch=[1,0.6,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.01]
-    cell_size=25 #um
     x2y=1
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
     spacing = 5 #um
@@ -380,7 +270,6 @@ def LineSpaceEnd_Array(xpos:float=0,ypos:float=0):
     tone=["D","D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C","C",]
     size=[0.04,0.06,0.08,0.1,0.2,0.3,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.4,0.6,0.8,1.0]
     pitch=0.5
-    cell_size=25 #um
     angle=[0,0,0,0,0,45,45,45,45,45,90,90,90,90,90,30,30,30,30,30]
     end_spacing = [0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0]
     metro_structure=True
@@ -415,7 +304,6 @@ def LS_SRAF_Array(xpos:float=0,ypos:float=0):
     #sraf_step=[0.6,0.8,1.0,1.4,2,0.6,0.8,1.0,1.4,2,0.6,0.8,1.0,1.4,2,0.6,0.8,1.0,1.4,2]
     sraf_num=2
     pitch=0.005
-    cell_size=25 #um
     angle=[0,0,0,0,0,45,45,45,45,45,90,90,90,90,90,30,30,30,30,30]
     
     metro_structure=True
@@ -448,7 +336,6 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0):
     initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.3,0.4,0.5,1,0.06,0.08,0.1,0.12,0.15,0.2,0.3,0.4,0.5,1]
     step_size=0.01
     power=[1,2,3,1,2,3,1,2,3,1]
-    cell_size=25 #um
     angle=[0,0,0,45,45,45,90,90,90,30]
     
     spacing = 5 #um
@@ -497,7 +384,6 @@ def LCDU_Array(xpos:float=0,ypos:float=0):
     tone=["D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C"]
     size=0.24
     pitch=0.5
-    cell_size=25 #um
     angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
     x2y=1
     metro_structure=True
@@ -1552,34 +1438,111 @@ def PDM_Array(xpos:float=0,ypos:float=0):
 
 
 #Generate the .gds file
-start_pos_x = 50
-start_pos_y = 50
-step_size = 650
+start_pos_x = 35
+start_pos_y = 35
+step_size = 700
+
+#--------------------------------------------------------------------------------------------------------------------------
+#Line Array 
+    
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+tone = ["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
+size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.2,0.3,0.4,0.6,0.8,1.0,2.0,4.0]
+pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 
 startTime=time.time()
-Line_Array(start_pos_x,start_pos_y)
+
+Line_Array(start_pos_x,start_pos_y,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
 print(f"Done w/ Line Array after {xtime} sec")
 
+#--------------------------------------------------------------------------------------------------------------------------
+#Space Array
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
+size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.2,0.3,0.4,0.6,0.8,1.0,2.0,4.0]
+pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+
 startTime=time.time()
-Space_Array(start_pos_x+step_size,start_pos_y)
+
+Space_Array(start_pos_x+step_size,start_pos_y,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
 print(f"Done w/ Space Array after {xtime} sec")
 
+#--------------------------------------------------------------------------------------------------------------------------
+#Litho Gain Array
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+tone=["D","D","C","C","D","D","C","C","D","D","C","C","D","D","C","C"]
+size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
+pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
+angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
+x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+
 startTime=time.time()
-Litho_Gain_Array(start_pos_x+2*step_size,start_pos_y)
+
+Litho_Gain_Array(start_pos_x+2*step_size,start_pos_y,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
 print(f"Done w/ Litho Gain Array after {xtime} sec")
 
+#--------------------------------------------------------------------------------------------------------------------------
+#Dot Array
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+tone=["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
+size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
+pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False]
+
 startTime=time.time()
-Dot_Array(start_pos_x,start_pos_y+step_size)
+
+Dot_Array(start_pos_x,start_pos_y+step_size,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
 print(f"Done w/ Dot Array after {xtime} sec")
 
+#--------------------------------------------------------------------------------------------------------------------------
+#Hole Array
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+tone=["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
+size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
+pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False]
+
 startTime=time.time()
-Hole_Array(start_pos_x+step_size,start_pos_y+step_size)
+
+Hole_Array(start_pos_x+step_size,start_pos_y+step_size,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
 print(f"Done w/ Hole Array after {xtime} sec")
+
+"""
 
 startTime=time.time()
 AnyAngle_Array(start_pos_x+2*step_size,start_pos_y+step_size)
@@ -1615,9 +1578,9 @@ startTime=time.time()
 LCDU_Array(start_pos_x+2*step_size,start_pos_y+3*step_size)
 xtime = time.time()-startTime
 print(f"Done w/ LCDU Array after {xtime} sec")
-
+"""
 startTime=time.time()
-PDM_Array(start_pos_x+3*step_size,start_pos_y)
+PDM_Array(start_pos_x+2.9*step_size,start_pos_y)
 xtime = time.time()-startTime
 print(f"Done w/ PDM Array after {xtime} sec")
 

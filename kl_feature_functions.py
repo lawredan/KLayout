@@ -327,21 +327,20 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
         
         elif not donut:
-             if angle>0:
-                 print("No metro structure for angled contact array at this time")
-             else:
-                if tone == "D":
-                    Dense_Metro = 1000*db.DBox((-2*xPitch)+xSize/2,(-2*yPitch)-size/2,(-xPitch)-xSize/2,(-2*yPitch)+size/2)
-                    Dense_Metro_Region = db.Region(Dense_Metro)
-                    TopCell.shapes(l_cont).insert(Dense_Metro_Region)
-                else:
-                    Dense_Metro = 1000*db.DBox((-2*xPitch)-xSize/2,(-2*yPitch)-size/2,(-2*xPitch)+xSize/2,(-2*yPitch)+size/2)
-                    Dense_Metro_Region = db.Region(Dense_Metro)
-                    Dense_Metro_Region.break_(5,2)
-                    TopCell.shapes(l_cont).insert(Dense_Metro_Region)
+            if tone == "D":
+                Dense_Metro = 1000*db.DBox((-2*xPitch)+xSize/2,(-2*yPitch)-size/2,(-xPitch)-xSize/2,(-2*yPitch)+size/2)
+                Dense_Metro_Region = db.Region(Dense_Metro)
+                t = db.ICplxTrans(1,-angle,False,0,0)
+                Dense_Metro_Region.transform(t)
+                TopCell.shapes(l_cont).insert(Dense_Metro_Region)
+            else:
+                Dense_Metro = 1000*db.DBox((-2*xPitch)-xSize/2,(-2*yPitch)-size/2,(-2*xPitch)+xSize/2,(-2*yPitch)+size/2)
+                Dense_Metro_Region = db.Region(Dense_Metro)
+                Dense_Metro_Region.break_(5,2)
+                TopCell.shapes(l_cont).insert(Dense_Metro_Region)
 
 
-             MetroCell.prune_cell()
+            MetroCell.prune_cell()
 
 
 
@@ -352,6 +351,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Apply angle rotation for all cells
     t = db.ICplxTrans(1,-angle,False,0,0)
     [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
+    #TopCell.transform(t)
 
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
