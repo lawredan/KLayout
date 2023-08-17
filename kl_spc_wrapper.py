@@ -102,7 +102,7 @@ def Dot_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_siz
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],3),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -125,7 +125,7 @@ def Hole_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_si
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],3),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -138,25 +138,17 @@ def Hole_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_si
     
     TopCell.insert(db.DCellInstArray(HoleArray,db.DVector(xpos,ypos)))
 
-def AnyAngle_Array(xpos:float=0,ypos:float=0):
+def AnyAngle_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     LineArray = layout.create_cell("AnyAngleArray")
-    tone=["D","D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C","C",]
-    size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,1,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,1]
-    pitch=0.5
-    angle=[0,11.25,22.5,33.75,45,56.25,67.5,78.75,90,101.25,112.5,123.75,135,146.25,157.5,168.75,180]
-    x2y=1
-    metro_structure=False
-    spacing = 5 #um
-    big_space = 50 #um
 
-    initial_x = big_space
-    initial_y = big_space
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(angle)):
+    for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[i],size[i],size[i]/pitch,cell_size,angle[j],x2y,metro_structure)
+            holder=LS_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -1442,6 +1434,9 @@ start_pos_x = 35
 start_pos_y = 35
 step_size = 700
 
+print("Beginning cell creation process...")
+
+"""
 #--------------------------------------------------------------------------------------------------------------------------
 #Line Array 
     
@@ -1460,7 +1455,7 @@ startTime=time.time()
 Line_Array(start_pos_x,start_pos_y,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
-print(f"Done w/ Line Array after {xtime} sec")
+print(f"Done w/ Line Array after {xtime} sec...")
 
 #--------------------------------------------------------------------------------------------------------------------------
 #Space Array
@@ -1480,7 +1475,7 @@ startTime=time.time()
 Space_Array(start_pos_x+step_size,start_pos_y,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
-print(f"Done w/ Space Array after {xtime} sec")
+print(f"Done w/ Space Array after {xtime} sec...")
 
 #--------------------------------------------------------------------------------------------------------------------------
 #Litho Gain Array
@@ -1500,7 +1495,7 @@ startTime=time.time()
 Litho_Gain_Array(start_pos_x+2*step_size,start_pos_y,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
-print(f"Done w/ Litho Gain Array after {xtime} sec")
+print(f"Done w/ Litho Gain Array after {xtime} sec...")
 
 #--------------------------------------------------------------------------------------------------------------------------
 #Dot Array
@@ -1520,7 +1515,7 @@ startTime=time.time()
 Dot_Array(start_pos_x,start_pos_y+step_size,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
-print(f"Done w/ Dot Array after {xtime} sec")
+print(f"Done w/ Dot Array after {xtime} sec...")
 
 #--------------------------------------------------------------------------------------------------------------------------
 #Hole Array
@@ -1540,53 +1535,72 @@ startTime=time.time()
 Hole_Array(start_pos_x+step_size,start_pos_y+step_size,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
-print(f"Done w/ Hole Array after {xtime} sec")
-
+print(f"Done w/ Hole Array after {xtime} sec...")
 """
+#--------------------------------------------------------------------------------------------------------------------------
+#AnyAngle Array
+
+spacing = 5 #um
+offset = 50 #um
+cell_size = 35 #um
+tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3]
+pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
+angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,0,90]
+x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
+
 
 startTime=time.time()
-AnyAngle_Array(start_pos_x+2*step_size,start_pos_y+step_size)
+
+AnyAngle_Array(start_pos_x+2*step_size,start_pos_y+step_size,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
-print(f"Done w/ Any Angle Array after {xtime} sec")
+print(f"Done w/ Any Angle Array after {xtime} sec...")
+
+"""
 
 startTime=time.time()
 Line_Fidcol_Array(start_pos_x,start_pos_y+3*step_size)
 xtime = time.time()-startTime
-print(f"Done w/ Line Fidcol Array after {xtime} sec")
+print(f"Done w/ Line Fidcol Array after {xtime} sec...")
 
 startTime=time.time()
 Space_Fidcol_Array(start_pos_x+step_size,start_pos_y+3*step_size)
 xtime = time.time()-startTime
-print(f"Done w/ Space Fidcol Array after {xtime} sec")
+print(f"Done w/ Space Fidcol Array after {xtime} sec...")
 
 startTime=time.time()
 LineSpaceEnd_Array(start_pos_x,start_pos_y+2*step_size)
 xtime = time.time()-startTime
-print(f"Done w/ LEnd Array after {xtime} sec")
+print(f"Done w/ LEnd Array after {xtime} sec...")
 
 startTime=time.time()
 LS_SRAF_Array(start_pos_x+step_size,start_pos_y+2*step_size)
 xtime = time.time()-startTime
-print(f"Done w/ SRAF Array after {xtime} sec")
+print(f"Done w/ SRAF Array after {xtime} sec...")
 
 startTime=time.time()
 Curvilinear_Array(start_pos_x+2*step_size,start_pos_y+2*step_size)
 xtime = time.time()-startTime
-print(f"Done w/ Curvilinear Array after {xtime} sec")
+print(f"Done w/ Curvilinear Array after {xtime} sec...")
 
 startTime=time.time()
 LCDU_Array(start_pos_x+2*step_size,start_pos_y+3*step_size)
 xtime = time.time()-startTime
-print(f"Done w/ LCDU Array after {xtime} sec")
-"""
+print(f"Done w/ LCDU Array after {xtime} sec...")
+
 startTime=time.time()
 PDM_Array(start_pos_x+2.9*step_size,start_pos_y)
 xtime = time.time()-startTime
-print(f"Done w/ PDM Array after {xtime} sec")
+print(f"Done w/ PDM Array after {xtime} sec...")
+
+"""
+
 
 startTime=time.time()
-print("Writing .gds file...")
-layout.write("SPC.gds")
+print("Writing .oas file...")
+layout.write("SPC.oas")
 xtime = time.time()-startTime
 print(f"Finished writing file after {xtime} sec")
 

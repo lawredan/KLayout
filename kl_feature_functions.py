@@ -370,10 +370,15 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_cont))
+    output_region.merged()
 
 
-    #Export GDS
-    #layout.write("Cont_Tester.gds")
+    #Export GDS (can comment out if not testing)
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
