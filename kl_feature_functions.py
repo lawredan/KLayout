@@ -468,7 +468,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 #### Generate the Cell ####
 
     #Create sraf sub-instances
-    if sraf_num>1:
+    if sraf_num>=1:
          srafSideGroup = layout.create_cell("SRAF_side_instance")
          srafEndGroup = layout.create_cell("SRAF_end_instance")
          
@@ -689,7 +689,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 def Spiral_cell(tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spacing:float=0.2,cell_size:float=25,rampancy:bool=False):
     
     #Credit to (https://www.youtube.com/watch?v=2e6DuFj0Xws), approached it from creating a PCell in KLayout for this shape,
-    #but I followed the general framework turn this into a function that outputs a spiral cell.
+    #but I followed the general framework to turn this into a function that outputs a spiral cell.
 
 #### Setup ####
 
