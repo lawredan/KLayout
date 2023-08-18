@@ -23,6 +23,7 @@ array_x_num = 18
 array_y_num = 18
 
 def Line_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     LineArray = layout.create_cell("LineArray")
 
     initial_x = offset
@@ -42,7 +43,7 @@ def Line_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_si
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
-    
+
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def Space_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
@@ -70,6 +71,7 @@ def Space_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
 def Litho_Gain_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     LithoGainArray = layout.create_cell("GainArray")
 
     initial_x = offset
@@ -93,6 +95,7 @@ def Litho_Gain_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,c
     TopCell.insert(db.DCellInstArray(LithoGainArray,db.DVector(xpos,ypos)))
 
 def Dot_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     DotArray = layout.create_cell("DotArray")
 
     initial_x = offset
@@ -116,6 +119,7 @@ def Dot_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_siz
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
 def Hole_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     HoleArray = layout.create_cell("HoleArray")
 
     initial_x = offset
@@ -139,6 +143,7 @@ def Hole_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_si
     TopCell.insert(db.DCellInstArray(HoleArray,db.DVector(xpos,ypos)))
 
 def AnyAngle_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     LineArray = layout.create_cell("AnyAngleArray")
 
     initial_x = offset
@@ -162,6 +167,7 @@ def AnyAngle_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cel
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def Line_Fidcol_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     LineArray = layout.create_cell("LineFidcolArray")
 
     initial_x = offset
@@ -209,6 +215,7 @@ def Space_Fidcol_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
 def LineSpaceEnd_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],end_spacing:list=[],metro_structure:list=[]):
+    
     LineArray = layout.create_cell("LineSpaceEndArray")
 
     initial_x = offset
@@ -232,6 +239,7 @@ def LineSpaceEnd_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def LS_SRAF_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],metro_structure:list=[]):
+    
     LineArray = layout.create_cell("LS_SRAF_Array")
 
     initial_x = offset
@@ -259,20 +267,17 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                       horn_tone:list=[],horn_initial_size:list=[],horn_step_size:list=[],horn_power:list=[],horn_spacing:list=[],horn_angle:list=[]):
     
     CurveArray = layout.create_cell("Curve_Array")
-    tone=["D","D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C","C",]
-    initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.3,0.4,0.5,1,0.06,0.08,0.1,0.12,0.15,0.2,0.3,0.4,0.5,1]
-    step_size=0.01
-    power=[1,2,3,1,2,3,1,2,3,1]
-    angle=[0,0,0,45,45,45,90,90,90,30]
 
     initial_x = offset
     initial_y = offset
     current_x = initial_x
     current_y = initial_y
+    
+    #Horn Cell
 
-    for j in range(0,len(angle)):
-        for i in range(0,len(initial_size)):
-            holder=Horn_cell(horn_tone[i],horn_initial_size[i],horn_step_size,horn_power[j],horn_spacing,cell_size,horn_angle[j])
+    for j in range(0,len(horn_angle)):
+        for i in range(0,len(horn_initial_size)):
+            holder=Horn_cell(horn_tone[i],horn_initial_size[i],horn_step_size[i],horn_power[j],horn_spacing[j],cell_size,horn_angle[j])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -283,14 +288,11 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
         current_x=initial_x
         current_y+=(spacing+cell_size)
     
-    inner_r = 1
-    outer_r = (cell_size/2)-spacing
-    little_space = [0.5,0.7,1,1.5,2,0.5,0.7,1,1.5,2]
-    rampancy = [False,False,False,False,False,True,True,True,True,True]
+    #Spiral Cell
 
-    for j in range(0,len(angle)):
-        for i in range(0,len(initial_size)):
-            holder=Spiral_cell(spiral_tone[i],spiral_size[i],spiral_inner_r[i],spiral_outer_r[i],spiral_spacing[j],cell_size,spiral_rampancy[j])
+    for j in range(0,len(spiral_spacing)):
+        for i in range(0,len(spiral_size)):
+            holder=Spiral_cell(spiral_tone[i],spiral_size[i],spiral_inner_r[j],spiral_outer_r[j],spiral_spacing[j],cell_size,spiral_rampancy[j])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -303,25 +305,18 @@ def Curvilinear_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
     
     TopCell.insert(db.DCellInstArray(CurveArray,db.DVector(xpos,ypos)))
 
-def LCDU_Array(xpos:float=0,ypos:float=0):
+def LCDU_Array(xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
     LineArray = layout.create_cell("LCDU_Array")
-    tone=["D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C"]
-    size=0.24
-    pitch=0.5
-    angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
-    x2y=1
-    metro_structure=True
-    spacing = 5 #um
-    big_space = 50 #um
 
-    initial_x = big_space
-    initial_y = big_space
+    initial_x = offset
+    initial_y = offset
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(angle)):
-        for i in range(0,len(tone)):
-            holder=LS_cell(tone[i],size,size/pitch,cell_size,angle[j],x2y,metro_structure)
+    for j in range(0,len(pitch)):
+        for i in range(0,len(size)):
+            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[i],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -333,8 +328,6 @@ def LCDU_Array(xpos:float=0,ypos:float=0):
         current_y+=(spacing+cell_size)
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
-
-
 
 #Warning, massive....
 def PDM_Array(xpos:float=0,ypos:float=0):
@@ -1368,7 +1361,7 @@ step_size = 700
 
 print("Beginning cell creation process...")
 
-"""
+
 #--------------------------------------------------------------------------------------------------------------------------
 #Line Array 
 
@@ -1597,7 +1590,7 @@ cell_size = 35 #um
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 size=[0.12,0.12,0.12,0.2,0.2,0.2,0.4,0.4,0.4,0.12,0.12,0.12,0.2,0.2,0.2,0.4,0.4,0.4]
 sraf_factor=[0.25,0.25,0.3,0.3,0.35,0.35,0.25,0.25,0.3,0.3,0.35,0.35,0.25,0.25,0.3,0.3,0.35,0.35]
-sraf_step_factor=[3,4.5,3,4.5,3,4.5,3,4.5,3,4.5,3,4.5,3,4.5,3,4.5,3,4.5]
+sraf_step_factor=[2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5]
 sraf_num=[1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
 pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
 angle=[0,45,90,0,45,90,0,45,90,0,45,90,0,45,90,0,45,90]
@@ -1610,7 +1603,7 @@ LS_SRAF_Array(ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_
 xtime = time.time()-startTime
 print(f"Done w/ SRAF Array after {xtime} sec...")
 
-"""
+
 #--------------------------------------------------------------------------------------------------------------------------
 #Curvilinear Array
 
@@ -1621,19 +1614,21 @@ spacing = 2 #um
 offset = 50 #um
 cell_size = 35 #um
 
-spiral_tone:list=[]
-spiral_size:list=[]
-spiral_inner_r:list=[]
-spiral_outer_r:list=[]
-spiral_spacing:list=[]
-spiral_rampancy:list=[]
+#Spiral
+spiral_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+spiral_size=[0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2,0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2]
+spiral_inner_r=[1,1,1,1,1,1,1,1,1]
+spiral_outer_r=[17,17,17,17,17,17,17,17,17]
+spiral_spacing=[0.2,0.3,0.5,1,2,0.2,0.3,0.5,1]
+spiral_rampancy=[False,False,False,False,False,True,True,True,True]
 
-horn_tone:list=[]
-horn_initial_size:list=[]
-horn_step_size:list=[]
-horn_power:list=[]
-horn_spacing:list=[]
-horn_angle:list=[]
+#Horn
+horn_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+horn_initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1,0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1]
+horn_step_size=[0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
+horn_power=[0.5,1,2,0.5,1,2,0.5,1,2]
+horn_spacing=[1,1,1,1,1,1,1,1,1]
+horn_angle=[0,0,0,45,45,45,90,90,90]
 
 startTime=time.time()
 
@@ -1644,11 +1639,33 @@ Curvilinear_Array(ArrayX,ArrayY,spacing,offset,cell_size,
 xtime = time.time()-startTime
 print(f"Done w/ Curvilinear Array after {xtime} sec...")
 
-"""
+
+#--------------------------------------------------------------------------------------------------------------------------
+#LCDU Array
+
+ArrayX = start_pos_x+2*step_size
+ArrayY = start_pos_y+3*step_size
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+
+tone=["D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C"]
+size=[0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24]
+pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
+angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
+x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+
 startTime=time.time()
-LCDU_Array(start_pos_x+2*step_size,start_pos_y+3*step_size)
+
+LCDU_Array(ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
 xtime = time.time()-startTime
 print(f"Done w/ LCDU Array after {xtime} sec...")
+
+
+"""
 
 startTime=time.time()
 PDM_Array(start_pos_x+2.9*step_size,start_pos_y)
