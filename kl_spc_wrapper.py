@@ -28,7 +28,8 @@ array_y_num = 18
 #Generate the .gds file
 start_pos_x = 35
 start_pos_y = 35
-step_size = 700
+x_step_size = 680
+y_step_size = 730
 
 print("Beginning cell creation process...")
 
@@ -60,7 +61,7 @@ print(f"Done w/ Line Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #Space Array
 
-ArrayX = start_pos_x+step_size
+ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y
 
 spacing = 2 #um
@@ -84,7 +85,7 @@ print(f"Done w/ Space Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #Litho Gain Array
 
-ArrayX = start_pos_x+2*step_size
+ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y
 
 spacing = 2 #um
@@ -109,7 +110,7 @@ print(f"Done w/ Litho Gain Array after {xtime} sec...")
 #Dot Array
 
 ArrayX = start_pos_x
-ArrayY = start_pos_y+step_size
+ArrayY = start_pos_y+y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -132,8 +133,8 @@ print(f"Done w/ Dot Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #Hole Array
 
-ArrayX = start_pos_x+step_size
-ArrayY = start_pos_y+step_size
+ArrayX = start_pos_x+x_step_size
+ArrayY = start_pos_y+y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -156,10 +157,10 @@ print(f"Done w/ Hole Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #AnyAngle Array
 
-ArrayX = start_pos_x+2*step_size
-ArrayY = start_pos_y+step_size
+ArrayX = start_pos_x+2*x_step_size
+ArrayY = start_pos_y+y_step_size
 
-spacing = 5 #um
+spacing = 2 #um
 offset = 50 #um
 cell_size = 35 #um
 
@@ -182,7 +183,7 @@ print(f"Done w/ Any Angle Array after {xtime} sec...")
 #Line Fidcol Array
 
 ArrayX = start_pos_x
-ArrayY = start_pos_y+3*step_size
+ArrayY = start_pos_y+3*y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -205,8 +206,8 @@ print(f"Done w/ Line Fidcol Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #Space Fidcol Array
 
-ArrayX = start_pos_x+step_size
-ArrayY = start_pos_y+3*step_size
+ArrayX = start_pos_x+x_step_size
+ArrayY = start_pos_y+3*y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -230,7 +231,7 @@ print(f"Done w/ Space Fidcol Array after {xtime} sec...")
 #Line End Array
 
 ArrayX = start_pos_x
-ArrayY = start_pos_y+2*step_size
+ArrayY = start_pos_y+2*y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -251,8 +252,8 @@ print(f"Done w/ LEnd Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #SRAF Array
 
-ArrayX = start_pos_x+step_size
-ArrayY = start_pos_y+2*step_size
+ArrayX = start_pos_x+x_step_size
+ArrayY = start_pos_y+2*y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -278,8 +279,8 @@ print(f"Done w/ SRAF Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #Curvilinear Array
 
-ArrayX = start_pos_x+2*step_size
-ArrayY = start_pos_y+2*step_size
+ArrayX = start_pos_x+2*x_step_size
+ArrayY = start_pos_y+2*y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -314,8 +315,8 @@ print(f"Done w/ Curvilinear Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #LCDU Array
 
-ArrayX = start_pos_x+2*step_size
-ArrayY = start_pos_y+3*step_size
+ArrayX = start_pos_x+2*x_step_size
+ArrayY = start_pos_y+3*y_step_size
 
 spacing = 2 #um
 offset = 50 #um
@@ -340,7 +341,7 @@ print(f"Done w/ LCDU Array after {xtime} sec...")
 #--------------------------------------------------------------------------------------------------------------------------
 #PDM Array
 
-ArrayX = start_pos_x+2.9*step_size
+ArrayX = start_pos_x+3*x_step_size
 ArrayY = start_pos_y
 
 startTime=time.time()
