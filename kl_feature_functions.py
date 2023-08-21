@@ -325,16 +325,35 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
              else:
                  TopCell.insert(metro_insert)
 
-        
-        elif not donut:
+        elif donut:
+             MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
+             MetroCell.shapes(l_cont).insert(MetroShape)
+             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
+
+             if tone == "D":
+                  MetroShape1 = (db.DPolygon([db.DPoint(-500,metro_spacing*1000),db.DPoint(0,500+metro_spacing*1000),db.DPoint(500,metro_spacing*1000),db.DPoint(0,1000*metro_spacing-500)]))
+                  MetroShape2 = (db.DPolygon([db.DPoint(-500,-metro_spacing*1000),db.DPoint(0,500-metro_spacing*1000),db.DPoint(500,-metro_spacing*1000),db.DPoint(0,-1000*metro_spacing-500)]))
+                  MShape1_Reg = db.Region(MetroShape1)
+                  MShape2_Reg = db.Region(MetroShape2)
+                  clear_iso = BigBox_region-DonutBox
+                  new_clear_cont_temp = clear_iso - MShape1_Reg
+                  new_clear_cont = new_clear_cont_temp-MShape2_Reg
+                  new_clear_cont.break_(5,2)
+                  MetroCell.prune_cell()
+                  ContCell.shapes(l_cont).clear()
+                  ContCell.shapes(l_cont).insert(new_clear_cont)
+             else:
+                 TopCell.insert(metro_insert)
+
+        else:
             if tone == "D":
-                Dense_Metro = 1000*db.DBox((-2*xPitch)+xSize/2,(-2*yPitch)-size/2,(-xPitch)-xSize/2,(-2*yPitch)+size/2)
+                Dense_Metro = 1000*db.DBox(round((-2*xPitch)+xSize/2,4),round((-2*yPitch)-size/2,4),round((-xPitch)-xSize/2,4),round((-2*yPitch)+size/2,4))
                 Dense_Metro_Region = db.Region(Dense_Metro)
                 t = db.ICplxTrans(1,-angle,False,0,0)
                 Dense_Metro_Region.transform(t)
                 TopCell.shapes(l_cont).insert(Dense_Metro_Region)
             else:
-                Dense_Metro = 1000*db.DBox((-2*xPitch)-xSize/2,(-2*yPitch)-size/2,(-2*xPitch)+xSize/2,(-2*yPitch)+size/2)
+                Dense_Metro = 1000*db.DBox(round((-2*xPitch)-xSize/2,4),round((-2*yPitch)-size/2,4),round((-2*xPitch)+xSize/2,4),round((-2*yPitch)+size/2,4))
                 Dense_Metro_Region = db.Region(Dense_Metro)
                 Dense_Metro_Region.break_(5,2)
                 TopCell.shapes(l_cont).insert(Dense_Metro_Region)

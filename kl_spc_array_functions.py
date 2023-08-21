@@ -90,7 +90,7 @@ def Dot_Array(layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],3),cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -114,7 +114,7 @@ def Hole_Array(layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpo
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],3),cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -313,6 +313,54 @@ def LCDU_Array(layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpo
         current_y+=(spacing+cell_size)
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
+
+def LS_Repeat_Array(layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
+    LineArray = layout.create_cell("LSRepeatArray")
+
+    initial_x = offset
+    initial_y = offset
+    current_x = initial_x
+    current_y = initial_y
+
+    for j in range(0,len(pitch)):
+        for i in range(0,len(size)):
+            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            LineArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x,current_y,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
+    TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
+
+def HD_Repeat_Array(layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+    
+    DotArray = layout.create_cell("HDRepeatArray")
+
+    initial_x = offset
+    initial_y = offset
+    current_x = initial_x
+    current_y = initial_y
+
+    for j in range(0,len(pitch)):
+        for i in range(0,len(size)):
+            holder=contact_cell(tone[j],size[i],round(size[i]/pitch[i],4),cell_size,angle[j],x2y[i],metro_structure[i])
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            DotArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x,current_y,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+   
+    TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
 #Warning, massive....
 def PDM_Array(layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coords:list=[],xpos:float=0,ypos:float=0):

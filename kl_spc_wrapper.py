@@ -32,6 +32,7 @@ x_step_size = 680
 y_step_size = 730
 
 print("Beginning cell creation process...")
+initialTime = time.time()
 
 
 #--------------------------------------------------------------------------------------------------------------------------
@@ -45,15 +46,15 @@ offset = 50 #um
 cell_size = 35 #um
 
 tone = ["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
-size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.2,0.3,0.4,0.6,0.8,1.0,2.0,4.0]
-line_pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
+pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 
 startTime=time.time()
 
-Line_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,line_pitch,angle,x2y,metro_structure)
+Line_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Line Array after {xtime} sec...")
@@ -69,15 +70,15 @@ offset = 50 #um
 cell_size = 35 #um
 
 tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
-size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.2,0.3,0.4,0.6,0.8,1.0,2.0,4.0]
-space_pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
+pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 
 startTime=time.time()
 
-Space_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,space_pitch,angle,x2y,metro_structure)
+Space_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Space Array after {xtime} sec...")
@@ -117,11 +118,11 @@ offset = 50 #um
 cell_size = 35 #um
 
 tone=["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
-size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
-pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
+pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
-metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 
 startTime=time.time()
 
@@ -141,11 +142,11 @@ offset = 50 #um
 cell_size = 35 #um
 
 tone=["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
-size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
-pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
+pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
-metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 
 startTime=time.time()
 
@@ -166,8 +167,8 @@ cell_size = 35 #um
 
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3]
-pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
-angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,0,90]
+pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,0.01]
+angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,45,45]
 x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
 
@@ -190,8 +191,8 @@ offset = 50 #um
 cell_size = 35 #um
 
 tone = ["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
-size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.2,0.3,0.4,0.6,0.8,1.0,2.0,4.0]
-pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
+pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
@@ -214,8 +215,8 @@ offset = 50 #um
 cell_size = 35 #um
 
 tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
-size=[0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.12,0.14,0.16,0.2,0.3,0.4,0.6,0.8,1.0,2.0,4.0]
-pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
+pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
@@ -336,6 +337,53 @@ LCDU_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_siz
 xtime = time.time()-startTime
 print(f"Done w/ LCDU Array after {xtime} sec...")
 
+#--------------------------------------------------------------------------------------------------------------------------
+#LS Repeat Array 
+
+ArrayX = start_pos_x
+ArrayY = start_pos_y+4*y_step_size
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+
+tone = ["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
+pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
+angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False,False]
+
+startTime=time.time()
+
+LS_Repeat_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
+xtime = time.time()-startTime
+print(f"Done w/ LS Repeat Array after {xtime} sec...")
+
+#--------------------------------------------------------------------------------------------------------------------------
+#HD Repeat Array
+
+ArrayX = start_pos_x+x_step_size
+ArrayY = start_pos_y+4*y_step_size
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+
+tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
+pitch=[1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01]
+angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+x2y=[1,1,1,2,2,2,3,3,3,1,1,1,2,2,2,3,3,3]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+
+startTime=time.time()
+
+Dot_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+
+xtime = time.time()-startTime
+print(f"Done w/ HD Repeat Array after {xtime} sec...")
 
 
 #--------------------------------------------------------------------------------------------------------------------------
@@ -352,7 +400,8 @@ xtime = time.time()-startTime
 print(f"Done w/ PDM Array after {xtime} sec...")
 
 
-
+#--------------------------------------------------------------------------------------------------------------------------
+#Writing the file
 
 startTime=time.time()
 print("Writing .oas file...")
@@ -426,3 +475,6 @@ for z in range(len(pdm_coords)):
 
 df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
 df.to_csv('SPC_PDM_Coordinates.csv')
+
+zTime = time.time() - initialTime
+print(f"Entire process finished in {zTime/60}min!")
