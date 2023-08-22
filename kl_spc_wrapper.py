@@ -374,13 +374,13 @@ cell_size = 35 #um
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
 pitch=[1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01]
-angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 x2y=[1,1,1,2,2,2,3,3,3,1,1,1,2,2,2,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 
 startTime=time.time()
 
-Dot_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+HD_Repeat_Array(layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ HD Repeat Array after {xtime} sec...")

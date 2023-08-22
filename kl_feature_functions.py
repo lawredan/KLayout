@@ -423,7 +423,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
-    CellBox_region = db.Region(CellBox)
+    CellBox_region = db.Region(1000*CellBox)
     BigBox = db.DBox(-cell_size,-cell_size,cell_size,cell_size)
 
 
@@ -553,7 +553,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
-    CellBox_region = db.Region(CellBox)
+    CellBox_region = db.Region(1000*CellBox)
     BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
     BigBox_region = db.Region(BigBox)
     DenseLine = db.DBox(-1000*pitch/2,-1000*cell_size,1000*pitch/2,1000*cell_size)

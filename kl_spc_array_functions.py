@@ -349,7 +349,7 @@ def HD_Repeat_Array(layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[
 
     for j in range(0,len(pitch)):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[j],size[i],round(size[i]/pitch[i],4),cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
