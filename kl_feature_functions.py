@@ -55,23 +55,12 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
-    BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
-    BigBox_region = db.Region(BigBox)
-    Bar3Line = db.DBox(-1000*1.5*size,-cell_size*1000,1000*1.5*size,cell_size*1000)
-    Bar3Line_region = db.Region(Bar3Line)
-    DenseLine = db.DBox(-1000*pitch/2,-1000*cell_size,1000*pitch/2,1000*cell_size)
-    DenseLine_region = db.Region(DenseLine)
+    CellBox_region = db.Region(1000*CellBox)
 
 
 #### Generate the Cell ####
 
     if iso:
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell
-        if tone == "C":
-            iso_region = db.Region(LineCell.shapes(l_line))
-            clear_iso = iso_region ^ BigBox_region
-            LineCell.clear_shapes()
-            LineCell.shapes(l_line).insert(clear_iso)       
         ls_iso = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_iso)
 
@@ -81,28 +70,13 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
         Bar3Cell.shapes(l_line).insert(db.DBox(-cell_size,-cell_size,3*l_left,cell_size))
         Bar3Cell.shapes(l_line).insert(db.DBox(3*l_right,-cell_size,cell_size,cell_size))
         
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell
-        if tone == "C":
-            bar3_region = db.Region(LineCell.shapes(l_line))
-            clear_bar3 = bar3_region ^ Bar3Line_region
-            LineCell.clear_shapes()
-            LineCell.shapes(l_line).insert(clear_bar3)
-            Bar3Cell.clear_shapes()
-        
         #Add all into the TopCell
         ls_3bar_line = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_3bar_line)    
         ls_3bar_edge = db.DCellInstArray(Bar3Cell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_3bar_edge)
 
-    else:
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell
-        if tone == "C":
-            dense_region = db.Region(LineCell.shapes(l_line))
-            clear_dense = dense_region ^ DenseLine_region
-            LineCell.clear_shapes()
-            LineCell.shapes(l_line).insert(clear_dense)
-        
+    else:     
         #Instance a left and right array of the LineCell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.
         ls_array_right = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((pitch*math.cos(rad_angle)),-pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
         ls_array_left = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((-pitch*math.cos(rad_angle)),pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
@@ -117,13 +91,9 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
         MetroShape = db.DBox(-size/2,-size/2,size/2,size/2)
         MetroCell.shapes(l_line).insert(MetroShape)
-
-        if tone == "C":
-             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,-metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),db.DVector(2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
-        else:
-             sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
-             extra_angle = -size/metro_spacing
-             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
+        sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
+        extra_angle = -size/metro_spacing
+        metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
 
         TopCell.insert(metro_insert)
 
@@ -149,11 +119,20 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
     
     TopCell.prune_cell()
 
+    #Flatten the structure to export as a region
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
 
-    #Export GDS
-    #layout.write(output_cell.name + ".gds")
+    #Flip the tone if clear
+    if tone == "C":
+         output_region = CellBox_region ^ output_region
+
+    #Export GDS (can comment out if not testing)
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("LS_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
@@ -215,14 +194,16 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Create the main feature shape and insert it into the ContCell
     cont_iso = db.DBox(c_left, c_bottom, c_right, c_top)
     ContCell.shapes(l_cont).insert(cont_iso)
+    cont_iso_region = db.Region(1000*cont_iso)
 
     #Creates formatting regions for later use
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
+    CellBox_region = db.Region(1000*CellBox)
     BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
     BigBox_region = db.Region(BigBox)
     LittleDonut = db.DBox(-1500*(xSize),-1500*(ySize),1500*(xSize),1500*(ySize))
     LittleDonut_region = db.Region(LittleDonut)
-    DonutBox = BigBox_region-LittleDonut_region
+    DonutBox = LittleDonut_region-cont_iso_region
     DonutBox.break_(4,1)
     DenseCont = db.DBox(-1000*xPitch/2,-1000*yPitch/2,1000*xPitch/2,1000*yPitch/2)
     DenseCont_region = db.Region(DenseCont)
@@ -231,13 +212,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 #### Generate the Cell ####
 
     if iso:
-        #Checks tone and adjusts if needed, then instances a single cell into the TopCell
-        if tone == "C":
-            iso_region = db.Region(ContCell.shapes(l_cont))
-            clear_iso = BigBox_region-iso_region
-            clear_iso.break_(4,1)
-            ContCell.clear_shapes()
-            ContCell.shapes(l_cont).insert(clear_iso)       
+        #Instances a single cell into the TopCell   
         cont_iso = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(cont_iso)
 
@@ -246,30 +221,13 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
         DonutCell = layout.create_cell(f"{size}um_donut_structure")
         DonutCell.shapes(l_cont).insert(DonutBox)
         
-        #Checks tone and adjusts if needed
-        if tone == "C":
-            donut_region = db.Region(ContCell.shapes(l_cont))
-            little_donut = donut_region ^ LittleDonut_region
-            little_donut.break_(4,1)
-            ContCell.clear_shapes()
-            ContCell.shapes(l_cont).insert(little_donut)
-            DonutCell.clear_shapes()
-        
         #Add all into the TopCell
-        cont_donut_center = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0))
-        TopCell.insert(cont_donut_center)    
+        #cont_donut_center = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0))
+        #TopCell.insert(cont_donut_center)    
         cont_donut_ring = db.DCellInstArray(DonutCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(cont_donut_ring)
 
-    else:
-        #Checks tone and adjusts if needed
-        if tone == "C":
-            dense_region = db.Region(ContCell.shapes(l_cont))
-            clear_dense = dense_region ^ DenseCont_region
-            clear_dense.break_(4,1)
-            ContCell.clear_shapes()
-            ContCell.shapes(l_cont).insert(clear_dense)
-        
+    else:        
         #Instances the contact cell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.
         #NOTE: This "functions" in its current form, but needs further adjusting, especially for holes, to get a good array of angled contacts
         
@@ -306,64 +264,36 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     if metro_structure:
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
         if iso:
-             MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
-             MetroCell.shapes(l_cont).insert(MetroShape)
-             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
-
-             if tone == "C":
-                  MetroShape1 = (db.DPolygon([db.DPoint(-500,metro_spacing*1000),db.DPoint(0,500+metro_spacing*1000),db.DPoint(500,metro_spacing*1000),db.DPoint(0,1000*metro_spacing-500)]))
-                  MetroShape2 = (db.DPolygon([db.DPoint(-500,-metro_spacing*1000),db.DPoint(0,500-metro_spacing*1000),db.DPoint(500,-metro_spacing*1000),db.DPoint(0,-1000*metro_spacing-500)]))
-                  MShape1_Reg = db.Region(MetroShape1)
-                  MShape2_Reg = db.Region(MetroShape2)
-                  clear_iso = BigBox_region-iso_region
-                  new_clear_cont_temp = clear_iso - MShape1_Reg
-                  new_clear_cont = new_clear_cont_temp-MShape2_Reg
-                  new_clear_cont.break_(5,2)
-                  MetroCell.prune_cell()
-                  ContCell.shapes(l_cont).clear()
-                  ContCell.shapes(l_cont).insert(new_clear_cont)
-             else:
-                 TopCell.insert(metro_insert)
+            MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
+            MetroCell.shapes(l_cont).insert(MetroShape)
+            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),
+                                             db.DVector(-2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
+            TopCell.insert(metro_insert)
 
         elif donut:
-             MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
-             MetroCell.shapes(l_cont).insert(MetroShape)
-             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
-
-             if tone == "D":
-                  MetroShape1 = (db.DPolygon([db.DPoint(-500,metro_spacing*1000),db.DPoint(0,500+metro_spacing*1000),db.DPoint(500,metro_spacing*1000),db.DPoint(0,1000*metro_spacing-500)]))
-                  MetroShape2 = (db.DPolygon([db.DPoint(-500,-metro_spacing*1000),db.DPoint(0,500-metro_spacing*1000),db.DPoint(500,-metro_spacing*1000),db.DPoint(0,-1000*metro_spacing-500)]))
-                  MShape1_Reg = db.Region(MetroShape1)
-                  MShape2_Reg = db.Region(MetroShape2)
-                  donut_metro_region = db.Region(DonutCell.shapes(l_cont))
-                  new_clear_cont_temp = donut_metro_region - MShape1_Reg
-                  new_clear_cont = new_clear_cont_temp-MShape2_Reg
-                  new_clear_cont.break_(5,2)
-                  MetroCell.prune_cell()
-                  DonutCell.shapes(l_cont).clear()
-                  DonutCell.shapes(l_cont).insert(new_clear_cont)
-             else:
-                 TopCell.insert(metro_insert)
+            MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
+            MetroCell.shapes(l_cont).insert(MetroShape)
+            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),
+                                             db.DVector(-2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
+            TopCell.insert(metro_insert)
 
         else:
-            if tone == "D":
-                Dense_Metro = 1000*db.DBox((-2*xPitch)+xSize/2.1,(-2*yPitch)-size/2,(-xPitch)-xSize/2.1,(-2*yPitch)+size/2)
-                Dense_Metro_Region = db.Region(Dense_Metro)
-                #t = db.ICplxTrans(1,-angle,False,0,0)
-                #Dense_Metro_Region.transform(t)
-                #Dense_Metro_Cell = layout.create_cell("DenseDarkMetroCell")
-                #Dense_Metro_Cell.shapes(l_cont).insert(Dense_Metro_Region)
-                #Dense_Metro_Instance = db.DCellInstArray(Dense_Metro_Cell,db.DTrans(db.DTrans.M0,0,0),db.DVector(0,0),db.DVector(0,0),1,1)
-                #TopCell.insert(Dense_Metro_Instance)
-                TopCell.shapes(l_cont).insert(Dense_Metro_Region)
-            else:
-                Dense_Metro = 1000*db.DBox(((-2*xPitch)-xSize/1.9),((-2*yPitch)-size/1.9),((-2*xPitch)+xSize/1.9),((-2*yPitch)+size/1.9))
-                Dense_Metro_Region = db.Region(Dense_Metro)
-                Dense_Metro_Region.break_(5,2)
-                TopCell.shapes(l_cont).insert(Dense_Metro_Region)
-
-
-            MetroCell.prune_cell()
+            MetroShape = db.DPolygon([db.DPoint(-xPitch/2+xSize/2.2,-ySize/2),
+                                      db.DPoint(-xPitch/2+xSize/2.2,ySize/2),
+                                      db.DPoint(xPitch/2-xSize/2.2,ySize/2),
+                                      db.DPoint(xPitch/2-xSize/2.2,-ySize/2)])
+            MetroCell.shapes(l_cont).insert(MetroShape)
+            MetroXCoord = (4*xPitch-xPitch/2)
+            MetroYCoord = (4*yPitch)
+            MetroXRot = (MetroXCoord*math.cos(rad_angle))-(MetroYCoord*math.sin(rad_angle))
+            MetroYRot = (MetroXCoord*math.sin(rad_angle))+(MetroYCoord*math.cos(rad_angle))
+            MetroXStep = -7*xPitch
+            MetroYStep = -8*yPitch
+            MetroXStepRot = (MetroXStep*math.cos(rad_angle))-(MetroYStep*math.sin(rad_angle))
+            MetroYStepRot = (MetroXStep*math.sin(rad_angle))+(MetroYStep*math.cos(rad_angle))
+            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,round(MetroXRot,4),round(MetroYRot,4)),
+                                             db.DVector(round(MetroXStepRot,4),round(MetroYStepRot,4)),db.DVector(0,0),2,2)
+            TopCell.insert(metro_insert)
 
 
 
@@ -374,9 +304,8 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Apply angle rotation for all cells
     t = db.ICplxTrans(1,-angle,False,0,0)
     [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
-
-    tt = db.ICplxTrans(1,angle,False,0,0)
-    TopCell.shapes(l_cont).transform(tt)
+    #tt = db.ICplxTrans(1,angle,False,0,0)
+    #TopCell.shapes(l_cont).transform(tt)
 
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
@@ -395,15 +324,22 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_cont))
+
+    #Flip the tone if clear
+    if tone == "C" and not donut:
+         output_region = CellBox_region - output_region
+    elif tone == "D" and donut:
+         output_region = CellBox_region - output_region
+
     output_region.merged()
 
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("Cont_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
@@ -866,4 +802,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
     return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
 
 
-contact_cell("D",.03,.06,25,75,3)
+contact_cell("C",0.04,0.1,25,45,1,True)
