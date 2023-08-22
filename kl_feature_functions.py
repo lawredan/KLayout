@@ -347,13 +347,17 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
         else:
             if tone == "D":
-                Dense_Metro = 1000*db.DBox(round((-2*xPitch)+xSize/2,4),round((-2*yPitch)-size/2,4),round((-xPitch)-xSize/2,4),round((-2*yPitch)+size/2,4))
+                Dense_Metro = 1000*db.DBox((-2*xPitch)+xSize/2.1,(-2*yPitch)-size/2,(-xPitch)-xSize/2.1,(-2*yPitch)+size/2)
                 Dense_Metro_Region = db.Region(Dense_Metro)
-                t = db.ICplxTrans(1,-angle,False,0,0)
-                Dense_Metro_Region.transform(t)
+                #t = db.ICplxTrans(1,-angle,False,0,0)
+                #Dense_Metro_Region.transform(t)
+                #Dense_Metro_Cell = layout.create_cell("DenseDarkMetroCell")
+                #Dense_Metro_Cell.shapes(l_cont).insert(Dense_Metro_Region)
+                #Dense_Metro_Instance = db.DCellInstArray(Dense_Metro_Cell,db.DTrans(db.DTrans.M0,0,0),db.DVector(0,0),db.DVector(0,0),1,1)
+                #TopCell.insert(Dense_Metro_Instance)
                 TopCell.shapes(l_cont).insert(Dense_Metro_Region)
             else:
-                Dense_Metro = 1000*db.DBox(round((-2*xPitch)-xSize/2,4),round((-2*yPitch)-size/2,4),round((-2*xPitch)+xSize/2,4),round((-2*yPitch)+size/2,4))
+                Dense_Metro = 1000*db.DBox(((-2*xPitch)-xSize/1.9),((-2*yPitch)-size/1.9),((-2*xPitch)+xSize/1.9),((-2*yPitch)+size/1.9))
                 Dense_Metro_Region = db.Region(Dense_Metro)
                 Dense_Metro_Region.break_(5,2)
                 TopCell.shapes(l_cont).insert(Dense_Metro_Region)
@@ -370,7 +374,9 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Apply angle rotation for all cells
     t = db.ICplxTrans(1,-angle,False,0,0)
     [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
-    #TopCell.transform(t)
+
+    tt = db.ICplxTrans(1,angle,False,0,0)
+    TopCell.shapes(l_cont).transform(tt)
 
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
@@ -858,3 +864,6 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
     #layout.write("Horn_tester.gds")
 
     return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
+
+
+contact_cell("D",.03,.06,25,75,3)
