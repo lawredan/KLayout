@@ -335,13 +335,13 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
                   MetroShape2 = (db.DPolygon([db.DPoint(-500,-metro_spacing*1000),db.DPoint(0,500-metro_spacing*1000),db.DPoint(500,-metro_spacing*1000),db.DPoint(0,-1000*metro_spacing-500)]))
                   MShape1_Reg = db.Region(MetroShape1)
                   MShape2_Reg = db.Region(MetroShape2)
-                  clear_iso = BigBox_region-DonutBox
-                  new_clear_cont_temp = clear_iso - MShape1_Reg
+                  donut_metro_region = db.Region(DonutCell.shapes(l_cont))
+                  new_clear_cont_temp = donut_metro_region - MShape1_Reg
                   new_clear_cont = new_clear_cont_temp-MShape2_Reg
                   new_clear_cont.break_(5,2)
                   MetroCell.prune_cell()
-                  ContCell.shapes(l_cont).clear()
-                  ContCell.shapes(l_cont).insert(new_clear_cont)
+                  DonutCell.shapes(l_cont).clear()
+                  DonutCell.shapes(l_cont).insert(new_clear_cont)
              else:
                  TopCell.insert(metro_insert)
 
