@@ -335,11 +335,11 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Cont_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
@@ -423,6 +423,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
+    CellBox_region = db.Region(CellBox)
     BigBox = db.DBox(-cell_size,-cell_size,cell_size,cell_size)
 
 
@@ -454,16 +455,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
     LineCell.insert(srafEndToLine)
 
     #Generate the actual cell
-    if iso:
-
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell       
-        if tone == "C":
-            LineCell.flatten(-1,True)
-            iso_region = db.Region(LineCell.shapes(l_line))
-            clear_iso = db.Region(1000*BigBox) - iso_region
-            clear_iso.break_(4,1)
-            LineCell.clear_shapes()
-            LineCell.shapes(l_line).insert(clear_iso)       
+    if iso:   
         ls_iso = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_iso)
 
@@ -474,15 +466,6 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 
         TopCell.insert(LineArray1)
         TopCell.insert(LineArray2)
-        
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell
-        if tone == "C":
-            TopCell.flatten(-1,True)
-            dense_region = db.Region(TopCell.shapes(l_line))
-            clear_dense = db.Region(CellBox*1000) - dense_region
-            clear_dense.break_(4,1)
-            TopCell.clear_shapes()
-            TopCell.shapes(l_line).insert(clear_dense)
 
 
 #No metro structure for this feature type
@@ -503,6 +486,10 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
+
+    #Flip the tone if clear
+    if tone == "C":
+         output_region = CellBox_region - output_region
 
     #Export GDS
     #layout.write("SRAF_Tester.gds")
@@ -566,6 +553,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
+    CellBox_region = db.Region(CellBox)
     BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
     BigBox_region = db.Region(BigBox)
     DenseLine = db.DBox(-1000*pitch/2,-1000*cell_size,1000*pitch/2,1000*cell_size)
@@ -574,25 +562,12 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
 #### Generate the Cell ####
 
-    if iso:
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell
-        if tone == "C":
-            iso_region = db.Region(LineCell.shapes(l_line))
-            clear_iso = iso_region ^ BigBox_region
-            LineCell.clear_shapes()
-            LineCell.shapes(l_line).insert(clear_iso)       
+    if iso:    
         ls_iso = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_iso)
 
 
-    else:
-        #Checks tone and adjusts if needed, then instances a single LineCell into the TopCell
-        if tone == "C":
-            dense_region = db.Region(LineCell.shapes(l_line))
-            clear_dense = dense_region ^ DenseLine_region
-            LineCell.clear_shapes()
-            LineCell.shapes(l_line).insert(clear_dense)
-        
+    else:   
         #Instance a left and right array of the LineCell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.
         ls_array_right = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((pitch*math.cos(rad_angle)),-pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
         ls_array_left = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((-pitch*math.cos(rad_angle)),pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
@@ -607,13 +582,9 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
         MetroShape = db.DBox(-size/2,-size/2,size/2,size/2)
         MetroCell.shapes(l_line).insert(MetroShape)
-
-        if tone == "C":
-             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,-metro_spacing*math.sin(rad_angle),-metro_spacing*math.cos(rad_angle)),db.DVector(2*metro_spacing*math.sin(rad_angle),2*metro_spacing*math.cos(rad_angle)),db.DVector(0,0),2,0)
-        else:
-             sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
-             extra_angle = -size/metro_spacing
-             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
+        sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
+        extra_angle = -size/metro_spacing
+        metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
 
         TopCell.insert(metro_insert)
 
@@ -641,6 +612,10 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
+
+    #Flip the tone if clear
+    if tone == "C":
+         output_region = CellBox_region - output_region
 
     #Export GDS
     #layout.write("LEnd_Tester.gds")
@@ -800,6 +775,3 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
     #layout.write("Horn_tester.gds")
 
     return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
-
-
-contact_cell("C",0.04,0.1,25,45,1,True)
