@@ -37,7 +37,7 @@ def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
@@ -71,7 +71,7 @@ def Space_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coo
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
    
 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
@@ -105,7 +105,7 @@ def Litho_Gain_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,sp
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LithoGainArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LithoGainArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
     
     TopCell.insert(db.DCellInstArray(LithoGainArray,db.DVector(xpos,ypos)))
 
@@ -139,7 +139,7 @@ def Dot_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coord
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
@@ -173,7 +173,7 @@ def Hole_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    HoleArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    HoleArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(HoleArray,db.DVector(xpos,ypos)))
 
@@ -207,7 +207,7 @@ def AnyAngle_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
@@ -241,7 +241,7 @@ def Line_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
@@ -275,7 +275,7 @@ def Space_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
@@ -309,7 +309,7 @@ def LineSpaceEnd_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
@@ -343,7 +343,7 @@ def LS_SRAF_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_c
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
@@ -396,7 +396,7 @@ def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    CurveArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    CurveArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(CurveArray,db.DVector(xpos,ypos)))
 
@@ -430,7 +430,7 @@ def LCDU_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
@@ -464,7 +464,7 @@ def LS_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
@@ -498,7 +498,7 @@ def HD_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
+    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
@@ -1531,7 +1531,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    ContArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,50*1000,0)))
+    ContArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(50-cell_size/2),0)))
 
     TopCell.insert(db.DCellInstArray(ContArray,db.DVector(xpos,ypos)))
 

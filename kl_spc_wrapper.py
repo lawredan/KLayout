@@ -26,8 +26,8 @@ array_y_num = 18
 
 
 #Generate the .gds file
-start_pos_x = 35
-start_pos_y = 35
+start_pos_x = 25
+start_pos_y = 25
 x_step_size = 680
 y_step_size = 730
 
