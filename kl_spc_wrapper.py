@@ -420,11 +420,11 @@ print(f"Done w/ HD Repeat Array after {xtime} sec...")
 ArrayX = start_pos_x+3*x_step_size
 ArrayY = start_pos_y
 
-name = "Programmed Defect Array"
+name = "Programmed Defects"
 
 startTime=time.time()
 
-PDM_Array(layout,layer,TopCell,pdm_coords,ArrayX,ArrayY)
+PDM_Array(name,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY)
 
 xtime = time.time()-startTime
 print(f"Done w/ PDM Array after {xtime} sec...")

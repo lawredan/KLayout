@@ -8,7 +8,7 @@ from kl_pdm_functions import *
 import klayout.lib as lib
 
 
-def Line_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LineArray")
 
@@ -33,16 +33,16 @@ def Line_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:li
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Space_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Space_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
 
     SpaceArray = layout.create_cell("SpaceArray")
 
@@ -67,16 +67,16 @@ def Space_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:l
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
    
 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
-def Litho_Gain_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Litho_Gain_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LithoGainArray = layout.create_cell("GainArray")
 
@@ -101,15 +101,15 @@ def Litho_Gain_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coo
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LithoGainArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LithoGainArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
     
     TopCell.insert(db.DCellInstArray(LithoGainArray,db.DVector(xpos,ypos)))
 
-def Dot_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Dot_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     DotArray = layout.create_cell("DotArray")
 
@@ -135,15 +135,15 @@ def Dot_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:lis
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
-def Hole_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Hole_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     HoleArray = layout.create_cell("HoleArray")
 
@@ -168,16 +168,16 @@ def Hole_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:li
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    HoleArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    HoleArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(HoleArray,db.DVector(xpos,ypos)))
 
-def AnyAngle_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def AnyAngle_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("AnyAngleArray")
 
@@ -202,16 +202,16 @@ def AnyAngle_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coord
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Line_Fidcol_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Line_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LineFidcolArray")
 
@@ -236,16 +236,16 @@ def Line_Fidcol_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_co
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Space_Fidcol_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Space_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
 
     SpaceArray = layout.create_cell("SpaceFidcolArray")
 
@@ -270,16 +270,16 @@ def Space_Fidcol_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_c
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    SpaceArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
-def LineSpaceEnd_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],end_spacing:list=[],metro_structure:list=[]):
+def LineSpaceEnd_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],end_spacing:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LineSpaceEndArray")
 
@@ -304,16 +304,16 @@ def LineSpaceEnd_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_c
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def LS_SRAF_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],metro_structure:list=[]):
+def LS_SRAF_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LS_SRAF_Array")
 
@@ -338,16 +338,16 @@ def LS_SRAF_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Curvilinear_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,
+def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,
                       spiral_tone:list=[],spiral_size:list=[],spiral_inner_r:list=[],spiral_outer_r:list=[],spiral_spacing:list=[],spiral_rampancy:list=[],
                       horn_tone:list=[],horn_initial_size:list=[],horn_step_size:list=[],horn_power:list=[],horn_spacing:list=[],horn_angle:list=[]):
     
@@ -391,16 +391,16 @@ def Curvilinear_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_co
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    CurveArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    CurveArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(CurveArray,db.DVector(xpos,ypos)))
 
-def LCDU_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def LCDU_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LCDU_Array")
 
@@ -425,16 +425,16 @@ def LCDU_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:li
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def LS_Repeat_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def LS_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LSRepeatArray")
 
@@ -459,16 +459,16 @@ def LS_Repeat_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    LineArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def HD_Repeat_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def HD_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     DotArray = layout.create_cell("HDRepeatArray")
 
@@ -493,17 +493,17 @@ def HD_Repeat_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
     #Add text description of Array
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    DotArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*offset,0)))
 
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
 #Warning, massive....
-def PDM_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coords:list=[],xpos:float=0,ypos:float=0):
+def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coords:list=[],xpos:float=0,ypos:float=0):
     ContArray = layout.create_cell("PDM_Array")
 
     tone="D"
@@ -1526,12 +1526,12 @@ def PDM_Array(name:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coords:lis
         
     parameters = {
         "layer": db.LayerInfo(layer,0),
-        "text": f"{name}",
+        "text": f"{arrayname}",
         "mag": 25.0
         }
     
     TextCell = layout.create_cell("TEXT","Basic",parameters)
-    ContArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(db.DTrans.M0,offset,0)))
+    ContArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,50*1000,0)))
 
     TopCell.insert(db.DCellInstArray(ContArray,db.DVector(xpos,ypos)))
 
