@@ -127,7 +127,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
     if tone == "C":
          sacrifice_cell = layout.create_cell("Sacrificial")
          sacrifice_cell.shapes(l_line).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-0.4)/cell_size)*CellBox)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-min(4*size,1))/cell_size)*CellBox)
          output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
@@ -334,7 +334,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     if tone == "C" and not donut:
          sacrifice_cell = layout.create_cell("Sacrificial")
          sacrifice_cell.shapes(l_cont).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-0.2)/cell_size)*CellBox)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-min(4*size,1))/cell_size)*CellBox)
          output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
@@ -623,9 +623,14 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
 
-    #Flip the tone if clear
+    #Flip the tone if clear (room for improvement with sliver guard)
     if tone == "C":
+         sacrifice_cell = layout.create_cell("Sacrificial")
+         sacrifice_cell.shapes(l_line).insert(output_region)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-min(4*size,1))/cell_size)*CellBox)
+         output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
+         sacrifice_cell.prune_cell()
 
     #Export GDS
     #layout.write("LEnd_Tester.gds")
