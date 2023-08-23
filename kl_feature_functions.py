@@ -23,7 +23,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     #Check pitch of the LS array
     pitch_check = size/pitch
-    iso = pitch_check < 0.1 #boolean
+    iso = pitch_check < 0.05 #boolean
     bar3 = pitch_check > 0.75 #also boolean
 
     #Determine naming
@@ -76,7 +76,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
         ls_3bar_edge = db.DCellInstArray(Bar3Cell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_3bar_edge)
 
-    else:     
+    else:            
         #Instance a left and right array of the LineCell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.
         ls_array_right = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((pitch*math.cos(rad_angle)),-pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
         ls_array_left = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((-pitch*math.cos(rad_angle)),pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
@@ -89,7 +89,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     if metro_structure:
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
-        MetroShape = db.DBox(-size/2,-size/2,size/2,size/2)
+        MetroShape = db.DBox(-size/1.9,-size/2,size/1.9,size/2)
         MetroCell.shapes(l_line).insert(MetroShape)
         sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
         extra_angle = -size/metro_spacing
@@ -123,9 +123,14 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
 
-    #Flip the tone if clear
+    #Flip the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement in the future)
     if tone == "C":
-         output_region = CellBox_region ^ output_region
+         sacrifice_cell = layout.create_cell("Sacrificial")
+         sacrifice_cell.shapes(l_line).insert(output_region)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-0.4)/cell_size)*CellBox)
+         output_region = db.Region(no_sliver_shapes)
+         output_region = CellBox_region - output_region
+         sacrifice_cell.prune_cell()
 
     #Export GDS (can comment out if not testing)
     #layout.clear()
@@ -158,7 +163,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     #Check pitch of the contact array
     pitch_check = size/pitch
-    iso = pitch_check < 0.1 #boolean
+    iso = pitch_check < 0.05 #boolean
     donut = pitch_check > 0.75 #also boolean
 
     #Determine X and Y pitches, based on x2y value (applies to X-pitch only, Y-pitch is untouched)
@@ -325,9 +330,14 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_cont))
 
-    #Flip the tone if clear
+    #Flip the tone if clear, with sliver check based on portion of cell size (room for improvement here...)
     if tone == "C" and not donut:
+         sacrifice_cell = layout.create_cell("Sacrificial")
+         sacrifice_cell.shapes(l_cont).insert(output_region)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-0.2)/cell_size)*CellBox)
+         output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
+         sacrifice_cell.prune_cell()
     elif tone == "D" and donut:
          output_region = CellBox_region - output_region
 
@@ -516,7 +526,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
     #Check pitch of the LS array
     pitch_check = size/pitch
-    iso = pitch_check < 0.1 #boolean
+    iso = pitch_check < 0.05 #boolean
     bar3 = pitch_check > 0.75 #also boolean
 
     #Determine naming
