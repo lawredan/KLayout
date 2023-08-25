@@ -141,7 +141,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
-def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True):
+def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_scale:float=1):
 
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
 
@@ -244,18 +244,59 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
             y_origin = -cell_size-cell_size*2*math.cos(rad_angle)*math.sin(rad_angle)
         else:
             return ValueError("Choose an angle between 0 and 180")
+        
+        #Define vector values for instance array for dense features
+        V1x1 = xPitch*math.cos(rad_angle)
+        V1y1 = xPitch*math.sin(rad_angle)
+        V1x2 = -yPitch*math.sin(rad_angle)
+        V1y2 = yPitch*math.cos(rad_angle)
+
+        V2x1 = -xPitch*math.cos(rad_angle)
+        V2y1 = -xPitch*math.sin(rad_angle)
+        V2x2 = -yPitch*math.sin(rad_angle)
+        V2y2 = yPitch*math.cos(rad_angle)
+
+        V3x1 = -xPitch*math.cos(rad_angle)
+        V3y1 = -xPitch*math.sin(rad_angle)
+        V3x2 = yPitch*math.sin(rad_angle)
+        V3y2 = -yPitch*math.cos(rad_angle)
+
+        V4x1 = xPitch*math.cos(rad_angle)
+        V4y1 = xPitch*math.sin(rad_angle)
+        V4x2 = yPitch*math.sin(rad_angle)
+        V4y2 = -yPitch*math.cos(rad_angle)
+
+        #Edit vectors if staggered placement is desired
+        if stagger:
+             V1x1 = V1x1*0.5
+             V1y1 = V1x1
+             V1x2 = V1y2*0.5
+             V1y2 = V1y2*-0.5
+
+             V2x1 = V2x1*0.5
+             V2y1 = V2x1
+             V2x2 = V2y2*0.5
+             V2y2 = V2y2*-0.5
+
+             V3x1 = V3x1*0.5
+             V3y1 = V3x1
+             V3x2 = V3y2*0.5
+             V3y2 = V3y2*-0.5
+
+             V4x1 = V4x1*0.5
+             V4y1 = V4x1
+             V4x2 = V4y2*0.5
+             V4y2 = V4y2*-0.5
+
+
         cont_array1 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(xPitch*math.cos(rad_angle),xPitch*math.sin(rad_angle)),db.DVector(-yPitch*math.sin(rad_angle),yPitch*math.cos(rad_angle)),
-                        2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+                        db.DVector(V1x1,V1y1),db.DVector(V1x2,V1y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
         cont_array2 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(-xPitch*math.cos(rad_angle),-xPitch*math.sin(rad_angle)),db.DVector(-yPitch*math.sin(rad_angle),yPitch*math.cos(rad_angle)),
-                        2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+                        db.DVector(V2x1,V2y1),db.DVector(V2x2,V2y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
         cont_array3 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(-xPitch*math.cos(rad_angle),-xPitch*math.sin(rad_angle)),db.DVector(yPitch*math.sin(rad_angle),-yPitch*math.cos(rad_angle)),
-                        2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+                        db.DVector(V3x1,V3y1),db.DVector(V3x2,V3y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
         cont_array4 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(xPitch*math.cos(rad_angle),xPitch*math.sin(rad_angle)),db.DVector(yPitch*math.sin(rad_angle),-yPitch*math.cos(rad_angle)),
-                        2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+                        db.DVector(V4x1,V4y1),db.DVector(V4x2,V4y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
         TopCell.insert(cont_array1)
         TopCell.insert(cont_array2)
         TopCell.insert(cont_array3)
@@ -345,11 +386,11 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("Cont_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
@@ -790,3 +831,8 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
     #layout.write("Horn_tester.gds")
 
     return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
+
+
+print("test")
+
+contact_cell("D",0.1,0.4,25,0,3,True,True)
