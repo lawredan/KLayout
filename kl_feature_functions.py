@@ -266,27 +266,27 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
         V4x2 = yPitch*math.sin(rad_angle)
         V4y2 = -yPitch*math.cos(rad_angle)
 
-        #Edit vectors if staggered placement is desired
+        #Edit vectors if staggered placement is desired (does not currently work with angles!!!)
         if stagger:
-             V1x1 = V1x1*0.5
-             V1y1 = V1x1
-             V1x2 = V1y2*0.5
-             V1y2 = V1y2*-0.5
+             V1x1 = xPitch*0.5
+             V1y1 = yPitch
+             V1x2 = xPitch*0.5
+             V1y2 = -yPitch
 
-             V2x1 = V2x1*0.5
-             V2y1 = V2x1
-             V2x2 = V2y2*0.5
-             V2y2 = V2y2*-0.5
+             V2x1 = xPitch*0.5
+             V2y1 = -yPitch
+             V2x2 = -xPitch*0.5
+             V2y2 = -yPitch
 
-             V3x1 = V3x1*0.5
-             V3y1 = V3x1
-             V3x2 = V3y2*0.5
-             V3y2 = V3y2*-0.5
+             V3x1 = -xPitch*0.5
+             V3y1 = -yPitch
+             V3x2 = -xPitch*0.5
+             V3y2 = yPitch
 
-             V4x1 = V4x1*0.5
-             V4y1 = V4x1
-             V4x2 = V4y2*0.5
-             V4y2 = V4y2*-0.5
+             V4x1 = -xPitch*0.5
+             V4y1 = yPitch
+             V4x2 = xPitch*0.5
+             V4y2 = yPitch
 
 
         cont_array1 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
@@ -835,4 +835,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 print("test")
 
-contact_cell("D",0.1,0.4,25,0,3,True,True)
+contact_cell("D",0.1,0.4,25,0,2,True,True)
