@@ -198,6 +198,12 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     #Create the main feature shape and insert it into the ContCell
     cont_iso = db.DBox(c_left, c_bottom, c_right, c_top)
+
+    #Check for Hammer Head and apply if desired
+    if HH:
+         print("hammer time")
+
+    #Insert feature into ContCell
     ContCell.shapes(l_cont).insert(cont_iso)
     cont_iso_region = db.Region(1000*cont_iso)
 
@@ -835,4 +841,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 print("test")
 
-contact_cell("D",0.1,0.4,25,0,2,True,True)
+contact_cell("D",0.1,0.4,25,0,2,True,True,True,1)
