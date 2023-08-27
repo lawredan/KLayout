@@ -141,7 +141,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
-def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_scale:float=1):
+def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_scale:float=0.05):
 
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
 
@@ -198,13 +198,20 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     #Create the main feature shape and insert it into the ContCell
     cont_iso = db.DBox(c_left, c_bottom, c_right, c_top)
+    ContCell.shapes(l_cont).insert(cont_iso)
 
     #Check for Hammer Head and apply if desired
     if HH:
          print("hammer time")
+         HHwidth = HH_scale*size
+         HHheight = (1+HH_scale)*size
+         LeftHH = db.DBox(c_left-HHwidth/2,-HHheight/2,c_left+HHwidth/2,HHheight/2)
+         RightHH = db.DBox(c_right-HHwidth/2,-HHheight/2,c_right+HHwidth/2,HHheight/2)
+         ContCell.shapes(l_cont).insert(LeftHH)
+         ContCell.shapes(l_cont).insert(RightHH)
+
 
     #Insert feature into ContCell
-    ContCell.shapes(l_cont).insert(cont_iso)
     cont_iso_region = db.Region(1000*cont_iso)
 
     #Creates formatting regions for later use
@@ -362,7 +369,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
     listicle = []
-    size_check = db.DBox(-size/2,-size/2,size/2,size/2)
+    size_check = db.DBox(-xSize/2,-ySize/2,xSize/2,ySize/2)
     [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
     [layout.cell(k).prune_cell() for k in listicle]
 
@@ -841,4 +848,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 print("test")
 
-contact_cell("D",0.1,0.4,25,0,2,True,True,True,1)
+contact_cell("D",0.1,0.4,25,0,2,True,True,True,0.2)
