@@ -141,7 +141,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
-def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_scale:float=0.05):
+def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_amount:float=0.05):
 
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
 
@@ -202,17 +202,21 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     #Check for Hammer Head and apply if desired
     if HH:
-         print("hammer time")
-         HHwidth = HH_scale*size
-         HHheight = (1+HH_scale)*size
+         #print("hammer time")
+         HHwidth = HH_amount*2
+         HHheight = (2*HH_amount)+size
          LeftHH = db.DBox(c_left-HHwidth/2,-HHheight/2,c_left+HHwidth/2,HHheight/2)
          RightHH = db.DBox(c_right-HHwidth/2,-HHheight/2,c_right+HHwidth/2,HHheight/2)
          ContCell.shapes(l_cont).insert(LeftHH)
          ContCell.shapes(l_cont).insert(RightHH)
+         hammer_region = db.Region(ContCell.shapes(l_cont))
+         hammer_region.merged()
+         ContCell.shapes(l_cont).clear()
+         ContCell.shapes(l_cont).insert(hammer_region)
 
 
     #Insert feature into ContCell
-    cont_iso_region = db.Region(1000*cont_iso)
+    cont_iso_region = db.Region(ContCell.shapes(l_cont))
 
     #Creates formatting regions for later use
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
@@ -399,11 +403,11 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Cont_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
@@ -846,6 +850,6 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
     return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
 
 
-print("test")
+#print("test")
 
-contact_cell("D",0.1,0.4,25,0,2,True,True,True,0.2)
+#contact_cell("D",0.1,0.4,25,0,2,True,True,True,0.2)

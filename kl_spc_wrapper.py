@@ -415,6 +415,35 @@ print(f"Done w/ HD Repeat Array after {xtime} sec...")
 
 
 #--------------------------------------------------------------------------------------------------------------------------
+#Stagger HH Array
+
+ArrayX = start_pos_x+2*x_step_size
+ArrayY = start_pos_y+4*y_step_size
+
+name = "Stagger HH Array"
+
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
+
+tone=["D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C"]
+size=[0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4,0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4]
+pitch=[0.1,0.1,0.1,0.1,0.5,0.5,0.5,0.5,0.1,0.1,0.1,0.1,0.5,0.5,0.5,0.5]
+angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+HH_list = [False,True,True,True,False,True,True,True,False,True,True,True,False,True,True,True]
+HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016]
+
+startTime=time.time()
+
+HD_HH_Stagger_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,stagger,HH_list,HH_amount)
+
+xtime = time.time()-startTime
+print(f"Done w/ Stagger HD HH Array after {xtime} sec...")
+
+#--------------------------------------------------------------------------------------------------------------------------
 #PDM Array
 
 ArrayX = start_pos_x+3*x_step_size
