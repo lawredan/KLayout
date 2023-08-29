@@ -218,6 +218,10 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Creates formatting regions for later use
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
     CellBox_region = db.Region(1000*CellBox)
+    bottomCellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),(-cell_size/2)+xPitch)
+    leftCellBox = db.DBox((-cell_size/2),-cell_size/2,(-cell_size/2)+xPitch,cell_size/2)
+    topCellBox = db.DBox((-cell_size/2),(cell_size/2)-xPitch,(cell_size/2),cell_size/2)
+    rightCellBox = db.DBox((cell_size/2)-xPitch,-cell_size/2,(cell_size/2),cell_size/2)
     BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
     BigBox_region = db.Region(BigBox)
     LittleDonut = db.DBox(-1500*(xSize),-1500*(ySize),1500*(xSize),1500*(ySize))
@@ -342,10 +346,6 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     #Flatten the array
     TopCell.flatten(-1,True)
-    TopCellRegion = db.Region(TopCell.shapes(l_cont))
-    TopCellRegion.merged()
-    TopCell.clear()
-    TopCell.shapes(l_cont).insert(TopCellRegion)
 
     #Rotate the array
     t = db.ICplxTrans(1,-angle,False,0,0)
@@ -353,6 +353,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate slivers
     output_cell = layout.clip(TopCell,CellBox)
+    TopCell.prune_cell()
 
     size_check = db.DBox(-xSize/2.1,-ySize/2.1,xSize/2.1,ySize/2.1)
     size_check_region = db.Region(1000*size_check)
@@ -362,7 +363,10 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     size_check = size_Cell.dbbox()
     size_Cell.prune_cell()
 
-    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,CellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,leftCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,bottomCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,rightCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,topCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
 
     #Rename new cell, prune old cell
     if metro_structure:
@@ -370,6 +374,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     else:
         output_cell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees")
     
+    #print(output_cell.name)
     output_region = db.Region(output_cell.shapes(l_cont))
 
     #Flip the tone if clear, with sliver check based on portion of cell size (room for improvement here...)
@@ -836,4 +841,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 #print("test")
 
-contact_cell("D",0.1,0.1,25,30,3,True,False,False,0)
+#contact_cell("D",0.1,0.1,25,30,3,True,False,False,0)
