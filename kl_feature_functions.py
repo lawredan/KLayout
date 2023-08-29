@@ -368,13 +368,12 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,rightCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
     [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,topCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
 
-    #Rename new cell, prune old cell
+    #Rename new cell
     if metro_structure:
         output_cell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_w_metro")
     else:
         output_cell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees")
     
-    #print(output_cell.name)
     output_region = db.Region(output_cell.shapes(l_cont))
 
     #Flip the tone if clear, with sliver check based on portion of cell size (room for improvement here...)
