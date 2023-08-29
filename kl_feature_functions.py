@@ -218,10 +218,10 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Creates formatting regions for later use
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
     CellBox_region = db.Region(1000*CellBox)
-    bottomCellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),(-cell_size/2)+xPitch)
-    leftCellBox = db.DBox((-cell_size/2),-cell_size/2,(-cell_size/2)+xPitch,cell_size/2)
-    topCellBox = db.DBox((-cell_size/2),(cell_size/2)-xPitch,(cell_size/2),cell_size/2)
-    rightCellBox = db.DBox((cell_size/2)-xPitch,-cell_size/2,(cell_size/2),cell_size/2)
+    bottomCellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),(-cell_size/2)+0.005)
+    leftCellBox = db.DBox((-cell_size/2),-cell_size/2,(-cell_size/2)+0.005,cell_size/2)
+    topCellBox = db.DBox((-cell_size/2),(cell_size/2)-0.005,(cell_size/2),cell_size/2)
+    rightCellBox = db.DBox((cell_size/2)-0.005,-cell_size/2,(cell_size/2),cell_size/2)
     BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
     BigBox_region = db.Region(BigBox)
     LittleDonut = db.DBox(-1500*(xSize),-1500*(ySize),1500*(xSize),1500*(ySize))
@@ -350,23 +350,29 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Rotate the array
     t = db.ICplxTrans(1,-angle,False,0,0)
     TopCell.transform(t)
+    TopCellRegion = db.Region(TopCell.begin_shapes_rec_overlapping(l_cont,CellBox))
+    output_cell = layout.create_cell("output")
+    output_cell.shapes(l_cont).insert(TopCellRegion)
 
+
+###__________________________
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate slivers
-    output_cell = layout.clip(TopCell,CellBox)
-    TopCell.prune_cell()
+    #output_cell = layout.clip(TopCell,CellBox)
+    #TopCell.prune_cell()
 
-    size_check = db.DBox(-xSize/2.1,-ySize/2.1,xSize/2.1,ySize/2.1)
-    size_check_region = db.Region(1000*size_check)
-    size_Cell = layout.create_cell("size_check")
-    size_Cell.shapes(l_cont).insert(size_check_region)
-    size_Cell.transform(t)
-    size_check = size_Cell.dbbox()
-    size_Cell.prune_cell()
+    #size_check = db.DBox(-xSize/2.1,-ySize/2.1,xSize/2.1,ySize/2.1)
+    #size_check_region = db.Region(1000*size_check)
+    #size_Cell = layout.create_cell("size_check")
+    #size_Cell.shapes(l_cont).insert(size_check_region)
+    #size_Cell.transform(t)
+    #size_check = size_Cell.dbbox()
+    #size_Cell.prune_cell()
 
-    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,leftCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,bottomCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,rightCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-    [i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,topCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,leftCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,bottomCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,rightCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,topCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
+###_________________________
 
     #Rename new cell
     if metro_structure:
@@ -391,11 +397,11 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("Cont_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
@@ -840,4 +846,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 #print("test")
 
-#contact_cell("D",0.1,0.1,25,30,3,True,False,False,0)
+contact_cell("D",0.1,0.1,25,0,3,True,False,False,0)

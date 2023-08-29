@@ -6,6 +6,7 @@ import pandas as pd
 from kl_feature_functions import *
 from kl_pdm_functions import *
 import klayout.lib as lib
+from tqdm import tqdm
 
 
 def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
@@ -17,7 +18,7 @@ def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -51,7 +52,7 @@ def Space_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coo
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -85,7 +86,7 @@ def Litho_Gain_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,sp
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -118,7 +119,7 @@ def Dot_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coord
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -152,7 +153,7 @@ def Hole_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -186,7 +187,7 @@ def AnyAngle_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -220,7 +221,7 @@ def Line_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -254,7 +255,7 @@ def Space_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -288,7 +289,7 @@ def LineSpaceEnd_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(angle)):
+    for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
             holder=LEnd_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],size[i]*end_spacing[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -322,7 +323,7 @@ def LS_SRAF_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_c
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(angle)):
+    for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
             holder=SRAF_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[i],sraf_factor[j]*size[i],sraf_step_factor[j]*size[i],sraf_num[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -360,7 +361,7 @@ def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
     
     #Horn Cell
 
-    for j in range(0,len(horn_angle)):
+    for j in tqdm(range(0,len(horn_angle))):
         for i in range(0,len(horn_initial_size)):
             holder=Horn_cell(horn_tone[i],horn_initial_size[i],horn_step_size[i],horn_power[j],horn_spacing[j],cell_size,horn_angle[j])
             tempcell=layout.create_cell(holder[1])
@@ -409,7 +410,7 @@ def LCDU_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[i],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -443,7 +444,7 @@ def LS_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -477,7 +478,7 @@ def HD_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=contact_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
@@ -511,7 +512,7 @@ def HD_HH_Stagger_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell
     current_x = initial_x
     current_y = initial_y
 
-    for j in range(0,len(pitch)):
+    for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             holder=contact_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i],stagger[i],HH_list[j],HH_amount[j])
             tempcell=layout.create_cell(holder[1])
