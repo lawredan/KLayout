@@ -382,11 +382,11 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Cont_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Cont_Tester.oas")
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
@@ -831,4 +831,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 #print("test")
 
-contact_cell("D",0.1,0.5,25,90,2,True,True,True,0.004)
+#contact_cell("D",0.1,0.5,25,90,2,True,True,True,0.004)
