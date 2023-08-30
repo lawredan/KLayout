@@ -344,35 +344,20 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
 #### Angle transformations, sliver removal, and output ####
 
-    #Flatten the array
-    TopCell.flatten(-1,True)
 
-    #Rotate the array
-    t = db.ICplxTrans(1,-angle,False,0,0)
-    TopCell.transform(t)
-    TopCellRegion = db.Region(TopCell.begin_shapes_rec_overlapping(l_cont,CellBox))
-    output_cell = layout.create_cell("output")
-    output_cell.shapes(l_cont).insert(TopCellRegion)
+    #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
+    output_cell = layout.clip(TopCell,CellBox)
+    listicle = []
+    size_check = db.DBox(-xSize/2,-ySize/2,xSize/2,ySize/2)
+    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
+    [layout.cell(k).prune_cell() for k in listicle]
 
-
-###__________________________
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate slivers
-    #output_cell = layout.clip(TopCell,CellBox)
-    #TopCell.prune_cell()
-
-    #size_check = db.DBox(-xSize/2.1,-ySize/2.1,xSize/2.1,ySize/2.1)
-    #size_check_region = db.Region(1000*size_check)
-    #size_Cell = layout.create_cell("size_check")
-    #size_Cell.shapes(l_cont).insert(size_check_region)
-    #size_Cell.transform(t)
-    #size_check = size_Cell.dbbox()
-    #size_Cell.prune_cell()
-
-    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,leftCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,bottomCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,rightCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-    #[i.shape().delete() for i in output_cell.begin_shapes_rec_touching(l_cont,topCellBox) if i.shape().dbbox().width()<size_check.bbox().width() or i.shape().dbbox().height()<size_check.bbox().height()]
-###_________________________
+    #Apply rotation only if orthogonal
+    output_cell.flatten(-1,True)
+    
+    if angle % 90 == 0:
+        t = db.ICplxTrans(1,angle,0,0,0)
+        output_cell.transform(t)
 
     #Rename new cell
     if metro_structure:
@@ -393,7 +378,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     elif tone == "D" and donut:
          output_region = CellBox_region - output_region
 
-    output_region.merged()
+    #output_region.merged()
 
 
     #Export GDS (can comment out if not testing)
@@ -846,4 +831,4 @@ def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:flo
 
 #print("test")
 
-contact_cell("D",0.1,0.1,25,0,3,True,False,False,0)
+contact_cell("D",0.1,0.5,25,90,2,True,True,True,0.004)
