@@ -3,7 +3,7 @@ import math
 import klayout.db as db
 
 #### SPC Cell Functions ####
-def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True):
+def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True):
 
 #### Setup ####
 
@@ -113,9 +113,9 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     #Rename new cell, prune old cell
     if metro_structure:
-        output_cell.name = (f"LS_Array_{tone}_{size}umSize_{pitch_type}_{angle}degrees_w_metro")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees_w_metro")
     else:
-        output_cell.name = (f"LS_Array_{tone}_{size}umSize_{pitch_type}_{angle}degrees")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees")
     
     TopCell.prune_cell()
 
@@ -141,7 +141,7 @@ def LS_cell(tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,a
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
-def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_amount:float=0.05):
+def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True, stagger:bool=False, HH:bool=False, HH_amount:float=0.05):
 
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
 
@@ -218,10 +218,6 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
     #Creates formatting regions for later use
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
     CellBox_region = db.Region(1000*CellBox)
-    bottomCellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),(-cell_size/2)+0.005)
-    leftCellBox = db.DBox((-cell_size/2),-cell_size/2,(-cell_size/2)+0.005,cell_size/2)
-    topCellBox = db.DBox((-cell_size/2),(cell_size/2)-0.005,(cell_size/2),cell_size/2)
-    rightCellBox = db.DBox((cell_size/2)-0.005,-cell_size/2,(cell_size/2),cell_size/2)
     BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
     BigBox_region = db.Region(BigBox)
     LittleDonut = db.DBox(-1500*(xSize),-1500*(ySize),1500*(xSize),1500*(ySize))
@@ -360,10 +356,10 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
         output_cell.transform(t)
 
     #Rename new cell
-    if metro_structure:
-        output_cell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_w_metro")
+    if HH:
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_{HH_amount}nm_HH_metro_{metro_structure}")
     else:
-        output_cell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_metro_{metro_structure}")
     
     output_region = db.Region(output_cell.shapes(l_cont))
 
@@ -390,7 +386,7 @@ def contact_cell(tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
-def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25,angle:float=45,sraf_size:float=0.05,sraf_step:float=0.2,sraf_num:int=4,metro_structure:bool = True):
+def SRAF_cell(name:str="SRAF_Cell",tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25,angle:float=45,sraf_size:float=0.05,sraf_step:float=0.2,sraf_num:int=4,metro_structure:bool = True):
 
 #NOTE:Angle support only for iso structure, No Metro structures needed
 
@@ -527,7 +523,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
-    output_cell.name = (f"Line_w_SRAF_{tone}_{size}umSize_{pitch_type}_{angle}degrees_{sraf_num}SRAFs_{sraf_size}um_size_{sraf_step}um_apart")
+    output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees_{sraf_num}SRAFs_{sraf_size}um_size_{sraf_step}um_apart")
     
     TopCell.prune_cell()
 
@@ -543,7 +539,7 @@ def SRAF_cell(tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,sraf_num,sraf_size,sraf_step
 
-def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25,angle:float=40,end_spacing:float=0.2,metro_structure:bool = True):
+def LEnd_cell(name:str="LineEnd_Cell",tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25,angle:float=40,end_spacing:float=0.2,metro_structure:bool = True):
 
 #### Setup ####
 
@@ -651,9 +647,9 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
     #Rename new cell, prune old cell
     if metro_structure:
-        output_cell.name = (f"LEnd_Array_{tone}_{size}umSize_{pitch_type}_{angle}degrees_{end_spacing}um_spacing_w_metro")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees_{end_spacing}um_spacing_w_metro")
     else:
-        output_cell.name = (f"LEnd_Array_{tone}_{size}umSize_{pitch_type}_{angle}degrees_{end_spacing}um_spacing")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees_{end_spacing}um_spacing")
     
     TopCell.prune_cell()
 
@@ -674,7 +670,7 @@ def LEnd_cell(tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25
 
     return output_region, output_cell.name,tone,size,pitch_type,angle,end_spacing,metro_structure
 
-def Spiral_cell(tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spacing:float=0.2,cell_size:float=25,rampancy:bool=False):
+def Spiral_cell(name:str="Spiral_Cell",tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spacing:float=0.2,cell_size:float=25,rampancy:bool=False):
     
     #Credit to (https://www.youtube.com/watch?v=2e6DuFj0Xws), approached it from creating a PCell in KLayout for this shape,
     #but I followed the general framework to turn this into a function that outputs a spiral cell.
@@ -742,7 +738,7 @@ def Spiral_cell(tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spa
 
     return Spiral_region,SpiralCell.name,tone,size,spacing,0,inner_r,outer_r,spacing,rampancy
 
-def Horn_cell(tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:float=1,spacing:float=1,cell_size:float=25,angle:float=45):
+def Horn_cell(name:str="Horn_Cell",tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:float=1,spacing:float=1,cell_size:float=25,angle:float=45):
     
 #### Setup ####
 

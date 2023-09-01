@@ -9,7 +9,7 @@ import klayout.lib as lib
 from tqdm import tqdm
 
 
-def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Line_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LineArray")
 
@@ -20,7 +20,7 @@ def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -43,7 +43,7 @@ def Line_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Space_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
 
     SpaceArray = layout.create_cell("SpaceArray")
 
@@ -54,7 +54,7 @@ def Space_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coo
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -77,7 +77,7 @@ def Space_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coo
 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
-def Litho_Gain_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LithoGainArray = layout.create_cell("GainArray")
 
@@ -88,7 +88,7 @@ def Litho_Gain_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,sp
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -110,7 +110,7 @@ def Litho_Gain_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,sp
     
     TopCell.insert(db.DCellInstArray(LithoGainArray,db.DVector(xpos,ypos)))
 
-def Dot_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Dot_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     DotArray = layout.create_cell("DotArray")
 
@@ -121,7 +121,7 @@ def Dot_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coord
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -144,7 +144,7 @@ def Dot_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coord
 
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
-def Hole_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Hole_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     HoleArray = layout.create_cell("HoleArray")
 
@@ -155,7 +155,7 @@ def Hole_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -178,7 +178,7 @@ def Hole_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
 
     TopCell.insert(db.DCellInstArray(HoleArray,db.DVector(xpos,ypos)))
 
-def AnyAngle_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def AnyAngle_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("AnyAngleArray")
 
@@ -189,7 +189,7 @@ def AnyAngle_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -212,7 +212,7 @@ def AnyAngle_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Line_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Line_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LineFidcolArray")
 
@@ -223,7 +223,7 @@ def Line_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -246,7 +246,7 @@ def Line_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Space_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def Space_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
 
     SpaceArray = layout.create_cell("SpaceFidcolArray")
 
@@ -257,7 +257,7 @@ def Space_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -280,7 +280,7 @@ def Space_Fidcol_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
 
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
-def LineSpaceEnd_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],end_spacing:list=[],metro_structure:list=[]):
+def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],end_spacing:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LineSpaceEndArray")
 
@@ -291,7 +291,7 @@ def LineSpaceEnd_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
 
     for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
-            holder=LEnd_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],size[i]*end_spacing[j],metro_structure[i])
+            holder=LEnd_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],size[i]*end_spacing[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -314,7 +314,7 @@ def LineSpaceEnd_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def LS_SRAF_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],metro_structure:list=[]):
+def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LS_SRAF_Array")
 
@@ -325,7 +325,7 @@ def LS_SRAF_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_c
 
     for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
-            holder=SRAF_cell(tone[i],size[i],size[i]/pitch[j],cell_size,angle[i],sraf_factor[j]*size[i],sraf_step_factor[j]*size[i],sraf_num[j],metro_structure[i])
+            holder=SRAF_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[i],sraf_factor[j]*size[i],sraf_step_factor[j]*size[i],sraf_num[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -348,7 +348,7 @@ def LS_SRAF_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_c
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,
+def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,
                       spiral_tone:list=[],spiral_size:list=[],spiral_inner_r:list=[],spiral_outer_r:list=[],spiral_spacing:list=[],spiral_rampancy:list=[],
                       horn_tone:list=[],horn_initial_size:list=[],horn_step_size:list=[],horn_power:list=[],horn_spacing:list=[],horn_angle:list=[]):
     
@@ -363,7 +363,7 @@ def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
 
     for j in tqdm(range(0,len(horn_angle))):
         for i in range(0,len(horn_initial_size)):
-            holder=Horn_cell(horn_tone[i],horn_initial_size[i],horn_step_size[i],horn_power[j],horn_spacing[j],cell_size,horn_angle[j])
+            holder=Horn_cell(cellname,horn_tone[i],horn_initial_size[i],horn_step_size[i],horn_power[j],horn_spacing[j],cell_size,horn_angle[j])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -378,7 +378,7 @@ def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
 
     for j in range(0,len(spiral_spacing)):
         for i in range(0,len(spiral_size)):
-            holder=Spiral_cell(spiral_tone[i],spiral_size[i],spiral_inner_r[j],spiral_outer_r[j],spiral_spacing[j],cell_size,spiral_rampancy[j])
+            holder=Spiral_cell(cellname,spiral_tone[i],spiral_size[i],spiral_inner_r[j],spiral_outer_r[j],spiral_spacing[j],cell_size,spiral_rampancy[j])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -401,7 +401,7 @@ def Curvilinear_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,s
 
     TopCell.insert(db.DCellInstArray(CurveArray,db.DVector(xpos,ypos)))
 
-def LCDU_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def LCDU_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LCDU_Array")
 
@@ -412,7 +412,7 @@ def LCDU_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[i],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[i],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -435,7 +435,7 @@ def LCDU_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coor
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def LS_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     LineArray = layout.create_cell("LSRepeatArray")
 
@@ -446,7 +446,7 @@ def LS_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -469,7 +469,7 @@ def LS_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def HD_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
+def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[]):
     
     DotArray = layout.create_cell("HDRepeatArray")
 
@@ -480,7 +480,7 @@ def HD_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i])
+            holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -503,7 +503,7 @@ def HD_Repeat_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc
 
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
-def HD_HH_Stagger_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],stagger:list=[],HH_list:list=[],HH_amount:list=[]):
+def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],stagger:list=[],HH_list:list=[],HH_amount:list=[]):
     
     DotArray = layout.create_cell("HD_HH_Stagger_Array")
 
@@ -514,7 +514,7 @@ def HD_HH_Stagger_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=contact_cell(tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i],stagger[i],HH_list[j],HH_amount[j])
+            holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[i],metro_structure[i],stagger[i],HH_list[j],HH_amount[j])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))

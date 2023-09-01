@@ -41,7 +41,8 @@ initialTime = time.time()
 ArrayX = start_pos_x
 ArrayY = start_pos_y
 
-name = "Line Array"
+arrayname = "Line Array"
+cellname = "Line_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -56,7 +57,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Line_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Line Array after {xtime} sec...")
@@ -67,7 +68,8 @@ print(f"Done w/ Line Array after {xtime} sec...")
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y
 
-name = "Space Array"
+arrayname = "Space Array"
+cellname = "Space_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -82,7 +84,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Space_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Space Array after {xtime} sec...")
@@ -93,7 +95,8 @@ print(f"Done w/ Space Array after {xtime} sec...")
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y
 
-name = "Litho Gain Array"
+arrayname = "Litho Gain Array"
+cellname = "Litho_Gain_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -108,7 +111,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Litho_Gain_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Litho Gain Array after {xtime} sec...")
@@ -119,7 +122,8 @@ print(f"Done w/ Litho Gain Array after {xtime} sec...")
 ArrayX = start_pos_x
 ArrayY = start_pos_y+y_step_size
 
-name = "Dot Array"
+arrayname = "Dot Array"
+cellname = "Dot_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -134,7 +138,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Dot_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Dot Array after {xtime} sec...")
@@ -145,7 +149,8 @@ print(f"Done w/ Dot Array after {xtime} sec...")
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+y_step_size
 
-name = "Hole Array"
+arrayname = "Hole Array"
+cellname = "Hole_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -160,7 +165,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Hole_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Hole Array after {xtime} sec...")
@@ -171,7 +176,8 @@ print(f"Done w/ Hole Array after {xtime} sec...")
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+y_step_size
 
-name = "Any Angle LS Array"
+arrayname = "Any Angle LS Array"
+cellname = "Any_Angle_LS_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -187,7 +193,7 @@ metro_structure=[False,False,False,False,False,False,False,False,False,False,Fal
 
 startTime=time.time()
 
-AnyAngle_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Any Angle Array after {xtime} sec...")
@@ -198,7 +204,8 @@ print(f"Done w/ Any Angle Array after {xtime} sec...")
 ArrayX = start_pos_x
 ArrayY = start_pos_y+3*y_step_size
 
-name = "Line Fidcol Array"
+arrayname = "Line Fidcol Array"
+cellname = "Line_Fidcol_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -213,7 +220,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Line_Fidcol_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Line Fidcol Array after {xtime} sec...")
@@ -224,7 +231,8 @@ print(f"Done w/ Line Fidcol Array after {xtime} sec...")
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+3*y_step_size
 
-name = "Space Fidcol Array"
+arrayname = "Space Fidcol Array"
+cellname = "Space_Fidcol_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -239,7 +247,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-Space_Fidcol_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ Space Fidcol Array after {xtime} sec...")
@@ -250,7 +258,8 @@ print(f"Done w/ Space Fidcol Array after {xtime} sec...")
 ArrayX = start_pos_x
 ArrayY = start_pos_y+2*y_step_size
 
-name = "Line-End and Space-End Array"
+arrayname = "Line-End and Space-End Array"
+cellname = "LEnd_and_SEnd_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -264,7 +273,7 @@ end_spacing = [0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.
 metro_structure=[True,True,True,True,True,True,True,False,False,True,True,True,True,True,True,True,False,False]
 
 startTime=time.time()
-LineSpaceEnd_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure)
+LineSpaceEnd_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure)
 xtime = time.time()-startTime
 print(f"Done w/ LEnd Array after {xtime} sec...")
 
@@ -274,7 +283,8 @@ print(f"Done w/ LEnd Array after {xtime} sec...")
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+2*y_step_size
 
-name = "Line with SRAFs Array"
+arrayname = "Line with SRAFs Array"
+cellname = "LS_SRAF_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -291,7 +301,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-LS_SRAF_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num,metro_structure)
+LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ SRAF Array after {xtime} sec...")
@@ -303,7 +313,8 @@ print(f"Done w/ SRAF Array after {xtime} sec...")
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+2*y_step_size
 
-name = "Curvilinear Array"
+arrayname = "Curvilinear Array"
+cellname = "Curvilinear_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -327,7 +338,7 @@ horn_angle=[0,0,0,45,45,45,90,90,90]
 
 startTime=time.time()
 
-Curvilinear_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
+Curvilinear_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
                   spiral_tone,spiral_size,spiral_inner_r,spiral_outer_r,spiral_spacing,spiral_rampancy,
                   horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle)
 
@@ -341,7 +352,8 @@ print(f"Done w/ Curvilinear Array after {xtime} sec...")
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+3*y_step_size
 
-name = "Line-Space LCDU Array"
+arrayname = "Line-Space LCDU Array"
+cellname = "LS_LCDU_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -356,7 +368,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-LCDU_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ LCDU Array after {xtime} sec...")
@@ -367,7 +379,8 @@ print(f"Done w/ LCDU Array after {xtime} sec...")
 ArrayX = start_pos_x
 ArrayY = start_pos_y+4*y_step_size
 
-name = "Line-Space Repeat Array"
+arrayname = "Line-Space Repeat Array"
+cellname = "LS_Repeat_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -382,7 +395,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Fal
 
 startTime=time.time()
 
-LS_Repeat_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ LS Repeat Array after {xtime} sec...")
@@ -393,7 +406,8 @@ print(f"Done w/ LS Repeat Array after {xtime} sec...")
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+4*y_step_size
 
-name = "Hole-Dot Repeat Array"
+arrayname = "Hole-Dot Repeat Array"
+cellname = "HD_Repeat_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -408,7 +422,7 @@ metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,Tru
 
 startTime=time.time()
 
-HD_Repeat_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
 
 xtime = time.time()-startTime
 print(f"Done w/ HD Repeat Array after {xtime} sec...")
@@ -420,7 +434,8 @@ print(f"Done w/ HD Repeat Array after {xtime} sec...")
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+4*y_step_size
 
-name = "Stagger HH Array"
+arrayname = "Stagger HH Array"
+cellname = "HD_Stagger_HH_Cell"
 
 spacing = 2 #um
 offset = 50 #um
@@ -428,9 +443,9 @@ cell_size = 35 #um
 
 tone=["D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C"]
 size=[0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4, 0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4]
-pitch=[0.1,0.1,0.1,0.1,0.5,0.5,0.5,0.5,0.1,0.1,0.1,0.1,0.5,0.5,0.5,0.5]
+pitch=[0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4,0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4]
 angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
+x2y=[1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 HH_list = [False,True,True,True,False,True,True,True,False,True,True,True,False,True,True,True]
@@ -438,7 +453,7 @@ HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004
 
 startTime=time.time()
 
-HD_HH_Stagger_Array(name,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,stagger,HH_list,HH_amount)
+HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,stagger,HH_list,HH_amount)
 
 xtime = time.time()-startTime
 print(f"Done w/ Stagger HD HH Array after {xtime} sec...")
