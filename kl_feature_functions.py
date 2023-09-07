@@ -7,7 +7,7 @@ def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,c
     
 #### Function definition ####
     """
-@brief Function for generatating a cell containing line or space structure(s).
+@brief Function for generating a cell containing line or space structure(s).
 \n
 Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
 \n
@@ -39,11 +39,11 @@ Return definitions:
     
     @return tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used.
+    @return size -- Provides the feature size used (in um).
     
     @return pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
     
-    @return angle -- Provides the angle used.
+    @return angle -- Provides the angle used (in degrees).
     
     @return metro_structure -- Provides whether or not metro structure(s) were included.
     """
@@ -185,7 +185,7 @@ def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0
     
 #### Function definition ####
     """
-@brief Function for generatating a cell containing 2D dot or hole structure(s).
+@brief Function for generating a cell containing 2D dot or hole structure(s).
 \n
 Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
 \n
@@ -235,11 +235,11 @@ Return definitions:
     
     @return tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used.
+    @return size -- Provides the feature size used (in um).
     
     @return pitch_type -- Provides the resulting pitch type: iso, dense, or donut.
     
-    @return angle -- Provides the angle used.
+    @return angle -- Provides the angle used (in degrees).
 
     @return x2y -- Provides the X:Y ratio used.
     
@@ -492,7 +492,7 @@ def SRAF_cell(name:str="SRAF_Cell",tone:str="C",size:float=0.300,pitch:float=8.5
 
 #### Function Definition ####
     """
-@brief Function for generatating a cell containing 1D line/space features with 1D assist structure(s).
+@brief Function for generating a cell containing 1D line/space features with 1D assist structure(s).
 \n
 Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
 \n
@@ -528,17 +528,17 @@ Return definitions:
     
     @return tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used.
+    @return size -- Provides the feature size used (in um).
     
     @return pitch_type -- Provides the resulting pitch type: iso or dense.
     
-    @return angle -- Provides the angle used.
+    @return angle -- Provides the angle used (in degrees).
     
-    @return sraf_num -- 
+    @return sraf_num -- Provides the number of 1D assist features used.
 
-    @return sraf_size -- 
+    @return sraf_size -- Provides the width of the 1D assist features (in um).
 
-    @return sraf_step --
+    @return sraf_step -- Provides the spacing between 1D assist features (in um).
 
     """
 #NOTE:Angle support only for iso structure, No Metro structures needed
@@ -692,7 +692,54 @@ Return definitions:
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,sraf_num,sraf_size,sraf_step
 
-def LEnd_cell(name:str="LineEnd_Cell",tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25,angle:float=40,end_spacing:float=0.2,metro_structure:bool = True):
+def LEnd_cell(name:str="LineEnd_Cell",tone:str="C",size:float=0.500,pitch:float=0.600,cell_size:float=25,angle:float=40,end_spacing:float=0.2,metro_structure:bool=True,metro_spacing:float=8):
+
+#### Function definition ####
+    """
+@brief Function for generatating a cell containing line or space end structure(s).
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
+    @param name -- Defines the cell name.
+    
+    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    
+    @param size -- Defines the width of the feature (in um).
+    
+    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    
+    @param cell_size -- Defines the size of the square cell area (in um).
+    
+    @param angle -- Defines the angle of the feature (in degrees).
+
+    @param end_spacing -- Defines the distance between the feature ends (in um).
+    
+    @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+    
+    @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
+\n
+---
+\n
+Return definitions:
+    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
+    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
+    @return tone -- Provides the tone used to create the cell.
+    
+    @return size -- Provides the feature size used (in um).
+    
+    @return pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
+    
+    @return angle -- Provides the angle used (in degrees).
+
+    @return end_spacing -- Provides the end spacing used (in um).
+    
+    @return metro_structure -- Provides whether or not metro structure(s) were included.
+    """
 
 #### Setup ####
 
@@ -772,7 +819,6 @@ def LEnd_cell(name:str="LineEnd_Cell",tone:str="C",size:float=0.500,pitch:float=
 
 
 #### Add metro structures if applicable ####
-    metro_spacing = 8 #um
 
     if metro_structure:
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
@@ -825,8 +871,56 @@ def LEnd_cell(name:str="LineEnd_Cell",tone:str="C",size:float=0.500,pitch:float=
 
 def Spiral_cell(name:str="Spiral_Cell",tone:str="C",size:float=0.2,inner_r:float=1,outer_r:float=12,spacing:float=0.2,cell_size:float=25,rampancy:bool=False):
     
-    #Credit to (https://www.youtube.com/watch?v=2e6DuFj0Xws), approached it from creating a PCell in KLayout for this shape,
-    #but I followed the general framework to turn this into a function that outputs a spiral cell.
+    #Credit to (https://www.youtube.com/watch?v=2e6DuFj0Xws), he approached it from creating a PCell in KLayout for this shape,
+    #but I followed the general framework of the other functions in this file to turn this into a function that outputs a spiral cell.
+
+#### Function definition ####
+    """
+@brief Function for generating a cell containing a spiral structure.
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
+    @param name -- Defines the cell name.
+    
+    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    
+    @param size -- Defines the width of the feature (in um).
+    
+    @param inner_r -- Defines the inner radius start point for the spiral from the center of the cell (in um).
+
+    @param outer_r -- Defines the outer radius ending point for the spiral from the center of the cell (in um). This value must be greater than 'inner_r' but less than half of 'cell_size'.
+
+    @param spacing -- Defines the distance between the spiral's coils (in um).
+
+    @param cell_size -- Defines the size of the square cell area (in um).
+    
+    @param rampancy -- Determines if spiral is uniform. 'True' will cause the spiral spacing to accelarate outwards, 'False' will keep the spiral spacing uniform.
+\n
+---
+\n
+Return definitions:
+
+    @return Spiral_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
+    @return Spiral_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
+    @return tone -- Provides the tone used to create the cell.
+    
+    @return size -- Provides the feature size used (in um).
+    
+    @return spacing -- Provides the spiral spacing used (in um).
+
+    @return inner_r -- Provides the inner radius used (in um).
+
+    @return outer_r -- Provides the outer radius used (in um).
+
+    @return rampancy -- Provides whether rampancy was applied.
+    
+    """
+
 
 #### Setup ####
 
@@ -889,10 +983,55 @@ def Spiral_cell(name:str="Spiral_Cell",tone:str="C",size:float=0.2,inner_r:float
     SpiralCell.flatten(-1,True)
     Spiral_region = db.Region(SpiralCell.shapes(l_spiral))
 
-    return Spiral_region,SpiralCell.name,tone,size,spacing,0,inner_r,outer_r,spacing,rampancy
+    return Spiral_region,SpiralCell.name,tone,size,spacing,inner_r,outer_r,spacing,rampancy
 
 def Horn_cell(name:str="Horn_Cell",tone:str="C",initial_size:float=0.2,step_size:float=0.01,power:float=1,spacing:float=1,cell_size:float=25,angle:float=45):
+
+#### Function definition ####
+    """
+@brief Function for generating a cell containing a pair of Gabriel's horn structures.
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
+    @param name -- Defines the cell name.
     
+    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    
+    @param initial_size -- Defines the initial width of the feature (in um).
+
+    @param step_size -- Defines the distance to proceed before determining the new width (in um).
+
+    @param power -- Defines the factor to multiply by at each step size to determine width. A higher power yields a horn with a steep curve.
+
+    @param spacing -- Defines the stopping distance for the structure in relation to cell edges and the opposite horn (in um).
+
+    @param cell_size -- Defines the size of the square cell area (in um).
+    
+    @param angle -- Defines the angle of the structure (in degrees).
+\n
+---
+\n
+Return definitions:
+
+    @return Horn_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
+    @return Horn_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
+    @return tone -- Provides the tone used to create the cell.
+    
+    @return initial_size -- Provides the initial feature width used (in um).
+    
+    @return spacing -- Provides the structure spacing limit from adjacent structures (in um).
+
+    @return angle -- Provides the angle used (in degrees).
+
+    @return power -- Provides the power factor applied.
+    
+    """
+   
 #### Setup ####
 
     #Initial tone and dimension checks
