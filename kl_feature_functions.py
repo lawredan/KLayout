@@ -41,7 +41,7 @@ Return definitions:
     
     @return size -- Provides the feature size used.
     
-    @return pitch_type -- Provides the pitch used.
+    @return pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
     
     @return angle -- Provides the angle used.
     
@@ -237,11 +237,14 @@ Return definitions:
     
     @return size -- Provides the feature size used.
     
-    @return pitch_type -- Provides the pitch used.
+    @return pitch_type -- Provides the resulting pitch type: iso, dense, or donut.
     
     @return angle -- Provides the angle used.
+
+    @return x2y -- Provides the X:Y ratio used.
     
     @return metro_structure -- Provides whether or not metro structure(s) were included.
+
     """
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
 
@@ -485,8 +488,59 @@ Return definitions:
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,x2y,metro_structure
 
-def SRAF_cell(name:str="SRAF_Cell",tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25,angle:float=45,sraf_size:float=0.05,sraf_step:float=0.2,sraf_num:int=4,metro_structure:bool = True):
+def SRAF_cell(name:str="SRAF_Cell",tone:str="C",size:float=0.300,pitch:float=8.500,cell_size:float=25,angle:float=45,sraf_size:float=0.05,sraf_step:float=0.2,sraf_num:int=4):
 
+#### Function Definition ####
+    """
+@brief Function for generatating a cell containing 1D line/space features with 1D assist structure(s).
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
+
+    @param name -- Defines the cell name.
+
+    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+
+    @param size -- Defines the width of the primary feature (in um).
+
+    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+
+    @param cell_size -- Defines the size of the square cell area (in um).
+
+    @param angle -- Defines the angle of the feature (in degrees). Note: Angle support only for iso structures.
+
+    @param sraf_size -- Defines the width of the 1D assist structure(s) (in um).
+
+    @param sraf_step -- Defines the spacing between 1D assist structures and adjacent structures (in um).
+
+    @param sraf_num -- Defines the number of assist features to include. Assist features are adjacent to all four sides of the primary line/space.
+
+---
+\n
+Return definitions:
+    
+    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
+    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
+    @return tone -- Provides the tone used to create the cell.
+    
+    @return size -- Provides the feature size used.
+    
+    @return pitch_type -- Provides the resulting pitch type: iso or dense.
+    
+    @return angle -- Provides the angle used.
+    
+    @return sraf_num -- 
+
+    @return sraf_size -- 
+
+    @return sraf_step --
+
+    """
 #NOTE:Angle support only for iso structure, No Metro structures needed
 
 #### Setup ####

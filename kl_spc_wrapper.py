@@ -345,11 +345,10 @@ sraf_step_factor=[2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.
 sraf_num=[1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
 pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
 angle=[0,45,90,0,45,90,0,45,90,0,45,90,0,45,90,0,45,90]
-metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 
 startTime=time.time()
 
-LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num,metro_structure)
+LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num)
 
 xtime = time.time()-startTime
 print(f"Done w/ SRAF Array after {xtime} sec...")

@@ -322,7 +322,8 @@ def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float = 50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],metro_structure:list=[]):
+def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
+                  cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[]):
     
     LineArray = layout.create_cell("LS_SRAF_Array")
 
@@ -333,7 +334,7 @@ def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:
 
     for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
-            holder=SRAF_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[i],sraf_factor[j]*size[i],sraf_step_factor[j]*size[i],sraf_num[j],metro_structure[i])
+            holder=SRAF_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[i],sraf_factor[j]*size[i],sraf_step_factor[j]*size[i],sraf_num[j])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
