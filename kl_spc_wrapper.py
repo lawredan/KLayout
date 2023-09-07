@@ -159,10 +159,11 @@ pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Dot Array after {xtime} sec...")
@@ -189,10 +190,11 @@ pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Hole Array after {xtime} sec...")
@@ -486,10 +488,11 @@ pitch=[1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01]
 angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 x2y=[1,1,1,2,2,2,3,3,3,1,1,1,2,2,2,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ HD Repeat Array after {xtime} sec...")
@@ -517,13 +520,15 @@ pitch=[0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4,0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4]
 angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 x2y=[1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+
 stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 HH_list = [False,True,True,True,False,True,True,True,False,True,True,True,False,True,True,True]
 HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016]
-
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 startTime=time.time()
 
-HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,stagger,HH_list,HH_amount)
+HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,
+                    stagger,HH_list,HH_amount)
 
 xtime = time.time()-startTime
 print(f"Done w/ Stagger HD HH Array after {xtime} sec...")

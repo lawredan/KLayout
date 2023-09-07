@@ -4,33 +4,47 @@ import klayout.db as db
 
 #### SPC Cell Functions ####
 def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,metro_structure:bool=True,metro_spacing:float=8):
-    #Function definition
+    
+#### Function definition ####
     """
-    @brief Function for generatating a cell containing line or space structure(s).
-    \n
-    Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
-    \n
-    ---
-    \n
-    Parameter definitions:
+@brief Function for generatating a cell containing line or space structure(s).
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
     @param name -- Defines the cell name.
+    
     @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    
     @param size -- Defines the width of the feature (in um).
+    
     @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    
     @param cell_size -- Defines the size of the square cell area (in um).
+    
     @param angle -- Defines the angle of the feature (in degrees).
+    
     @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+    
     @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
-    \n
-    ---
-    \n
-    Return definitions:
+\n
+---
+\n
+Return definitions:
     @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
     @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
     @return tone -- Provides the tone used to create the cell.
+    
     @return size -- Provides the feature size used.
+    
     @return pitch_type -- Provides the pitch used.
+    
     @return angle -- Provides the angle used.
+    
     @return metro_structure -- Provides whether or not metro structure(s) were included.
     """
 
@@ -166,34 +180,67 @@ def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,c
 
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
-def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True,metro_spacing=8,stagger:bool=False, HH:bool=False, HH_amount:float=0.05):
-    #Function definition
+def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool=True,metro_spacing:float=8,
+                 stagger:bool=False,HH:bool=False,HH_amount:float=0.05):
+    
+#### Function definition ####
     """
-    @brief Function for generatating a cell containing 2D dot or hole structure(s).
-    \n
-    Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
-    \n
-    ---
-    \n
-    Parameter definitions:
+@brief Function for generatating a cell containing 2D dot or hole structure(s).
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
+
     @param name -- Defines the cell name.
+
     @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+
     @param size -- Defines the width of the feature (in um).
+
     @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+
     @param cell_size -- Defines the size of the square cell area (in um).
-    @param angle -- Defines the angle of the feature (in degrees).
+
+    @param angle -- Defines the angle of the feature (in degrees). Note: Currently only accepts angles of multiples of 90 degrees. Other angles will be ignored.
+
+    @param x2y -- Defines the ratio between X and Y dimensions. A '1' indicates equal X and Y dimensions. Changing this value will affect the X dimension only to satisfy the ratio.
+
     @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+
     @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
-    \n
-    ---
-    \n
-    Return definitions:
+
+    @param stagger -- Determines whether the array will be staggered.
+\n      "False" arrays the features orthogonally.
+\n      x _ x _ x
+\n      x _ x _ x
+\n      x _ x _ x
+\n      "True" alternates or "staggers" the features.
+\n      _ x _ x _
+\n      x _ x _ x
+\n      _ x _ x _
+\n
+    @param HH -- Determines if hammerhead OPC features will be added to the 2D structures.
+
+    @param HH_amount -- Defines how large the hammerhead should be (in um). Hammerheads are currently centered on the left and right edges of the 2D structure.
+
+---
+\n
+Return definitions:
+    
     @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
     @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
     @return tone -- Provides the tone used to create the cell.
+    
     @return size -- Provides the feature size used.
+    
     @return pitch_type -- Provides the pitch used.
+    
     @return angle -- Provides the angle used.
+    
     @return metro_structure -- Provides whether or not metro structure(s) were included.
     """
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
@@ -363,7 +410,6 @@ def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0
 
 
 #### Add metro structures if applicable ####
-    metro_spacing = 8 #um
 
     if metro_structure:
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
