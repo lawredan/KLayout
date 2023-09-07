@@ -23,7 +23,13 @@ pdm_coords = []
 array_x_num = 18
 array_y_num = 18
 
+#Define array conditions
+spacing = 2 #um
+offset = 50 #um
+cell_size = 35 #um
 
+#Define resist tone (default is negative resist tone = TRUE)
+negative_resist_tone = False
 
 #Generate the .gds file
 start_pos_x = 25
@@ -38,17 +44,23 @@ initialTime = time.time()
 #--------------------------------------------------------------------------------------------------------------------------
 #Line Array 
 
+#Define array position
 ArrayX = start_pos_x
 ArrayY = start_pos_y
 
+#Define array and cell naming conventions
 arrayname = "Line Array"
 cellname = "Line_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
+#Define array parameters
 tone = ["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -71,11 +83,14 @@ ArrayY = start_pos_y
 arrayname = "Space Array"
 cellname = "Space_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -98,11 +113,14 @@ ArrayY = start_pos_y
 arrayname = "Litho Gain Array"
 cellname = "Litho_Gain_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","C","C","D","D","C","C","D","D","C","C","D","D","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
@@ -125,11 +143,14 @@ ArrayY = start_pos_y+y_step_size
 arrayname = "Dot Array"
 cellname = "Dot_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
 pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -152,11 +173,14 @@ ArrayY = start_pos_y+y_step_size
 arrayname = "Hole Array"
 cellname = "Hole_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
 pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -179,11 +203,14 @@ ArrayY = start_pos_y+y_step_size
 arrayname = "Any Angle LS Array"
 cellname = "Any_Angle_LS_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,0.01]
 angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,45,45]
@@ -207,11 +234,14 @@ ArrayY = start_pos_y+3*y_step_size
 arrayname = "Line Fidcol Array"
 cellname = "Line_Fidcol_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone = ["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -234,11 +264,14 @@ ArrayY = start_pos_y+3*y_step_size
 arrayname = "Space Fidcol Array"
 cellname = "Space_Fidcol_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -261,11 +294,14 @@ ArrayY = start_pos_y+2*y_step_size
 arrayname = "Line-End and Space-End Array"
 cellname = "LEnd_and_SEnd_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,0,0,0,0,45,45,45,45,45,90,90,90,90,90,30,30,30]
@@ -286,11 +322,15 @@ ArrayY = start_pos_y+2*y_step_size
 arrayname = "Line with SRAFs Array"
 cellname = "LS_SRAF_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
+
 size=[0.12,0.12,0.12,0.2,0.2,0.2,0.4,0.4,0.4,0.12,0.12,0.12,0.2,0.2,0.2,0.4,0.4,0.4]
 sraf_factor=[0.25,0.25,0.3,0.3,0.35,0.35,0.25,0.25,0.3,0.3,0.35,0.35,0.25,0.25,0.3,0.3,0.35,0.35]
 sraf_step_factor=[2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5,2.5,3.5]
@@ -316,12 +356,15 @@ ArrayY = start_pos_y+2*y_step_size
 arrayname = "Curvilinear Array"
 cellname = "Curvilinear_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 #Spiral
 spiral_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(spiral_tone)):
+        if spiral_tone[i] == "D":
+            spiral_tone[i] = "C"
+        elif spiral_tone[i] == "C":
+            spiral_tone[i] == "D"
+
 spiral_size=[0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2,0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2]
 spiral_inner_r=[1,1,1,1,1,1,1,1,1]
 spiral_outer_r=[17,17,17,17,17,17,17,17,17]
@@ -330,6 +373,13 @@ spiral_rampancy=[False,False,False,False,False,True,True,True,True]
 
 #Horn
 horn_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(horn_tone)):
+        if horn_tone[i] == "D":
+            horn_tone[i] = "C"
+        elif tone[i] == "C":
+            horn_tone[i] == "D"
+
 horn_initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1,0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1]
 horn_step_size=[0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
 horn_power=[0.5,1,2,0.5,1,2,0.5,1,2]
@@ -355,11 +405,14 @@ ArrayY = start_pos_y+3*y_step_size
 arrayname = "Line-Space LCDU Array"
 cellname = "LS_LCDU_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
@@ -382,11 +435,14 @@ ArrayY = start_pos_y+4*y_step_size
 arrayname = "Line-Space Repeat Array"
 cellname = "LS_Repeat_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone = ["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
 pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
@@ -409,11 +465,14 @@ ArrayY = start_pos_y+4*y_step_size
 arrayname = "Hole-Dot Repeat Array"
 cellname = "HD_Repeat_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
 pitch=[1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01]
 angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -437,11 +496,14 @@ ArrayY = start_pos_y+4*y_step_size
 arrayname = "Stagger HH Array"
 cellname = "HD_Stagger_HH_Cell"
 
-spacing = 2 #um
-offset = 50 #um
-cell_size = 35 #um
-
 tone=["D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C"]
+if not negative_resist_tone:
+    for i in range(len(tone)):
+        if tone[i] == "D":
+            tone[i] = "C"
+        elif tone[i] == "C":
+            tone[i] == "D"
+
 size=[0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4, 0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4]
 pitch=[0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4,0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4]
 angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -469,7 +531,7 @@ name = "Programmed Defects"
 
 startTime=time.time()
 
-PDM_Array(name,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY)
+PDM_Array(name,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY,negative_resist_tone)
 
 xtime = time.time()-startTime
 print(f"Done w/ PDM Array after {xtime} sec...")
@@ -480,7 +542,10 @@ print(f"Done w/ PDM Array after {xtime} sec...")
 
 startTime=time.time()
 print("Writing .oas file...")
-layout.write("SPC.oas")
+if negative_resist_tone: oasis_tone = "NCAR"
+else: oasis_tone = "PCAR"
+
+layout.write(f"{oasis_tone}_Universal_SPC.oas")
 xtime = time.time()-startTime
 print(f"Finished writing file after {xtime} sec")
 

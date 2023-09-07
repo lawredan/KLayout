@@ -3,10 +3,16 @@ import math
 import klayout.db as db
 
 #### SPC Cell Functions ####
-def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool = True):
+def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,metro_structure:bool = True):
+    """
+    @brief Function for generatating a cell containing line or space structures within a given array.
+    @param name - The name given to the cell created
+    @param tone - The feature tone, either "D" (feature is polygon) or "C" (feature is empty space)
+    @param size - The width of the line or space (in um)
+    @param pitch - The 
+    """
 
 #### Setup ####
-
     #Initial tone check
     if tone == "D":
             tone = "D"
