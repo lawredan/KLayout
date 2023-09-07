@@ -66,10 +66,11 @@ pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Line Array after {xtime} sec...")
@@ -96,10 +97,11 @@ pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Space Array after {xtime} sec...")
@@ -126,10 +128,11 @@ pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Litho Gain Array after {xtime} sec...")
@@ -216,11 +219,12 @@ pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,0.01]
 angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,45,45]
 x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 
 startTime=time.time()
 
-AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Any Angle Array after {xtime} sec...")
@@ -247,10 +251,11 @@ pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Line Fidcol Array after {xtime} sec...")
@@ -277,10 +282,11 @@ pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ Space Fidcol Array after {xtime} sec...")
@@ -418,10 +424,11 @@ pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
 x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ LCDU Array after {xtime} sec...")
@@ -448,10 +455,11 @@ pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
 x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False,False]
+metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 startTime=time.time()
 
-LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure)
+LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
 
 xtime = time.time()-startTime
 print(f"Done w/ LS Repeat Array after {xtime} sec...")
