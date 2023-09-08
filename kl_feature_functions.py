@@ -54,9 +54,9 @@ Return definitions:
     elif tone == "C": pass
     else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
 
-    #Create the layout
+    #Create a layout for use
     layout = db.Layout()
-    layout.dbu = 0.001 #um
+    layout.dbu = 0.001 #um, database units
 
     #Define initial layers
     l_line = layout.layer(1,0) #line layer, sacrificial
@@ -64,9 +64,9 @@ Return definitions:
     #Check pitch of the LS array
     pitch_check = size/pitch
     iso = pitch_check < 0.05 #boolean
-    bar3 = pitch_check > 0.75 #also boolean
+    bar3 = pitch_check > 0.75 #boolean
 
-    #Determine naming
+    #Determine naming based on density
     if iso:
         pitch_type = 'iso'
     elif bar3:
@@ -74,7 +74,7 @@ Return definitions:
     else:
         pitch_type = f"{pitch}umPitch"
 
-    #Conver angle from degrees to radians
+    #Convert angle from degrees to radians for calculations
     rad_angle = angle * (math.pi)/(180)
 
 
@@ -84,7 +84,7 @@ Return definitions:
     TopCell = layout.create_cell(f"Initial_cell")
     LineCell = layout.create_cell(f"{size}um_line")
 
-    #Define line dimensions (top and bottom 2x to provide extra length for angled cells)
+    #Define line dimensions. Top+Bottom is 2x cell size in order to provide extra length for angled features to fill the cell area.
     l_left = -size/2
     l_right = size/2
     l_2bottom = -cell_size
@@ -93,31 +93,35 @@ Return definitions:
     #Create the main feature shape and insert it into the LineCell cell
     LineCell.shapes(l_line).insert(db.DBox(l_left, l_2bottom, l_right, l_2top))
 
-    #Creates formatting regions
+    #Creates formatting regions for use later on
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
     CellBox_region = db.Region(1000*CellBox)
 
 
-#### Generate the Cell ####
+#### Generate the cell features ####
 
+    #Checks density to determine how to build the cell
     if iso:
+        #Create instance array of the iso line (1 feature) and instert into the TopCell
         ls_iso = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_iso)
 
     elif bar3:
-        #Create the Bar3Cell
-        Bar3Cell =  layout.create_cell(f"{size}um_3bar_structure")
+        #Create the two sides of the 3-bar feature
+        Bar3Cell = layout.create_cell(f"{size}um_3bar_structure")
         Bar3Cell.shapes(l_line).insert(db.DBox(-cell_size,-cell_size,3*l_left,cell_size))
         Bar3Cell.shapes(l_line).insert(db.DBox(3*l_right,-cell_size,cell_size,cell_size))
         
-        #Add all into the TopCell
+        #Add instances of both the iso line and the two 3-bar polygons into the TopCell
         ls_3bar_line = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_3bar_line)    
         ls_3bar_edge = db.DCellInstArray(Bar3Cell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(ls_3bar_edge)
 
-    else:            
-        #Instance a left and right array of the LineCell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.
+    else:
+        #Otherwise, assumes a dense pattern.            
+        #Instances a left and right array of the LineCell to span the TopCell region.
+        #Trigonometry used to calculate step sizes to preserve pitch when angled.
         ls_array_right = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((pitch*math.cos(rad_angle)),-pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
         ls_array_left = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((-pitch*math.cos(rad_angle)),pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
         TopCell.insert(ls_array_right)
@@ -127,23 +131,23 @@ Return definitions:
 #### Add metro structures if applicable ####
 
     if metro_structure:
+        #Metro structure is a line jog/bridge placed 'metro_spacing'um above and below the center of the cell, then inserts it as an instance array into the TopCell
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
         MetroShape = db.DBox(-size/1.9,-size/2,size/1.9,size/2)
         MetroCell.shapes(l_line).insert(MetroShape)
         sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
         extra_angle = -size/metro_spacing
         metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
-
         TopCell.insert(metro_insert)
 
 
 #### Angle transformations, sliver removal, and output ####
     
-    #Apply angle rotation for all cells
+    #Apply angle rotation for all cells in the TopCell
     t = db.ICplxTrans(1,angle,0,0,0)
     [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
 
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
+    #Clip a new cell that covers just the extents of the defined cell size, and eliminate resultant child cells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
     listicle = []
     size_check = db.DBox(-size/2,-size/2,size/2,size/2)
@@ -162,7 +166,7 @@ Return definitions:
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
 
-    #Flip the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement in the future)
+    #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
     if tone == "C":
          sacrifice_cell = layout.create_cell("Sacrificial")
          sacrifice_cell.shapes(l_line).insert(output_region)
@@ -264,7 +268,7 @@ Return definitions:
     #Define initial layers
     l_cont = layout.layer(1,0) #line layer, sacrificial
 
-    #Determine X and Y pitches, based on x2y value (applies to X-pitch only, Y-pitch is untouched)
+    #Determine X and Y sizes and pitches, based on x2y value (applies to X only, Y is untouched)
     xSize = round(size*x2y,3)
     ySize = round(size,3)
     xPitch = round(pitch*x2y,3)
@@ -272,10 +276,18 @@ Return definitions:
 
     #Check pitch of the contact array
     pitch_check = size/pitch
-    iso = pitch_check < 0.05 #boolean
-    donut = pitch_check > 0.75 #also boolean
+    iso = False
+    donut = False
+    dense = False
+    
+    if pitch_check < 0.05:
+         iso = True
+    elif pitch_check > 0.75:
+         donut = True
+    else:
+         dense=True
 
-    #Determine naming
+    #Determine naming based on density
     if iso:
         pitch_type = 'iso'
     elif donut:
@@ -283,10 +295,13 @@ Return definitions:
     else:
         pitch_type = f"{pitch}umPitch"
 
+    #Convert angle from degrees to radians for calculations
+    rad_angle = angle * (math.pi)/(180)
+
 
 #### Cell creation and shape assignment ####
 
-    #Create the topcell and subsidiary cells
+    #Create the topcell and subsidiary cell
     TopCell = layout.create_cell(f"Initial_cell")
     ContCell = layout.create_cell(f"{size}um_{x2y}to1_contact")
 
@@ -301,6 +316,7 @@ Return definitions:
     ContCell.shapes(l_cont).insert(cont_iso)
 
     #Check for Hammer Head and apply if desired
+    #Applies hammer heads centered on the left and right edges of the contact feature, and replaces the existing contact feature with the hammerhead-ed feature.
     if HH:
          #print("hammer time")
          HHwidth = HH_amount*2
@@ -310,25 +326,28 @@ Return definitions:
          ContCell.shapes(l_cont).insert(LeftHH)
          ContCell.shapes(l_cont).insert(RightHH)
          hammer_region = db.Region(ContCell.shapes(l_cont))
-         hammer_region.merged()
+         hammer_region=hammer_region.merged()
          ContCell.shapes(l_cont).clear()
          ContCell.shapes(l_cont).insert(hammer_region)
 
+    if stagger and dense:
+         StaggerCont = db.Region(ContCell.shapes(l_cont))
+         StaggerCell = layout.create_cell("StaggerCell")
+         StaggerCell.shapes(l_cont).insert(StaggerCont)
+         StaggerInstance = db.DCellInstArray(StaggerCell,db.DTrans(),db.DVector(xPitch/2,yPitch),db.DVector(-xPitch/2,-yPitch),2,2)
+         ContCell.clear()
+         ContCell.insert(StaggerInstance)
 
-    #Insert feature into ContCell
-    cont_iso_region = db.Region(ContCell.shapes(l_cont))
+                                 
 
     #Creates formatting regions for later use
+    cont_iso_region = db.Region(ContCell.shapes(l_cont))
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
     CellBox_region = db.Region(1000*CellBox)
-    BigBox = db.DBox(-cell_size*1000,-cell_size*1000,cell_size*1000,cell_size*1000)
-    BigBox_region = db.Region(BigBox)
     LittleDonut = db.DBox(-1500*(xSize),-1500*(ySize),1500*(xSize),1500*(ySize))
     LittleDonut_region = db.Region(LittleDonut)
     DonutBox = LittleDonut_region-cont_iso_region
     DonutBox.break_(4,1)
-    DenseCont = db.DBox(-1000*xPitch/2,-1000*yPitch/2,1000*xPitch/2,1000*yPitch/2)
-    DenseCont_region = db.Region(DenseCont)
 
 
 #### Generate the Cell ####
@@ -354,87 +373,52 @@ Return definitions:
         #NOTE: This "functions" in its current form, but needs further adjusting, especially for holes, to get a good array of angled contacts
               
         #Define vector values for instance array for dense features
-        V1x1 = xPitch
-        V1y1 = 0
-        V1x2 = 0
-        V1y2 = yPitch
+        Vxx = math.cos(rad_angle)*xPitch
+        Vxy = -math.sin(rad_angle)*xPitch
+        Vyx = math.sin(rad_angle)*yPitch
+        Vyy = math.cos(rad_angle)*yPitch
 
-        V2x1 = -xPitch
-        V2y1 = 0
-        V2x2 = 0
-        V2y2 = yPitch
-
-        V3x1 = -xPitch
-        V3y1 = 0
-        V3x2 = 0
-        V3y2 = -yPitch
-
-        V4x1 = xPitch
-        V4y1 = 0
-        V4x2 = 0
-        V4y2 = -yPitch
-
-        #Edit vectors if staggered placement is desired (does not currently work with angles!!!)
         if stagger:
-             V1x1 = xPitch*0.5
-             V1y1 = yPitch
-             V1x2 = xPitch*0.5
-             V1y2 = -yPitch
+             Vxx = Vxx
+             Vxy = Vxy
+             Vyx = Vyx*2
+             Vyy = Vyy*2
 
-             V2x1 = xPitch*0.5
-             V2y1 = -yPitch
-             V2x2 = -xPitch*0.5
-             V2y2 = -yPitch
+        URQuad = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
+                        db.DVector(Vxx,Vxy),db.DVector(Vyx,Vyy),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+        LRQuad = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
+                        db.DVector(Vxx,Vxy),-db.DVector(Vyx,Vyy),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+        LLQuad = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
+                        -db.DVector(Vxx,Vxy),-db.DVector(Vyx,Vyy),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
+        ULQuad = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
+                        -db.DVector(Vxx,Vxy),db.DVector(Vyx,Vyy),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))        
 
-             V3x1 = -xPitch*0.5
-             V3y1 = -yPitch
-             V3x2 = -xPitch*0.5
-             V3y2 = yPitch
-
-             V4x1 = -xPitch*0.5
-             V4y1 = yPitch
-             V4x2 = xPitch*0.5
-             V4y2 = yPitch
-
-
-        cont_array1 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(V1x1,V1y1),db.DVector(V1x2,V1y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
-        cont_array2 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(V2x1,V2y1),db.DVector(V2x2,V2y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
-        cont_array3 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(V3x1,V3y1),db.DVector(V3x2,V3y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
-        cont_array4 = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0),
-                        db.DVector(V4x1,V4y1),db.DVector(V4x2,V4y2),2*math.ceil(cell_size/xPitch),2*math.ceil(cell_size/yPitch))
-        TopCell.insert(cont_array1)
-        TopCell.insert(cont_array2)
-        TopCell.insert(cont_array3)
-        TopCell.insert(cont_array4)
+        TopCell.insert(URQuad)
+        TopCell.insert(LRQuad)
+        TopCell.insert(LLQuad)
+        TopCell.insert(ULQuad)
 
 
-
-#### Add metro structures if applicable ####
+#### Add metro structure for dense features if applicable ####
 
     if metro_structure:
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
-        if iso or donut:
-            MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
-            MetroCell.shapes(l_cont).insert(MetroShape)
-            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,0,-metro_spacing),
-                                             db.DVector(0,2*metro_spacing),db.DVector(0,0),2,0)
-            TopCell.insert(metro_insert)
-
-        else:
-            MetroShape = db.DPolygon([db.DPoint(-xPitch/2+xSize/2.2,-ySize/2),
-                                      db.DPoint(-xPitch/2+xSize/2.2,ySize/2),
-                                      db.DPoint(xPitch/2-xSize/2.2,ySize/2),
-                                      db.DPoint(xPitch/2-xSize/2.2,-ySize/2)])
+        if  not (iso or donut):
+            MetroShape = db.DPolygon([db.DPoint(-xPitch/2+xSize/3,-ySize/2),
+                                      db.DPoint(-xPitch/2+xSize/3,ySize/2),
+                                      db.DPoint(xPitch/2-xSize/3,ySize/2),
+                                      db.DPoint(xPitch/2-xSize/3,-ySize/2)])
             MetroCell.shapes(l_cont).insert(MetroShape)
             MetroXCoord = (4*xPitch-xPitch/2)
             MetroYCoord = (4*yPitch)
+            MetroXCoordRotated = (round((MetroXCoord*math.cos(-rad_angle)),3)-round((MetroYCoord*math.sin(-rad_angle)),3))
+            MetroYCoordRotated = (round((MetroXCoord*math.sin(-rad_angle)),3)+round((MetroYCoord*math.cos(-rad_angle)),3))
             MetroXStep = -7*xPitch
             MetroYStep = -8*yPitch
-            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,MetroXCoord,MetroYCoord),
-                                             db.DVector(MetroXStep,MetroYStep),db.DVector(0,0),2,2)
+            MetroXStepRotated = (round((MetroXStep*math.cos(-rad_angle)),3)-round((MetroYStep*math.sin(-rad_angle)),3))
+            MetroYStepRotated = (round((MetroXStep*math.sin(-rad_angle)),3)+round((MetroYStep*math.cos(-rad_angle)),3))
+            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,MetroXCoordRotated,MetroYCoordRotated),
+                                             db.DVector(MetroXStepRotated,MetroYStepRotated),db.DVector(0,0),2,2)
             TopCell.insert(metro_insert)
 
 
@@ -447,15 +431,28 @@ Return definitions:
     output_cell = layout.clip(TopCell,CellBox)
     listicle = []
     size_check = db.DBox(-xSize/2,-ySize/2,xSize/2,ySize/2)
-    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
+
+    [listicle.append(j) for j in output_cell.each_child_cell()
+     if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width()
+     or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
+    
     [layout.cell(k).prune_cell() for k in listicle]
+
+    t = db.ICplxTrans(1,angle,0,0,0)
+    [layout.cell(i).transform(t) for i in output_cell.each_child_cell()]
+
+    #Adds metro structure now for iso/donut structures
+    if metro_structure:
+        MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
+        if iso or donut:
+            MetroShape = db.DPolygon([db.DPoint(-0.5,0),db.DPoint(0,0.5),db.DPoint(0.5,0),db.DPoint(0,-0.5)])
+            MetroCell.shapes(l_cont).insert(MetroShape)
+            metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,0,-metro_spacing),
+                                             db.DVector(0,2*metro_spacing),db.DVector(0,0),2,0)
+            output_cell.insert(metro_insert)    
 
     #Apply rotation only if orthogonal
     output_cell.flatten(-1,True)
-    
-    if angle % 90 == 0:
-        t = db.ICplxTrans(1,angle,0,0,0)
-        output_cell.transform(t)
 
     #Rename new cell
     if HH:
@@ -464,19 +461,26 @@ Return definitions:
         output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_metro_{metro_structure}")
     
     output_region = db.Region(output_cell.shapes(l_cont))
+    output_region = output_region.merge()
+    
+    sacrifice_cell = layout.create_cell("Sacrificial")
+    sacrifice_cell.shapes(l_cont).insert(output_region)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-min(4*xSize,cell_size*0.05))/cell_size)*CellBox)
+    output_region = db.Region(no_sliver_shapes)
+    output_region = CellBox_region & output_region
 
     #Flip the tone if clear, with sliver check based on portion of cell size (room for improvement here...)
     if tone == "C" and not donut:
          sacrifice_cell = layout.create_cell("Sacrificial")
          sacrifice_cell.shapes(l_cont).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-min(4*size,1))/cell_size)*CellBox)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-min(4*xSize,cell_size*0.05))/cell_size)*CellBox)
          output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
     elif tone == "D" and donut:
          output_region = CellBox_region - output_region
 
-    #output_region.merged()
+    output_region.merged()
 
 
     #Export GDS (can comment out if not testing)
@@ -1119,4 +1123,4 @@ Return definitions:
 
 #print("test")
 
-#contact_cell("D",0.1,0.5,25,90,2,True,True,True,0.004)
+#contact_cell("Test","C",0.1,10,25,30,2,True,8,True,True,0.004)
