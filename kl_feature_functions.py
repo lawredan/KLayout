@@ -330,6 +330,7 @@ Return definitions:
          ContCell.shapes(l_cont).clear()
          ContCell.shapes(l_cont).insert(hammer_region)
 
+    #Creates the stagger array structure if stagger is True
     if stagger and dense:
          StaggerCont = db.Region(ContCell.shapes(l_cont))
          StaggerCell = layout.create_cell("StaggerCell")
@@ -363,21 +364,18 @@ Return definitions:
         DonutCell.shapes(l_cont).insert(DonutBox)
         
         #Add all into the TopCell
-        #cont_donut_center = db.DCellInstArray(ContCell,db.DTrans(db.DTrans.M0,0,0))
-        #TopCell.insert(cont_donut_center)    
         cont_donut_ring = db.DCellInstArray(DonutCell,db.DTrans(db.DTrans.M0,0,0))
         TopCell.insert(cont_donut_ring)
 
     else:        
-        #Instances the contact cell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.
-        #NOTE: This "functions" in its current form, but needs further adjusting, especially for holes, to get a good array of angled contacts
-              
+        #Instances the contact cell to span the TopCell region. Trigonometry used to calculate step sizes to preserve pitch for angled arrays.           
         #Define vector values for instance array for dense features
         Vxx = math.cos(rad_angle)*xPitch
         Vxy = -math.sin(rad_angle)*xPitch
         Vyx = math.sin(rad_angle)*yPitch
         Vyy = math.cos(rad_angle)*yPitch
 
+        #Changes the vector components for a stagger array due to the different stagger polygons used
         if stagger:
              Vxx = Vxx
              Vxy = Vxy
@@ -432,6 +430,7 @@ Return definitions:
     listicle = []
     size_check = db.DBox(-xSize/2,-ySize/2,xSize/2,ySize/2)
 
+    #Prunes 
     [listicle.append(j) for j in output_cell.each_child_cell()
      if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width()
      or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
@@ -481,7 +480,7 @@ Return definitions:
          output_region = CellBox_region - output_region
 
     output_region.merged()
-
+    TopCell.delete()
 
     #Export GDS (can comment out if not testing)
     #layout.clear()

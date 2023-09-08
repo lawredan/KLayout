@@ -7,15 +7,26 @@ from kl_feature_functions import *
 from kl_pdm_functions import *
 from kl_spc_array_functions import *
 
+"""
+This file is used to actually generate a layout.
+It feeds parameters into the "kl_spc_array_functions", which in turn feed parameters into the "kl_feature_functions".
+This can be manually updated to fit other layout or array needs.
+"""
+
+#### Initial setup ####
+
+#Create the layout
 layout = db.Layout()
 layout.dbu=0.001 #um
 
+#Create the initial structures, including masking layer
 TopCell = layout.create_cell("TopCell")
 layer = layout.layer(1,0)
 mask_ly = layout.layer(2,0)
 TopBox = db.DBox(0,0,2398.6,4405)
 TopCell.shapes(mask_ly).insert(TopBox)
 
+#Lists for coordinate storage during construction
 spc_coords = []
 pdm_coords = []
 
@@ -41,8 +52,8 @@ print("Beginning cell creation process...")
 initialTime = time.time()
 
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Line Array 
+
+#### Line Array ####--------------------------------------------------------------------------------------------------------------------------
 
 #Define array position
 ArrayX = start_pos_x
@@ -64,26 +75,31 @@ if not negative_resist_tone:
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
-x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ Line Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Space Array
 
+
+
+
+#### Space Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y
 
+#Define array and cell naming conventions
 arrayname = "Space Array"
 cellname = "Space_Cell"
 
+#Define array parameters
 tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -95,26 +111,31 @@ if not negative_resist_tone:
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
-x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ Space Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Litho Gain Array
 
+
+
+
+#### Litho Gain Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y
 
+#Define names
 arrayname = "Litho Gain Array"
 cellname = "Litho_Gain_Cell"
 
+#Define array parameters
 tone=["D","D","C","C","D","D","C","C","D","D","C","C","D","D","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -126,26 +147,31 @@ if not negative_resist_tone:
 size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
-x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ Litho Gain Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Dot Array
 
+
+
+
+#### Dot Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x
 ArrayY = start_pos_y+y_step_size
 
+#Define names
 arrayname = "Dot Array"
 cellname = "Dot_Cell"
 
+#Define array parameters
 tone=["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -161,22 +187,28 @@ x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
 Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
 xtime = time.time()-startTime
-print(f"Done w/ Dot Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Hole Array
 
+
+
+
+#### Hole Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+y_step_size
 
+#Define names
 arrayname = "Hole Array"
 cellname = "Hole_Cell"
 
+#Define array parameters
 tone=["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -192,22 +224,28 @@ x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
 Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
 xtime = time.time()-startTime
-print(f"Done w/ Hole Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#AnyAngle Array
 
+
+
+
+#### AnyAngle Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+y_step_size
 
+#Define names
 arrayname = "Any Angle LS Array"
 cellname = "Any_Angle_LS_Cell"
 
+#Define array parameters
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -219,27 +257,31 @@ if not negative_resist_tone:
 size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,0.01]
 angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,45,45]
-x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
-
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ Any Angle Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Line Fidcol Array
 
+
+
+
+#### Line Fidcol Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x
 ArrayY = start_pos_y+3*y_step_size
 
+#Define names
 arrayname = "Line Fidcol Array"
 cellname = "Line_Fidcol_Cell"
 
+#Define array parameters
 tone = ["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -251,26 +293,31 @@ if not negative_resist_tone:
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
-x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ Line Fidcol Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Space Fidcol Array
 
+
+
+
+#### Space Fidcol Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+3*y_step_size
 
+#Define names
 arrayname = "Space Fidcol Array"
 cellname = "Space_Fidcol_Cell"
 
+#Define array parameters
 tone = ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -282,26 +329,30 @@ if not negative_resist_tone:
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
-x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ Space Fidcol Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Line End Array
 
+
+
+
+#### Line End Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x
 ArrayY = start_pos_y+2*y_step_size
 
+#Define names
 arrayname = "Line-End and Space-End Array"
 cellname = "LEnd_and_SEnd_Cell"
 
+#Define array parameters
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -317,20 +368,28 @@ end_spacing = [0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.
 metro_structure=[True,True,True,True,True,True,True,False,False,True,True,True,True,True,True,True,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
 LineSpaceEnd_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ LEnd Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#SRAF Array
 
+
+
+
+#### SRAF Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+2*y_step_size
 
+#Define names
 arrayname = "Line with SRAFs Array"
 cellname = "LS_SRAF_Cell"
 
+#Define array parameters
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -347,23 +406,28 @@ sraf_num=[1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
 pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
 angle=[0,45,90,0,45,90,0,45,90,0,45,90,0,45,90,0,45,90]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
 LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num)
-
 xtime = time.time()-startTime
-print(f"Done w/ SRAF Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Curvilinear Array
 
+
+
+#### Curvilinear Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+2*y_step_size
 
+#Define names
 arrayname = "Curvilinear Array"
 cellname = "Curvilinear_Cell"
 
+#Define array parameters
 #Spiral
 spiral_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
@@ -394,25 +458,31 @@ horn_power=[0.5,1,2,0.5,1,2,0.5,1,2]
 horn_spacing=[1,1,1,1,1,1,1,1,1]
 horn_angle=[0,0,0,45,45,45,90,90,90]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
 Curvilinear_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
                   spiral_tone,spiral_size,spiral_inner_r,spiral_outer_r,spiral_spacing,spiral_rampancy,
                   horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle)
 
 xtime = time.time()-startTime
-print(f"Done w/ Curvilinear Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
 
-#--------------------------------------------------------------------------------------------------------------------------
-#LCDU Array
 
+
+
+#### LCDU Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+3*y_step_size
 
+#Define names
 arrayname = "Line-Space LCDU Array"
 cellname = "LS_LCDU_Cell"
 
+#Define array parameters
 tone=["D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -424,26 +494,31 @@ if not negative_resist_tone:
 size=[0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
 angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
-x2y=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ LCDU Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#LS Repeat Array 
 
+
+
+
+#### LS Repeat Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x
 ArrayY = start_pos_y+4*y_step_size
 
+#Define names
 arrayname = "Line-Space Repeat Array"
 cellname = "LS_Repeat_Cell"
 
+#Define array parameters
 tone = ["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -455,26 +530,31 @@ if not negative_resist_tone:
 size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
 pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
-x2y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False,False]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
+LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
 xtime = time.time()-startTime
-print(f"Done w/ LS Repeat Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
-#--------------------------------------------------------------------------------------------------------------------------
-#HD Repeat Array
 
+
+
+
+#### HD Repeat Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+x_step_size
 ArrayY = start_pos_y+4*y_step_size
 
+#Define names
 arrayname = "Hole-Dot Repeat Array"
 cellname = "HD_Repeat_Cell"
 
+#Define array parameters
 tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -490,23 +570,28 @@ x2y=[1,1,1,2,2,2,3,3,3,1,1,1,2,2,2,3,3,3]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
 HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
-
 xtime = time.time()-startTime
-print(f"Done w/ HD Repeat Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
 
-#--------------------------------------------------------------------------------------------------------------------------
-#Stagger HH Array
 
+
+
+#### Stagger HH Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+2*x_step_size
 ArrayY = start_pos_y+4*y_step_size
 
+#Define names
 arrayname = "Stagger HH Array"
 cellname = "HD_Stagger_HH_Cell"
 
+#Define array parameters
 tone=["D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C"]
 if not negative_resist_tone:
     for i in range(len(tone)):
@@ -520,34 +605,41 @@ pitch=[0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4,0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4]
 angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 x2y=[1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4]
 metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
-
 stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 HH_list = [False,True,True,True,False,True,True,True,False,True,True,True,False,True,True,True]
 HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
-startTime=time.time()
 
+#Write the cell
+print(f"Writing {arrayname}...")
+startTime=time.time()
 HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,
                     stagger,HH_list,HH_amount)
-
 xtime = time.time()-startTime
-print(f"Done w/ Stagger HD HH Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
 
 
-#--------------------------------------------------------------------------------------------------------------------------
-#PDM Array
 
+
+
+#### PDM Array ####--------------------------------------------------------------------------------------------------------------------------
+
+#Define array position
 ArrayX = start_pos_x+3*x_step_size
 ArrayY = start_pos_y
 
-name = "Programmed Defects"
+#Define name
+arrayname = "Programmed Defects"
 
+#Write the cell
+print(f"Writing {arrayname}...")
 startTime=time.time()
-
-PDM_Array(name,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY,negative_resist_tone)
-
+PDM_Array(arrayname,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY,negative_resist_tone)
 xtime = time.time()-startTime
-print(f"Done w/ PDM Array after {xtime} sec...")
+print(f"Done w/ {arrayname} after {xtime} sec...")
+
+
+
 
 
 #--------------------------------------------------------------------------------------------------------------------------

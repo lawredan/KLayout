@@ -1,17 +1,19 @@
 #Import the needed extensions
-#import math
 import klayout.db as db
-#import time
-#import pandas as pd
 from kl_feature_functions import *
 from kl_pdm_functions import *
-#import klayout.lib as lib
-from tqdm import tqdm
+import klayout.lib as lib #This is needed to access the TEXT PCELL
+from tqdm import tqdm #For timing execution of the loop
 
+"""
+These functions array the functions in "kl_feature_functions" and "kl_pdm_functions".
+They choose two parameters to array the cells, one vertically and one horizontally.
+Changing these is currently done manually, and needs to be done carefully to avoid issues.
+"""
 
 def Line_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[]):
-    
+
     LineArray = layout.create_cell("LineArray")
 
     initial_x = offset
@@ -81,7 +83,7 @@ def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db
 
 def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                      cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[]):
-    
+
     LithoGainArray = layout.create_cell("GainArray")
 
     initial_x = offset
@@ -358,8 +360,8 @@ def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:
     
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,
-                      spiral_tone:list=[],spiral_size:list=[],spiral_inner_r:list=[],spiral_outer_r:list=[],spiral_spacing:list=[],spiral_rampancy:list=[],
+def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
+                      cell_size:float=25,spiral_tone:list=[],spiral_size:list=[],spiral_inner_r:list=[],spiral_outer_r:list=[],spiral_spacing:list=[],spiral_rampancy:list=[],
                       horn_tone:list=[],horn_initial_size:list=[],horn_step_size:list=[],horn_power:list=[],horn_spacing:list=[],horn_angle:list=[]):
     
     CurveArray = layout.create_cell("Curve_Array")
@@ -446,7 +448,8 @@ def LCDU_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
 
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
-def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[]):
+def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
+                    cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[]):
     
     LineArray = layout.create_cell("LSRepeatArray")
 
@@ -457,7 +460,7 @@ def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i])
+            holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
             temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
