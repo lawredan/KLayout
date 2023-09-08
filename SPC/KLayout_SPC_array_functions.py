@@ -1,12 +1,12 @@
 #Import the needed extensions
 import klayout.db as db
-from kl_feature_functions import *
-from kl_pdm_functions import *
+from SPC.KLayout_SPC_functions import *
+from SPC.KLayout_PDM_functions import *
 import klayout.lib as lib #This is needed to access the TEXT PCELL
 from tqdm import tqdm #For timing execution of the loop
 
 """
-These functions array the functions in "kl_feature_functions" and "kl_pdm_functions".
+These functions array the functions in SPC and PDM functions.
 They choose two parameters to array the cells, one vertically and one horizontally.
 Changing these is currently done manually, and needs to be done carefully to avoid issues.
 """

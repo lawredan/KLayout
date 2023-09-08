@@ -3,13 +3,13 @@ import math
 import klayout.db as db
 import time
 import pandas as pd
-from kl_feature_functions import *
-from kl_pdm_functions import *
-from kl_spc_array_functions import *
+from SPC.KLayout_SPC_functions import *
+from SPC.KLayout_PDM_functions import *
+from SPC.KLayout_SPC_array_functions import *
 
 """
 This file is used to actually generate a layout.
-It feeds parameters into the "kl_spc_array_functions", which in turn feed parameters into the "kl_feature_functions".
+It feeds parameters into the array functions, which in turn feed parameters into the SPC functions.
 This can be manually updated to fit other layout or array needs.
 """
 
