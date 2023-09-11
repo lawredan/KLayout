@@ -38,6 +38,7 @@ array_y_num = 18
 spacing = 2 #um
 offset = 50 #um
 cell_size = 35 #um
+min_size_limit = 0 #um, defines the smallest allowable feature size
 
 #Define resist tone (default is negative resist tone = TRUE)
 negative_resist_tone = False
@@ -70,7 +71,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
@@ -81,7 +82,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -106,7 +107,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
@@ -117,7 +118,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -142,7 +143,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
@@ -153,7 +154,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -178,7 +179,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
 pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
@@ -190,7 +191,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
+Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -215,7 +216,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
 pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
@@ -227,7 +228,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
+Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -252,7 +253,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,0.01]
@@ -263,7 +264,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -288,7 +289,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
@@ -299,7 +300,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -324,7 +325,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
 pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
@@ -334,7 +335,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 print(f"Writing {arrayname}...")
 startTime=time.time()
-Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -359,7 +360,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
@@ -371,7 +372,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-LineSpaceEnd_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure,metro_spacing)
+LineSpaceEnd_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -396,7 +397,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 
 size=[0.12,0.12,0.12,0.2,0.2,0.2,0.4,0.4,0.4,0.12,0.12,0.12,0.2,0.2,0.2,0.4,0.4,0.4]
@@ -409,7 +410,7 @@ angle=[0,45,90,0,45,90,0,45,90,0,45,90,0,45,90,0,45,90]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num)
+LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -435,7 +436,7 @@ if not negative_resist_tone:
         if spiral_tone[i] == "D":
             spiral_tone[i] = "C"
         elif spiral_tone[i] == "C":
-            spiral_tone[i] == "D"
+            spiral_tone[i] = "D"
 
 spiral_size=[0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2,0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2]
 spiral_inner_r=[1,1,1,1,1,1,1,1,1]
@@ -450,7 +451,7 @@ if not negative_resist_tone:
         if horn_tone[i] == "D":
             horn_tone[i] = "C"
         elif tone[i] == "C":
-            horn_tone[i] == "D"
+            horn_tone[i] = "D"
 
 horn_initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1,0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1]
 horn_step_size=[0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
@@ -463,7 +464,7 @@ print(f"Writing {arrayname}...")
 startTime=time.time()
 Curvilinear_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
                   spiral_tone,spiral_size,spiral_inner_r,spiral_outer_r,spiral_spacing,spiral_rampancy,
-                  horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle)
+                  horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle,min_size_limit)
 
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
@@ -489,7 +490,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24]
 pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
@@ -500,7 +501,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -525,18 +526,18 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
-size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
+size=[0.06,0.06,0.06,0.2,0.2,0.2,0.5,0.5,0.5,0.06,0.06,0.06,0.2,0.2,0.2,0.5,0.5,0.5]
 pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
 angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
-metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False,False]
+metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
 metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing)
+LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -561,7 +562,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
 pitch=[1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01]
@@ -573,7 +574,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 #Write the cell
 print(f"Writing {arrayname}...")
 startTime=time.time()
-HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing)
+HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -598,7 +599,7 @@ if not negative_resist_tone:
         if tone[i] == "D":
             tone[i] = "C"
         elif tone[i] == "C":
-            tone[i] == "D"
+            tone[i] = "D"
 
 size=[0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4, 0.04, 0.06, 0.08, 0.1, 0.12, 0.16, 0.2, 0.3, 0.4]
 pitch=[0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4,0.1,0.1,0.1,0.1,0.4,0.4,0.4,0.4]
@@ -614,7 +615,7 @@ metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 print(f"Writing {arrayname}...")
 startTime=time.time()
 HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,
-                    stagger,HH_list,HH_amount)
+                    stagger,HH_list,HH_amount,min_size_limit)
 xtime = time.time()-startTime
 print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -650,13 +651,17 @@ print("Writing .oas file...")
 if negative_resist_tone: oasis_tone = "NCAR"
 else: oasis_tone = "PCAR"
 
-layout.write(f"{oasis_tone}_Universal_SPC.oas")
+if min_size_limit>0:
+    layout.write(f"{oasis_tone}_Universal_SPC_{min_size_limit}um_limit.oas")
+else:
+    layout.write(f"{oasis_tone}_Universal_SPC_Full.oas")
+
 xtime = time.time()-startTime
 print(f"Finished writing file after {xtime} sec")
 
 
 #### Write the MFX file: ####
-with open('SPC_coord_file.mfx','w') as f:
+with open(f'SPC_coord_file_{min_size_limit}um.mfx' if min_size_limit>0 else 'SPC_coord_file_Full.mfx','w') as f:
     
     #Set up initial lines in text file
     f.write('mfxjob,')
@@ -719,7 +724,7 @@ for z in range(len(pdm_coords)):
     pdm_name.append(pdm_coords[z][2])
 
 df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
-df.to_csv('SPC_PDM_Coordinates.csv')
+df.to_csv(f'SPC_PDM_Coordinates_{min_size_limit}um.csv' if min_size_limit>0 else 'SPC_PDM_Coordinates_Full.csv')
 
 zTime = time.time() - initialTime
 print(f"Entire process finished in {zTime/60}min!")
