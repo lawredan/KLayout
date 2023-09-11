@@ -50,9 +50,8 @@ Return definitions:
 
 #### Setup ####
     #Initial tone check
-    if tone == "D": pass
-    elif tone == "C": pass
-    else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Create a layout for use
     layout = db.Layout()
@@ -255,11 +254,8 @@ Return definitions:
 #### Setup ####
 
     #Initial tone check
-    if tone == "D":
-            tone = "D"
-    elif tone == "C":
-            tone = "C"
-    else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Create the layout
     layout = db.Layout()
@@ -549,11 +545,8 @@ Return definitions:
 #### Setup ####
 
     #Initial tone check
-    if tone == "D":
-            tone = "D"
-    elif tone == "C":
-            tone = "C"
-    else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Create the layout
     layout = db.Layout()
@@ -747,11 +740,8 @@ Return definitions:
 #### Setup ####
 
     #Initial tone check
-    if tone == "D":
-            tone = "D"
-    elif tone == "C":
-            tone = "C"
-    else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Create the layout
     layout = db.Layout()
@@ -928,11 +918,9 @@ Return definitions:
 #### Setup ####
 
     #Initial tone and dimension checks
-    if tone == "D":
-            tone = "D"
-    elif tone == "C":
-            tone = "C"
-    else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
+
     if inner_r>outer_r:
            return TypeError("Error: Outer radius must be larger than inner radius!")
     if outer_r>(cell_size/2):
@@ -1038,11 +1026,8 @@ Return definitions:
 #### Setup ####
 
     #Initial tone and dimension checks
-    if tone == "D":
-            tone = "D"
-    elif tone == "C":
-            tone = "C"
-    else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     
     #Create layout
