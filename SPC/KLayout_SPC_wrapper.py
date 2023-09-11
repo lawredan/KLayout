@@ -41,7 +41,7 @@ cell_size = 35 #um
 min_size_limit = 0 #um, defines the smallest allowable feature size
 
 #Define resist tone (default is negative resist tone = TRUE)
-negative_resist_tone = False
+negative_resist_tone = True
 
 #Generate the .gds file
 start_pos_x = 25

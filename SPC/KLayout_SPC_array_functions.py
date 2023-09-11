@@ -744,7 +744,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-            pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x,current_y,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
