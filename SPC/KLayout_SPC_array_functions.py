@@ -1,7 +1,7 @@
 #Import the needed extensions
 import klayout.db as db
-from SPC.KLayout_SPC_functions import *
-from SPC.KLayout_PDM_functions import *
+from KLayout_SPC_functions import *
+from KLayout_PDM_functions import *
 import klayout.lib as lib #This is needed to access the TEXT PCELL
 from tqdm import tqdm #For timing execution of the loop
 

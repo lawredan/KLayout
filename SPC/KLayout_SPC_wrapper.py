@@ -3,9 +3,9 @@ import math
 import klayout.db as db
 import time
 import pandas as pd
-from SPC.KLayout_SPC_functions import *
-from SPC.KLayout_PDM_functions import *
-from SPC.KLayout_SPC_array_functions import *
+from KLayout_SPC_functions import *
+from KLayout_PDM_functions import *
+from KLayout_SPC_array_functions import *
 
 """
 This file is used to actually generate a layout.
