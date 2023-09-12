@@ -475,7 +475,7 @@ def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             if size[i] >= min_size_limit:
-                holder=LS_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
+                holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))

@@ -818,13 +818,16 @@ Return definitions:
 #### Add metro structures if applicable ####
 
     if metro_structure:
+        #Metro structure is a line jog/bridge placed 'metro_spacing'um above and below the center of the cell, then inserts it as an instance array into the TopCell
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
-        MetroShape = db.DBox(-size/2,-size/2,size/2,size/2)
+        y_metro_size = min(0.25,size) #Defines a reasonable size for the metro structure
+        MetroShape = db.DBox(-size/1.9,-y_metro_size,size/1.9,y_metro_size)
         MetroCell.shapes(l_line).insert(MetroShape)
         sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
         extra_angle = -size/metro_spacing
-        metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
-
+        metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),
+                                         db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),
+                                         db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
         TopCell.insert(metro_insert)
 
 
@@ -837,7 +840,8 @@ Return definitions:
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
     listicle = []
-    size_check = db.DBox(-size/2,-size/2,size/2,size/2)
+    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
+    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
     [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_line).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_line).height()<size_check.bbox().height()]
     [layout.cell(k).prune_cell() for k in listicle]
 

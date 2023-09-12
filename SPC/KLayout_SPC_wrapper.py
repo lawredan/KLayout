@@ -522,7 +522,7 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     cellname = "LS_Repeat_Cell"
 
     #Define array parameters
-    tone = ["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+    tone = ["D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","D","C"]
     if not negative_resist_tone:
         for i in range(len(tone)):
             if tone[i] == "D":
@@ -530,9 +530,9 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
             elif tone[i] == "C":
                 tone[i] = "D"
 
-    size=[0.06,0.06,0.06,0.2,0.2,0.2,0.5,0.5,0.5,0.06,0.06,0.06,0.2,0.2,0.2,0.5,0.5,0.5]
-    pitch=[1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01,1,0.6,0.5,0.4,0.3,0.2,0.15,0.1,0.01]
-    angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    size=[0.06,0.06,0.06,0.1,0.1,0.1,0.2,0.2,0.2,0.3,0.3,0.3,0.5,0.5,0.5,1,1,1]
+    pitch=[1,0.5,0.2,0.01,1,0.5,0.2,0.01,1,0.5,0.2,0.01,1,0.5,0.2,0.01,0.5,0.5]
+    angle = [0,0,0,0,90,90,90,90,0,0,0,0,90,90,90,90,45,45]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -732,11 +732,12 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     print(f"Entire process finished in {zTime/60}min!")
 
 
-KLayout_SPC_Wrapper(True,0)
-KLayout_SPC_Wrapper(True,0.05)
-KLayout_SPC_Wrapper(True,0.1)
-KLayout_SPC_Wrapper(True,0.24)
+#Create all the desired layouts
 KLayout_SPC_Wrapper(False,0)
 KLayout_SPC_Wrapper(False,0.05)
 KLayout_SPC_Wrapper(False,0.1)
 KLayout_SPC_Wrapper(False,0.24)
+KLayout_SPC_Wrapper(True,0)
+KLayout_SPC_Wrapper(True,0.05)
+KLayout_SPC_Wrapper(True,0.1)
+KLayout_SPC_Wrapper(True,0.24)
