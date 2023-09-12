@@ -38,10 +38,12 @@ array_y_num = 18
 spacing = 2 #um
 offset = 50 #um
 cell_size = 35 #um
-min_size_limit = 0 #um, defines the smallest allowable feature size
+
+min_size_limit = 0 #um, defines the smallest allowable feature size.
+#Leaving as 0 will output a "Full" file, providing a number X greater than 0 will append a "X_um_limit" to the file name.
 
 #Define resist tone (default is negative resist tone = TRUE)
-negative_resist_tone = True
+negative_resist_tone = False
 
 #Generate the .gds file
 start_pos_x = 25

@@ -132,7 +132,7 @@ Return definitions:
     if metro_structure:
         #Metro structure is a line jog/bridge placed 'metro_spacing'um above and below the center of the cell, then inserts it as an instance array into the TopCell
         MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
-        MetroShape = db.DBox(-size/1.9,-size/2,size/1.9,size/2)
+        MetroShape = db.DBox(-size/1.9,-size,size/1.9,size)
         MetroCell.shapes(l_line).insert(MetroShape)
         sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
         extra_angle = -size/metro_spacing
