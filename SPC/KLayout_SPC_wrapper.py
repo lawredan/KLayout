@@ -609,8 +609,8 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     x2y=[1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
-    HH_list = [False,True,True,True,False,True,True,True,False,True,True,True,False,True,True,True]
-    HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016]
+    HH_list = [False,True,True,True,False,True,True,True,False,True,True,True,False,True,True,True,False,False]
+    HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0,0]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
