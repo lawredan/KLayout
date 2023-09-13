@@ -734,11 +734,11 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
 
 
 #Create all the desired layouts
-#KLayout_SPC_Wrapper(False,0)
-#KLayout_SPC_Wrapper(False,0.05)
-#KLayout_SPC_Wrapper(False,0.1)
-#KLayout_SPC_Wrapper(False,0.24)
-#KLayout_SPC_Wrapper(True,0)
-#KLayout_SPC_Wrapper(True,0.05)
-#KLayout_SPC_Wrapper(True,0.1)
+KLayout_SPC_Wrapper(False,0)
+KLayout_SPC_Wrapper(False,0.05)
+KLayout_SPC_Wrapper(False,0.1)
+KLayout_SPC_Wrapper(False,0.24)
+KLayout_SPC_Wrapper(True,0)
+KLayout_SPC_Wrapper(True,0.05)
+KLayout_SPC_Wrapper(True,0.1)
 KLayout_SPC_Wrapper(True,0.24)
