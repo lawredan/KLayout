@@ -604,13 +604,13 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
                 tone[i] = "D"
 
     size=[0.04, 0.04, 0.04, 0.06, 0.06, 0.06, 0.08, 0.08, 0.08, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4]
-    pitch=[0.01,0.01,0.01,0.01,0.5,0.5,0.5,0.5,0.01,0.01,0.01,0.01,0.01,0.5,0.5,0.5,0.5,0.01]
+    pitch=[0.01,0.01,0.01,0.01,0.4,0.4,0.4,0.4,0.01,0.01,0.01,0.01,0.01,0.4,0.4,0.4,0.4,0.01]
     angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     x2y=[1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,3]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     HH_list = [False,True,True,True,False,True,True,True,True,False,True,True,True,False,True,True,True,True]
-    HH_amount = [0,0.004,0.008,0.016,0,0.004,0.008,0.016,0.008,0,0.004,0.008,0.016,0,0.004,0.008,0.016,0.008]
+    HH_amount = [0,0.004,0.008,0.012,0,0.004,0.008,0.012,0.008,0,0.004,0.008,0.012,0,0.004,0.008,0.012,0.008]
     HH_position = ["Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside"]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
