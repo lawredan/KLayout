@@ -3,7 +3,7 @@ import math
 import klayout.db as db
 
 #### SPC Cell Functions ####
-def MRC_LS_E2E_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,metro_structure:bool=True,metro_spacing:float=8):
+def MRC_LS_E2E_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,cell_size:float=15,edge_size:float=1,spacing_buffer:float=0.500,E2E_range:list=[0.001, 0.002, 0.003],horizontal:bool=False):
     
 #### Function definition ####
     """
@@ -19,16 +19,16 @@ Parameter definitions:
     @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
     
     @param size -- Defines the width of the feature (in um).
+       
+    @param cell_size -- Defines the length of the cell (in um).
+
+    @param edge_size -- Defines the width of the fixed edge feature (in um).
     
-    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    @param spacing_buffer -- Defines the spacing between adjacent features (in um).
     
-    @param cell_size -- Defines the size of the square cell area (in um).
+    @param E2E_range -- Determines which E2E spacing values to step across for the cell (in um).
     
-    @param angle -- Defines the angle of the feature (in degrees).
-    
-    @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
-    
-    @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
+    @param horizontal -- Boolean to determine if the lines are vertical (False) or horizontal (True).
 \n
 ---
 \n
@@ -49,10 +49,11 @@ Return definitions:
     """
 
 #### Setup ####
-    #Initial tone check
-    if tone == "D": pass
-    elif tone == "C": pass
+    #Initial checks
+    if tone in ["D","C"]: pass
     else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
+    if edge_size<(cell_size/2): pass
+    else: return TypeError("Error: Edge Size too large for the provided Cell Size")
 
     #Create a layout for use
     layout = db.Layout()
@@ -61,28 +62,34 @@ Return definitions:
     #Define initial layers
     l_line = layout.layer(1,0) #line layer, sacrificial
 
-    #Check pitch of the LS array
-    pitch_check = size/pitch
-    iso = pitch_check < 0.05 #boolean
-    bar3 = pitch_check > 0.75 #boolean
-
-    #Determine naming based on density
-    if iso:
-        pitch_type = 'iso'
-    elif bar3:
-        pitch_type = '3bar'
-    else:
-        pitch_type = f"{pitch}umPitch"
-
-    #Convert angle from degrees to radians for calculations
-    rad_angle = angle * (math.pi)/(180)
+    #Check the number of spacing combinations to use and the range of those combinations
+    spacing_steps = len(E2E_range)
+    spacing_min = min(E2E_range)
+    spacing_max = max(E2E_range)
 
 
 #### Cell creation and shape assignment ####
 
     #Create the topcell and subsidiary cells
     TopCell = layout.create_cell(f"Initial_cell")
-    LineCell = layout.create_cell(f"{size}um_line")
+    StructureCell = layout.create_cell(f"{edge_size}um_edge_{size}um_outerline")
+    LineCell = layout.create_cell(f"{size}um_innerline")
+
+    #Create the fixed structures and place in the StructureCell
+    edge_left = -(size+spacing_buffer)/2
+    edge_bottom = -cell_size/2
+    edge_right = -edge_left
+    edge_top = edge_bottom+edge_size
+    edge_box = db.DBox(edge_left,edge_bottom,edge_right,edge_top)
+    
+    oline_left = -size/2
+    oline_right = -oline_left
+    oline_top = cell_size/2
+    oline_bottom = oline_top - ((oline_top-(spacing_min+spacing_max+edge_size))/2)
+    oline_box = db.DBox(oline_left,oline_bottom,oline_right,oline_top)
+
+    StructureCell.shapes(l_line).insert(edge_box)
+    StructureCell.shapes(l_line).insert(oline_box)
 
     #Define line dimensions. Top+Bottom is 2x cell size in order to provide extra length for angled features to fill the cell area.
     l_left = -size/2
