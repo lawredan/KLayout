@@ -188,7 +188,7 @@ Return definitions:
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
 def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool=True,metro_spacing:float=8,
-                 stagger:bool=False,HH:bool=False,HH_amount:float=0.05):
+                 stagger:bool=False,HH:bool=False,HH_amount:float=0,HH_position:str="Edge"):
     
 #### Function definition ####
     """
@@ -210,7 +210,7 @@ Parameter definitions:
 
     @param cell_size -- Defines the size of the square cell area (in um).
 
-    @param angle -- Defines the angle of the feature (in degrees). Note: Currently only accepts angles of multiples of 90 degrees. Other angles will be ignored.
+    @param angle -- Defines the angle of the feature (in degrees).
 
     @param x2y -- Defines the ratio between X and Y dimensions. A '1' indicates equal X and Y dimensions. Changing this value will affect the X dimension only to satisfy the ratio.
 
@@ -231,6 +231,8 @@ Parameter definitions:
     @param HH -- Determines if hammerhead OPC features will be added to the 2D structures.
 
     @param HH_amount -- Defines how large the hammerhead should be (in um). Hammerheads are currently centered on the left and right edges of the 2D structure.
+
+    @param HH_powition -- Defines where the hammer heads are placed in relation to the X feature edges. Accepts "Edge", "Outside", and "Inside". For an X2Y of 1, will also place hammer heads on the Y edges.
 
 ---
 \n
@@ -318,13 +320,32 @@ Return definitions:
     #Check for Hammer Head and apply if desired
     #Applies hammer heads centered on the left and right edges of the contact feature, and replaces the existing contact feature with the hammerhead-ed feature.
     if HH:
+         if HH_position in ["Edge","Outside","Inside"]: pass
+         else: raise TypeError("Error: Hammer Head position must be 'Edge', 'Outside', or 'Inside'")
          #print("hammer time")
-         HHwidth = HH_amount*2
-         HHheight = (2*HH_amount)+ySize
-         LeftHH = db.DBox(c_left-HHwidth/2,-HHheight/2,c_left+HHwidth/2,HHheight/2)
-         RightHH = db.DBox(c_right-HHwidth/2,-HHheight/2,c_right+HHwidth/2,HHheight/2)
+         if HH_position == "Edge":
+            LeftHH = db.DBox(c_left-HH_amount/2,c_bottom-HH_amount/2,c_left+HH_amount/2,c_top+HH_amount/2)
+            RightHH = db.DBox(c_right-HH_amount/2,c_bottom-HH_amount/2,c_right+HH_amount/2,c_top+HH_amount/2)
+            if x2y == 1:
+                TopHH = db.DBox(c_left-HH_amount/2,c_top-HH_amount/2,c_right+HH_amount/2,c_top+HH_amount/2)
+                BottomHH = db.DBox(c_left-HH_amount/2,c_bottom-HH_amount/2,c_right+HH_amount/2,c_bottom+HH_amount/2)
+         elif HH_position == "Outside":
+            LeftHH = db.DBox(c_left-HH_amount,c_bottom-HH_amount/2,c_left,c_top+HH_amount/2)
+            RightHH = db.DBox(c_right,c_bottom-HH_amount/2,c_right+HH_amount,c_top+HH_amount/2)
+            if x2y == 1:
+                TopHH = db.DBox(c_left-HH_amount/2,c_top,c_right+HH_amount/2,c_top+HH_amount)
+                BottomHH = db.DBox(c_left-HH_amount/2,c_bottom-HH_amount,c_right+HH_amount/2,c_bottom)
+         elif HH_position == "Inside":
+            LeftHH = db.DBox(c_left,c_bottom-HH_amount/2,c_left+HH_amount,c_top+HH_amount/2)
+            RightHH = db.DBox(c_right-HH_amount,c_bottom-HH_amount/2,c_right,c_top+HH_amount/2)
+            if x2y == 1:
+                TopHH = db.DBox(c_left-HH_amount/2,c_top-HH_amount,c_right+HH_amount/2,c_top)
+                BottomHH = db.DBox(c_left-HH_amount/2,c_bottom,c_right+HH_amount/2,c_bottom+HH_amount)            
          ContCell.shapes(l_cont).insert(LeftHH)
          ContCell.shapes(l_cont).insert(RightHH)
+         if x2y == 1:
+            ContCell.shapes(l_cont).insert(TopHH)
+            ContCell.shapes(l_cont).insert(BottomHH)
          hammer_region = db.Region(ContCell.shapes(l_cont))
          hammer_region=hammer_region.merged()
          ContCell.shapes(l_cont).clear()
@@ -1115,4 +1136,4 @@ Return definitions:
 
 #print("test")
 
-#contact_cell("Test","C",0.1,10,25,30,2,True,8,True,True,0.004)
+#contact_cell("Test","C",0.1,1,25,0,1,True,8,True,True,0.004,"Inside")
