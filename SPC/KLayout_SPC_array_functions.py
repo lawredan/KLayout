@@ -596,7 +596,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     pitch=0.78
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -611,7 +611,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -626,7 +626,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -641,7 +641,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size >= min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -656,7 +656,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -676,7 +676,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     else: tone = "D"
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -691,7 +691,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -706,7 +706,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -721,7 +721,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -736,7 +736,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -755,7 +755,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     pitch = 0.18+0.36
     
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -770,7 +770,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -785,7 +785,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -800,7 +800,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -815,7 +815,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
@@ -839,10 +839,10 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     horiz = False
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size >= min_size_limit:
-                older=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
+                holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -854,7 +854,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -869,7 +869,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -884,7 +884,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -899,7 +899,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -918,7 +918,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     horiz = False
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -933,7 +933,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -948,7 +948,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -963,7 +963,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -978,7 +978,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1003,7 +1003,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     horiz = True
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1018,7 +1018,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1033,7 +1033,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1048,7 +1048,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1063,7 +1063,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1082,7 +1082,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     horiz = True
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1097,7 +1097,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1112,7 +1112,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1127,7 +1127,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1142,7 +1142,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
@@ -1169,7 +1169,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     sraf_num = 2
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1184,7 +1184,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1199,7 +1199,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1214,7 +1214,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1229,7 +1229,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1250,7 +1250,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     sraf_num = 2
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1265,7 +1265,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1280,7 +1280,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1295,7 +1295,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1310,7 +1310,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1337,7 +1337,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     sraf_num = 2
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1352,7 +1352,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1367,7 +1367,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1382,7 +1382,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1397,7 +1397,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1418,7 +1418,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     sraf_num = 2
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1433,7 +1433,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1448,7 +1448,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[3,0,3,0,3,0,3,0,3,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1463,7 +1463,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
     
     defect_num=[4,0,4,0,4,0,4,0,4,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1478,7 +1478,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,0,5,0,5,0,5,0,5,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
@@ -1502,7 +1502,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.13
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1519,7 +1519,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.13
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1536,7 +1536,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.26
    
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1553,7 +1553,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.52
    
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1570,7 +1570,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.52
    
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1593,7 +1593,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.65
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1610,7 +1610,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.13
 
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1627,7 +1627,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.26
    
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1644,7 +1644,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.52
    
     defect_num=[1,0,1,0,1,0,1,0,1,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
@@ -1661,7 +1661,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     size = 0.52
    
     defect_num=[2,0,2,0,2,0,2,0,2,0]
-    for j in range(1,row_per_def):
+    for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
                 holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
