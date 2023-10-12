@@ -8,7 +8,7 @@ from KLayout_PDM_functions import *
 from KLayout_SPC_array_functions import *
 
 
-def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
+def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float,curve_features:bool,offangle_features:bool):
 
     """
     @brief This file is used to actually generate a layout.
@@ -78,6 +78,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
     pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -114,6 +118,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
     pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+    
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -150,6 +158,9 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
     pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
     angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -186,6 +197,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
     pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
     angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
@@ -223,6 +238,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.3,0.5,0.8,1.0]
     pitch=[1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.65,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
     angle=[0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
@@ -260,6 +279,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3]
     pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,0.01]
     angle=[0,10,20,30,45,60,70,80,90,100,110,120,135,150,160,170,45,45]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -296,6 +319,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
     pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -332,6 +359,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
     pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -367,6 +398,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0,0.04,0.06,0.08,0.1,0.2,0.4,0.6,0.8,1.0]
     pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
     angle=[0,0,0,0,0,45,45,45,45,45,90,90,90,90,90,30,30,30]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     end_spacing = [0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,1.0,2.0]
     metro_structure=[True,True,True,True,True,True,True,False,False,True,True,True,True,True,True,True,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
@@ -408,6 +443,9 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     sraf_num=[1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
     pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
     angle=[0,45,90,0,45,90,0,45,90,0,45,90,0,45,90,0,45,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
 
     #Write the cell
     print(f"Writing {arrayname}...")
@@ -422,54 +460,56 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
 
     #### Curvilinear Array ####--------------------------------------------------------------------------------------------------------------------------
 
-    #Define array position
-    ArrayX = start_pos_x+2*x_step_size
-    ArrayY = start_pos_y+2*y_step_size
+    if curve_features: #only executes if curvilinear features are allowed
 
-    #Define names
-    arrayname = "Curvilinear Array"
-    cellname = "Curvilinear_Cell"
+        #Define array position
+        ArrayX = start_pos_x+2*x_step_size
+        ArrayY = start_pos_y+2*y_step_size
 
-    #Define array parameters
-    #Spiral
-    spiral_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
-    if not negative_resist_tone:
-        for i in range(len(spiral_tone)):
-            if spiral_tone[i] == "D":
-                spiral_tone[i] = "C"
-            elif spiral_tone[i] == "C":
-                spiral_tone[i] = "D"
+        #Define names
+        arrayname = "Curvilinear Array"
+        cellname = "Curvilinear_Cell"
 
-    spiral_size=[0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2,0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2]
-    spiral_inner_r=[1,1,1,1,1,1,1,1,1]
-    spiral_outer_r=[17,17,17,17,17,17,17,17,17]
-    spiral_spacing=[0.2,0.3,0.5,1,2,0.2,0.3,0.5,1]
-    spiral_rampancy=[False,False,False,False,False,True,True,True,True]
+        #Define array parameters
+        #Spiral
+        spiral_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+        if not negative_resist_tone:
+            for i in range(len(spiral_tone)):
+                if spiral_tone[i] == "D":
+                    spiral_tone[i] = "C"
+                elif spiral_tone[i] == "C":
+                    spiral_tone[i] = "D"
 
-    #Horn
-    horn_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
-    if not negative_resist_tone:
-        for i in range(len(horn_tone)):
-            if horn_tone[i] == "D":
-                horn_tone[i] = "C"
-            elif horn_tone[i] == "C":
-                horn_tone[i] = "D"
+        spiral_size=[0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2,0.1,0.2,0.3,0.4,0.5,0.6,0.8,1,2]
+        spiral_inner_r=[1,1,1,1,1,1,1,1,1]
+        spiral_outer_r=[17,17,17,17,17,17,17,17,17]
+        spiral_spacing=[0.2,0.3,0.5,1,2,0.2,0.3,0.5,1]
+        spiral_rampancy=[False,False,False,False,False,True,True,True,True]
 
-    horn_initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1,0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1]
-    horn_step_size=[0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
-    horn_power=[0.5,1,2,0.5,1,2,0.5,1,2]
-    horn_spacing=[1,1,1,1,1,1,1,1,1]
-    horn_angle=[0,0,0,45,45,45,90,90,90]
+        #Horn
+        horn_tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+        if not negative_resist_tone:
+            for i in range(len(horn_tone)):
+                if horn_tone[i] == "D":
+                    horn_tone[i] = "C"
+                elif horn_tone[i] == "C":
+                    horn_tone[i] = "D"
 
-    #Write the cell
-    print(f"Writing {arrayname}...")
-    startTime=time.time()
-    Curvilinear_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
-                    spiral_tone,spiral_size,spiral_inner_r,spiral_outer_r,spiral_spacing,spiral_rampancy,
-                    horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle,min_size_limit)
+        horn_initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1,0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1]
+        horn_step_size=[0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01]
+        horn_power=[0.5,1,2,0.5,1,2,0.5,1,2]
+        horn_spacing=[1,1,1,1,1,1,1,1,1]
+        horn_angle=[0,0,0,45,45,45,90,90,90]
 
-    xtime = time.time()-startTime
-    print(f"Done w/ {arrayname} after {xtime} sec...")
+        #Write the cell
+        print(f"Writing {arrayname}...")
+        startTime=time.time()
+        Curvilinear_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
+                        spiral_tone,spiral_size,spiral_inner_r,spiral_outer_r,spiral_spacing,spiral_rampancy,
+                        horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle,min_size_limit)
+
+        xtime = time.time()-startTime
+        print(f"Done w/ {arrayname} after {xtime} sec...")
 
 
 
@@ -497,6 +537,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.24]
     pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
     angle=[0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90,0,90]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -533,6 +577,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.06,0.06,0.06,0.1,0.1,0.1,0.2,0.2,0.2,0.3,0.3,0.3,0.5,0.5,0.5,1,1,1]
     pitch=[1,0.5,0.2,0.01,1,0.5,0.2,0.01,1,0.5,0.2,0.01,1,0.5,0.2,0.01,0.5,0.5]
     angle = [0,0,0,0,90,90,90,90,0,0,0,0,90,90,90,90,45,45]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
@@ -569,6 +617,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,2.0,2.0,2.0]
     pitch=[1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01,1,0.5,0.01]
     angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     x2y=[1,1,1,2,2,2,3,3,3,1,1,1,2,2,2,3,3,3]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
@@ -606,6 +658,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
     size=[0.04, 0.04, 0.04, 0.06, 0.06, 0.06, 0.08, 0.08, 0.08, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4]
     pitch=[0.01,0.01,0.01,0.01,0.4,0.4,0.4,0.4,0.01,0.01,0.01,0.01,0.01,0.4,0.4,0.4,0.4,0.01]
     angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    if not offangle_features:
+        for i in range(len(angle)):
+            angle[i] = (angle[i]//45)*45
+
     x2y=[1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,3]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
@@ -738,14 +794,16 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
 print(f"Starting process...")
 fullstartTime=time.time()
 
-KLayout_SPC_Wrapper(False,0)
-KLayout_SPC_Wrapper(False,0.05)
-KLayout_SPC_Wrapper(False,0.1)
-KLayout_SPC_Wrapper(False,0.24)
-KLayout_SPC_Wrapper(True,0)
-KLayout_SPC_Wrapper(True,0.05)
-KLayout_SPC_Wrapper(True,0.1)
-KLayout_SPC_Wrapper(True,0.24)
+KLayout_SPC_Wrapper(False,0,True,True)
+KLayout_SPC_Wrapper(False,0.05,True,True)
+KLayout_SPC_Wrapper(False,0.1,False,False)
+KLayout_SPC_Wrapper(False,0.2,False,False)
+KLayout_SPC_Wrapper(False,0.24,True,True)
+KLayout_SPC_Wrapper(True,0,True,True)
+KLayout_SPC_Wrapper(True,0.05,True,True)
+KLayout_SPC_Wrapper(True,0.1,False,False)
+KLayout_SPC_Wrapper(True,0.2,False,False)
+KLayout_SPC_Wrapper(True,0.24,True,True)
 
 xfinaltime = time.time()-fullstartTime
 print(f"Full process completed after {xfinaltime/60}min!")
