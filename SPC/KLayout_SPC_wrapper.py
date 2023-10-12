@@ -694,7 +694,7 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float,curve_fea
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    PDM_Array(arrayname,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY,negative_resist_tone)
+    PDM_Array(arrayname,layout,layer,TopCell,pdm_coords,ArrayX,ArrayY,negative_resist_tone,min_size_limit)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 

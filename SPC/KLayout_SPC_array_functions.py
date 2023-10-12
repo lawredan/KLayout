@@ -1171,7 +1171,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[1,0,1,0,1,0,1,0,1,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1186,7 +1186,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[2,0,2,0,2,0,2,0,2,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1201,7 +1201,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[3,0,3,0,3,0,3,0,3,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1216,7 +1216,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[4,0,4,0,4,0,4,0,4,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1231,7 +1231,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[5,0,5,0,5,0,5,0,5,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1252,7 +1252,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[1,0,1,0,1,0,1,0,1,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1267,7 +1267,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[2,0,2,0,2,0,2,0,2,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1282,7 +1282,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[3,0,3,0,3,0,3,0,3,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1297,7 +1297,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[4,0,4,0,4,0,4,0,4,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1312,7 +1312,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[5,0,5,0,5,0,5,0,5,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1339,7 +1339,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[1,0,1,0,1,0,1,0,1,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1354,7 +1354,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[2,0,2,0,2,0,2,0,2,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1369,7 +1369,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[3,0,3,0,3,0,3,0,3,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1384,7 +1384,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[4,0,4,0,4,0,4,0,4,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1399,7 +1399,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[5,0,5,0,5,0,5,0,5,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1420,7 +1420,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[1,0,1,0,1,0,1,0,1,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1435,7 +1435,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[2,0,2,0,2,0,2,0,2,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1450,7 +1450,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[3,0,3,0,3,0,3,0,3,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1465,7 +1465,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[4,0,4,0,4,0,4,0,4,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -1480,7 +1480,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     defect_num=[5,0,5,0,5,0,5,0,5,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
-            if size>=min_size_limit:
+            if sraf_size>=min_size_limit:
                 holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
