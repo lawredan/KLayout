@@ -734,6 +734,10 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
 
 
 #Create all the desired layouts
+
+print(f"Starting process...")
+fullstartTime=time.time()
+
 KLayout_SPC_Wrapper(False,0)
 KLayout_SPC_Wrapper(False,0.05)
 KLayout_SPC_Wrapper(False,0.1)
@@ -742,3 +746,6 @@ KLayout_SPC_Wrapper(True,0)
 KLayout_SPC_Wrapper(True,0.05)
 KLayout_SPC_Wrapper(True,0.1)
 KLayout_SPC_Wrapper(True,0.24)
+
+xfinaltime = time.time()-fullstartTime
+print(f"Full process completed after {xfinaltime/60}min!")
