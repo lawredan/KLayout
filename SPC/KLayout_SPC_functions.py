@@ -173,7 +173,7 @@ Return definitions:
     if tone == "C":
          sacrifice_cell = layout.create_cell("Sacrificial")
          sacrifice_cell.shapes(l_line).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-min(4*size,1))/cell_size)*CellBox)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
          output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
@@ -418,6 +418,49 @@ Return definitions:
         TopCell.insert(ULQuad)
 
 
+    #Moved this section to after listicle purge to avoid losing the metro assist features
+
+    #### Add metro structure for dense features if applicable ####
+
+    #if metro_structure:
+    #    MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
+    #    if  not (iso or donut):
+    #        MetroShape = db.DPolygon([db.DPoint(-xPitch/2+xSize/3,-ySize/2),
+    #                                  db.DPoint(-xPitch/2+xSize/3,ySize/2),
+    #                                  db.DPoint(xPitch/2-xSize/3,ySize/2),
+    #                                  db.DPoint(xPitch/2-xSize/3,-ySize/2)])
+    #        MetroCell.shapes(l_cont).insert(MetroShape)
+    #        MetroXCoord = (4*xPitch-xPitch/2)
+    #        MetroYCoord = (4*yPitch)
+    #        MetroXCoordRotated = (round((MetroXCoord*math.cos(-rad_angle)),3)-round((MetroYCoord*math.sin(-rad_angle)),3))
+    #        MetroYCoordRotated = (round((MetroXCoord*math.sin(-rad_angle)),3)+round((MetroYCoord*math.cos(-rad_angle)),3))
+    #        MetroXStep = -7*xPitch
+    #        MetroYStep = -8*yPitch
+    #        MetroXStepRotated = (round((MetroXStep*math.cos(-rad_angle)),3)-round((MetroYStep*math.sin(-rad_angle)),3))
+    #        MetroYStepRotated = (round((MetroXStep*math.sin(-rad_angle)),3)+round((MetroYStep*math.cos(-rad_angle)),3))
+    #        metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,MetroXCoordRotated,MetroYCoordRotated),
+    #                                         db.DVector(MetroXStepRotated,MetroYStepRotated),db.DVector(0,0),2,2)
+    #        TopCell.insert(metro_insert)
+
+
+
+
+
+#### Angle transformations, sliver removal, and output ####
+
+
+    #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
+    output_cell = layout.clip(TopCell,CellBox)
+    listicle = []
+    size_check = db.DBox(-xSize/2,-ySize/2,xSize/2,ySize/2)
+
+    #Prunes 
+    [listicle.append(j) for j in output_cell.each_child_cell()
+     if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width()
+     or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
+    
+    [layout.cell(k).prune_cell() for k in listicle]
+
 #### Add metro structure for dense features if applicable ####
 
     if metro_structure:
@@ -438,25 +481,7 @@ Return definitions:
             MetroYStepRotated = (round((MetroXStep*math.sin(-rad_angle)),3)+round((MetroYStep*math.cos(-rad_angle)),3))
             metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,MetroXCoordRotated,MetroYCoordRotated),
                                              db.DVector(MetroXStepRotated,MetroYStepRotated),db.DVector(0,0),2,2)
-            TopCell.insert(metro_insert)
-
-
-
-
-#### Angle transformations, sliver removal, and output ####
-
-
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
-    output_cell = layout.clip(TopCell,CellBox)
-    listicle = []
-    size_check = db.DBox(-xSize/2,-ySize/2,xSize/2,ySize/2)
-
-    #Prunes 
-    [listicle.append(j) for j in output_cell.each_child_cell()
-     if layout.cell(j).dbbox(l_cont).width()<size_check.bbox().width()
-     or layout.cell(j).dbbox(l_cont).height()<size_check.bbox().height()]
-    
-    [layout.cell(k).prune_cell() for k in listicle]
+            output_cell.insert(metro_insert)
 
     t = db.ICplxTrans(1,angle,0,0,0)
     [layout.cell(i).transform(t) for i in output_cell.each_child_cell()]
@@ -476,7 +501,7 @@ Return definitions:
 
     #Rename new cell
     if HH:
-        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_{HH_amount}nm_HH_metro_{metro_structure}")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_{HH_amount}nm_{HH_position}_HH_metro_{metro_structure}")
     else:
         output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_metro_{metro_structure}")
     
@@ -1136,4 +1161,6 @@ Return definitions:
 
 #print("test")
 
-#contact_cell("Test","C",0.1,1,25,0,1,True,8,True,True,0.004,"Inside")
+#contact_cell("Test","C",0.04,0.0615,35,0,1,True,8,False,False,0.004,"Inside")
+#LS_cell("LS_Test","C",0.04,0.04/0.3,35)
+#Horn_cell("Horn test","D")

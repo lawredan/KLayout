@@ -452,7 +452,7 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float):
         for i in range(len(horn_tone)):
             if horn_tone[i] == "D":
                 horn_tone[i] = "C"
-            elif tone[i] == "C":
+            elif horn_tone[i] == "C":
                 horn_tone[i] = "D"
 
     horn_initial_size=[0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1,0.06,0.08,0.1,0.12,0.15,0.2,0.4,0.6,1]
