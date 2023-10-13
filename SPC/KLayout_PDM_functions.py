@@ -184,6 +184,7 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
+    CellRegion = db.Region(1000*CellBox)
 
 #### Generate the Cell ####
    
@@ -242,6 +243,12 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
     t = db.ICplxTrans(1,angle,0,0,0)
     TopCell.transform(t)
 
+    #Flip the tone if needed
+    if tone == "C":
+         Cell_shapes = db.Region(TopCell.shapes(l_line))
+         Clear_region = CellRegion - Cell_shapes
+         TopCell.shapes(l_line).clear()
+         TopCell.shapes(l_line).insert(Clear_region)
 
     TopCell.name = (f"LS_Array_{tone}_{size}umSize_{angle}degrees_w_{defecttype}")
 
@@ -318,6 +325,7 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
 
     #Creates formatting regions
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
+    CellRegion = db.Region(1000*CellBox)
     pitch = 2*((2*size)+(sraf_size))
     num_lines = math.ceil(cell_size/pitch)
 
@@ -394,6 +402,13 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
     #Apply angle rotation for all cells
     t = db.ICplxTrans(1,angle,0,0,0)
     TopCell.transform(t)
+
+    #Flip the tone if needed
+    if tone == "C":
+         Cell_shapes = db.Region(TopCell.shapes(l_line))
+         Clear_region = CellRegion - Cell_shapes
+         TopCell.shapes(l_line).clear()
+         TopCell.shapes(l_line).insert(Clear_region)
 
     TopCell.name = (f"Line_w_SRAF_{tone}_{size}umSize_{angle}degrees_{sraf_num}SRAFs_{sraf_size}um_size_w_{defecttype}")
 
