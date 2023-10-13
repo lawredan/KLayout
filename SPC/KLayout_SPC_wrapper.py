@@ -8,7 +8,7 @@ from KLayout_PDM_functions import *
 from KLayout_SPC_array_functions import *
 
 
-def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float,curve_features:bool,offangle_features:bool):
+def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:float,curve_features:bool,offangle_features:bool):
 
     """
     @brief This file is used to actually generate a layout.
@@ -711,16 +711,16 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float,curve_fea
     else: oasis_tone = "PCAR"
 
     if min_size_limit>0:
-        layout.write(f"{oasis_tone}_Universal_SPC_{min_size_limit}um_limit.oas")
+        layout.write(f"{oasis_tone}_Universal_SPC_{naming}_{min_size_limit}um_limit.oas")
     else:
-        layout.write(f"{oasis_tone}_Universal_SPC_Full.oas")
+        layout.write(f"{oasis_tone}_Universal_SPC_{naming}_Full.oas")
 
     xtime = time.time()-startTime
     print(f"Finished writing file after {xtime} sec")
 
 
     #### Write the MFX file: ####
-    with open(f'SPC_coord_file_{min_size_limit}um.mfx' if min_size_limit>0 else 'SPC_coord_file_Full.mfx','w') as f:
+    with open(f'SPC_coord_file_{naming}_{min_size_limit}um.mfx' if min_size_limit>0 else f'SPC_coord_file_{naming}_Full.mfx','w') as f:
         
         #Set up initial lines in text file
         f.write('mfxjob,')
@@ -783,7 +783,7 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float,curve_fea
         pdm_name.append(pdm_coords[z][2])
 
     df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
-    df.to_csv(f'SPC_PDM_Coordinates_{min_size_limit}um.csv' if min_size_limit>0 else 'SPC_PDM_Coordinates_Full.csv')
+    df.to_csv(f'SPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv' if min_size_limit>0 else f'SPC_PDM_Coordinates_{naming}_Full.csv')
 
     zTime = time.time() - initialTime
     print(f"Entire process finished in {zTime/60}min!")
@@ -794,16 +794,16 @@ def KLayout_SPC_Wrapper(negative_resist_tone:bool,min_size_limit:float,curve_fea
 print(f"Starting process...")
 fullstartTime=time.time()
 
-KLayout_SPC_Wrapper(False,0,True,True)
-KLayout_SPC_Wrapper(False,0.05,True,True)
-KLayout_SPC_Wrapper(False,0.1,False,False)
-KLayout_SPC_Wrapper(False,0.2,False,False)
-KLayout_SPC_Wrapper(False,0.24,True,True)
-KLayout_SPC_Wrapper(True,0,True,True)
-KLayout_SPC_Wrapper(True,0.05,True,True)
-KLayout_SPC_Wrapper(True,0.1,False,False)
-KLayout_SPC_Wrapper(True,0.2,False,False)
-KLayout_SPC_Wrapper(True,0.24,True,True)
+KLayout_SPC_Wrapper("Ebeam",False,0,True,True)
+KLayout_SPC_Wrapper("Ebeam",False,0.05,True,True)
+KLayout_SPC_Wrapper("Ebeam",False,0.1,False,False)
+KLayout_SPC_Wrapper("Ebeam",False,0.24,False,False)
+KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
+KLayout_SPC_Wrapper("Ebeam",True,0,True,True)
+KLayout_SPC_Wrapper("Ebeam",True,0.05,True,True)
+KLayout_SPC_Wrapper("Ebeam",True,0.1,False,False)
+KLayout_SPC_Wrapper("Ebeam",True,0.24,False,False)
+KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
 
 xfinaltime = time.time()-fullstartTime
 print(f"Full process completed after {xfinaltime/60}min!")
