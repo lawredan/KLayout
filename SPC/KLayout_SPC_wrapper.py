@@ -794,15 +794,15 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 print(f"Starting process...")
 fullstartTime=time.time()
 
-KLayout_SPC_Wrapper("Ebeam",False,0,True,True)
-KLayout_SPC_Wrapper("Ebeam",False,0.05,True,True)
-KLayout_SPC_Wrapper("Ebeam",False,0.1,False,False)
-KLayout_SPC_Wrapper("Ebeam",False,0.24,False,False)
+KLayout_SPC_Wrapper("EBeam",False,0,True,True)
+KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
+KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
+KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
 KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
-KLayout_SPC_Wrapper("Ebeam",True,0,True,True)
-KLayout_SPC_Wrapper("Ebeam",True,0.05,True,True)
-KLayout_SPC_Wrapper("Ebeam",True,0.1,False,False)
-KLayout_SPC_Wrapper("Ebeam",True,0.24,False,False)
+KLayout_SPC_Wrapper("EBeam",True,0,True,True)
+KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
+KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
+KLayout_SPC_Wrapper("EBeam",True,0.24,False,False)
 KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
 
 xfinaltime = time.time()-fullstartTime
