@@ -393,7 +393,7 @@ def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 CurveArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x+xpos+((-cell_size/2)+horn_spacing[j]+horn_step_size[i]),current_y+ypos,name])
+                spc_coords.append([current_x+xpos,current_y+ypos,name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)

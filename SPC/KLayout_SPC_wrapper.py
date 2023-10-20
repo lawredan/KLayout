@@ -750,6 +750,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             else:
                 feat_type = 'line'
 
+            #Set measure orientation
             if angle == 0:
                 scan_dir = 'x'
             elif angle == 90:
@@ -758,13 +759,16 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
                 scan_dir = 'a'
             
             #Reverse orientation for certain features
-            if 'Horn' in feat_name or 'end' in feat_name:
+            if 'End' in feat_name:
                 if angle == 0:
                     scan_dir = 'y'
                 elif angle == 90:
                     scan_dir = 'x'
                 else:
-                    scan_dir = 'a'    
+                    scan_dir = 'a'
+
+            if 'Spiral' in feat_name or 'Horn' in feat_name:
+                scan_dir = 'a'
 
             #Define nominal and tone
             nominal = spc_coords[lines][2][2]
