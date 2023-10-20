@@ -744,19 +744,27 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             angle = spc_coords[lines][2][4]
 
             #Fix the contact scan direction since it was set up rotated from the LS function
-            if 'Cont' in feat_name:
+            if 'Cont' in feat_name or 'Dot' in feat_name or 'Hole' in feat_name or 'HD' in feat_name:
                 angle = 90-angle
                 feat_type = 'cont'
             else:
                 feat_type = 'line'
 
             if angle == 0:
-                scan_dir = 'X'
+                scan_dir = 'x'
             elif angle == 90:
-                scan_dir = 'Y'
+                scan_dir = 'y'
             else:
-                scan_dir = 'A'
+                scan_dir = 'a'
             
+            #Reverse orientation for certain features
+            if 'Horn' in feat_name or 'end' in feat_name:
+                if angle == 0:
+                    scan_dir = 'y'
+                elif angle == 90:
+                    scan_dir = 'x'
+                else:
+                    scan_dir = 'a'    
 
             #Define nominal and tone
             nominal = spc_coords[lines][2][2]
