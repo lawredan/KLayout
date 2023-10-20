@@ -720,7 +720,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
 
     #### Write the MFX file: ####
-    with open(f'SPC_coord_file_{naming}_{min_size_limit}um.mfx' if min_size_limit>0 else f'SPC_coord_file_{naming}_Full.mfx','w') as f:
+    with open(f'USPC_coord_file_{naming}_{min_size_limit}um.mfx' if min_size_limit>0 else f'USPC_coord_file_{naming}_Full.mfx','w') as f:
         
         #Set up initial lines in text file
         f.write('mfxjob,')
@@ -791,7 +791,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         pdm_name.append(pdm_coords[z][2])
 
     df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
-    df.to_csv(f'SPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv' if min_size_limit>0 else f'SPC_PDM_Coordinates_{naming}_Full.csv')
+    df.to_csv(f'USPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv' if min_size_limit>0 else f'USPC_PDM_Coordinates_{naming}_Full.csv')
 
     zTime = time.time() - initialTime
     print(f"Entire process finished in {zTime/60}min!")
