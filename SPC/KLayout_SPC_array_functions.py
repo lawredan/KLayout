@@ -30,7 +30,7 @@ def Line_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -66,7 +66,7 @@ def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 SpaceArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -102,7 +102,7 @@ def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCe
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LithoGainArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -137,7 +137,7 @@ def Dot_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.C
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 DotArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -173,7 +173,7 @@ def Hole_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 HoleArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -209,7 +209,7 @@ def AnyAngle_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -245,7 +245,7 @@ def Line_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -281,7 +281,7 @@ def Space_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 SpaceArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -318,7 +318,7 @@ def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -354,7 +354,7 @@ def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -393,7 +393,7 @@ def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 CurveArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -409,7 +409,7 @@ def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 CurveArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -445,7 +445,7 @@ def LCDU_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -481,7 +481,7 @@ def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 LineArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -517,7 +517,7 @@ def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 DotArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -555,7 +555,7 @@ def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,To
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 DotArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x,current_y,name])
+                spc_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -605,7 +605,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -620,7 +620,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -635,7 +635,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -650,7 +650,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -665,7 +665,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -685,7 +685,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -700,7 +700,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -715,7 +715,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -730,7 +730,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -745,7 +745,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -764,7 +764,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -779,7 +779,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -794,7 +794,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -809,7 +809,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -824,7 +824,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -848,7 +848,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -863,7 +863,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -878,7 +878,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -893,7 +893,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -908,7 +908,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -927,7 +927,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -942,7 +942,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -957,7 +957,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -972,7 +972,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -987,7 +987,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1012,7 +1012,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1027,7 +1027,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1042,7 +1042,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1057,7 +1057,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1072,7 +1072,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1091,7 +1091,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1106,7 +1106,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1121,7 +1121,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1136,7 +1136,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1151,7 +1151,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1178,7 +1178,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1193,7 +1193,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1208,7 +1208,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1223,7 +1223,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1238,7 +1238,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1259,7 +1259,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1274,7 +1274,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1289,7 +1289,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1304,7 +1304,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1319,7 +1319,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1346,7 +1346,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1361,7 +1361,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1376,7 +1376,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1391,7 +1391,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1406,7 +1406,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1427,7 +1427,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1442,7 +1442,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1457,7 +1457,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1472,7 +1472,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1487,7 +1487,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1511,7 +1511,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1528,7 +1528,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1545,7 +1545,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1562,7 +1562,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1579,7 +1579,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1602,7 +1602,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1619,7 +1619,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1636,7 +1636,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1653,7 +1653,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -1670,7 +1670,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 ContArray.insert(temparray)
                 name = holder[1]
-                pdm_coords.append([current_x,current_y,name])
+                pdm_coords.append([current_x+(xpos-cell_size/2),current_y+(ypos-cell_size/2),name])
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
