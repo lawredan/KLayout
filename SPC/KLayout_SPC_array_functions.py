@@ -393,7 +393,9 @@ def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 CurveArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x+xpos,current_y+ypos,name])
+                spc_coords.append([current_x+xpos+0.9*math.cos(horn_angle[j]*math.pi/180)*(cell_size/2-horn_spacing[j]),
+                                   current_y+ypos+0.9*math.sin(horn_angle[j]*math.pi/180)*(cell_size/2-horn_spacing[j]),
+                                   name]) #Moves coordinate to horn ends
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
@@ -409,7 +411,7 @@ def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
                 CurveArray.insert(temparray)
                 name = holder[1:]
-                spc_coords.append([current_x+xpos+spiral_inner_r[j],current_y+ypos,name])
+                spc_coords.append([current_x+xpos+spiral_inner_r[j],current_y+ypos+0.005,name]) #Ypos addition moves the coordinate into the feature itself
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
