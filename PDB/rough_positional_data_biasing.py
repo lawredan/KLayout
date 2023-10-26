@@ -91,8 +91,17 @@ def rough_positional_data_biasing(bias_file:str='NCAR_Universal_SPC_EBeam_Full.o
     return layout.write(output_file)
 
 
-def rpdb(biastype:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas', mesh:str='Test_Mesh.csv', target_layer:int=1, output_file:str = 'TesterRDP.oas'):
-    #gds is the input gds, and mesh is the matrix of data biasing to be applied, target_layer is the specific layer to be biased
+def rpdb(mode:str="rpdb",bias_type:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas',correction_file:str='Test_Mesh.csv',target_layer:int=1,output_file:str='TesterRDP.oas'):
+    """
+    Biases the features in a layout positionally, either by global position on the mask, or by local density.
+
+    @mode = Whether biasing by position (rpdb) or by proximity (PECdb).
+    @bias_type = How the bias is applied; "flatten" for non-hierarcical, "clip" for preserving local hierarchies.
+    @bias_file = The file to be biased.
+    @correction_file = The file detailing the conditions of the biasing. A mesh file should be used for "rpdb", a density to bias list for "PECdb".
+    @target_layer = The layer from the bias_file to be biased; use -1 to apply to all layers.
+    @output_file = The name of the file used to write the biased layout.
+    """
 
     #Import the .gds
     layout = db.Layout()
@@ -105,28 +114,6 @@ def rpdb(biastype:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas
     #Create bias layer for eventual use
     bias_lyr = layout.layer('Initial Biasing Layer')
 
-    #Import the mesh
-    pdb = pd.read_csv(mesh, index_col=0)
-    print(f'Mesh read: {mesh}')
-
-    #Determine maximum absolute bias applied, in order to size up the cell regions
-    mesh_max = pdb.max().max()
-    mesh_min = pdb.min().min()
-    if abs(mesh_max) >= abs(mesh_min):
-         bias_max = mesh_max/1000 #to get in units of um
-    else:
-         bias_max = abs(mesh_min) #to get in units of um
-
-    #Determine mesh columns
-    col_len = len(pdb.columns)+1
-    columns = range(1,col_len)
-    print(f'There are {col_len} columns in the mesh')
-
-    #Determine mesh rows
-    row_len = len(pdb)+1
-    rows = range(1,row_len)
-    print(f'There are {row_len} rows in the mesh')
-    
     #Calls the top cell (assumes(!) there is one top cell and it contains all the constituent cells) and stores index of all called cells
     top_cell = layout.top_cell()
     top_cell_index = top_cell.cell_index()
@@ -145,19 +132,43 @@ def rpdb(biastype:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas
     x_size = right - left
     y_size = top - bottom
 
-    #Define size of meshing
-    mesh_x = x_size / (len(columns))
-    mesh_y = y_size / (len(rows))
-    print(f'Mesh X is {mesh_x}um')
-    print(f'Mesh Y is {mesh_y}um')
-
     #Create new top cell
     New_Top = layout.create_cell("NewTop")
     New_Top_Index = New_Top.cell_index()
 
-    #Loop across the mesh, define the regions in the copy layer to copy into the bias layer, then resize the features in the bias layer based on the mesh input
-    for i in tqdm(rows):
-        for j in columns:
+    if mode=="rpdb":
+        #Import the mesh
+        pdb = pd.read_csv(correction_file, index_col=0)
+        print(f'Mesh read: {correction_file}')
+
+        #Determine maximum absolute bias applied, in order to size up the cell regions
+        mesh_max = pdb.max().max()
+        mesh_min = pdb.min().min()
+        if abs(mesh_max) >= abs(mesh_min):
+             bias_max = mesh_max/1000 #to get in units of um
+        else:
+             bias_max = abs(mesh_min) #to get in units of um
+
+        #Determine mesh columns
+        col_len = len(pdb.columns)+1
+        columns = range(1,col_len)
+        print(f'There are {col_len} columns in the mesh')
+
+        #Determine mesh rows
+        row_len = len(pdb)+1
+        rows = range(1,row_len)
+        print(f'There are {row_len} rows in the mesh')
+    
+        #Define size of meshing
+        mesh_x = x_size / (len(columns))
+        mesh_y = y_size / (len(rows))
+        print(f'Mesh X is {mesh_x}um')
+        print(f'Mesh Y is {mesh_y}um')
+
+
+        #Loop across the mesh, define the regions in the copy layer to copy into the bias layer, then resize the features in the bias layer based on the mesh input
+        for i in tqdm(rows):
+            for j in columns:
                 #Define the edges of the mesh at each location
                 l_edge = left+(mesh_x*(j-1)-bias_max)
                 b_edge = top-(mesh_y*i+bias_max)
@@ -174,7 +185,7 @@ def rpdb(biastype:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas
                 clip = layout.clip(top_cell,db.DBox(l_edge,b_edge,r_edge,t_edge))
                 clip.name= f'Mesh_Cell_{i}_{j}'
                 
-                if biastype=="clip":                
+                if bias_type=="clip":                
                     #Copies the cell tree from the clip into a new bias cell
                     bias_cell = layout.create_cell(f'bias_cell_{i}_{j}')
                     bias_tree = bias_cell.copy_tree(clip)
@@ -193,16 +204,17 @@ def rpdb(biastype:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas
                     bias_cell.prune_cell()
                     clip.prune_cell()   
 
-                elif biastype=="flatten":
+                elif bias_type=="flatten":
                     clip.flatten(-1,True)
                     clip_region = db.Region(clip.shapes(target_layer))
                     bias_clip_region=clip_region.sized(int(biasing))
                     New_Top.shapes(bias_lyr).insert(bias_clip_region)
                     clip.prune_cell()
 
-                  
-    
-    print("Finished Mesh Loop")
+        print("Finished Mesh Loop")
+
+    if mode=="PECdb":
+         True
 
     #Remove the old top cell
     top_cell.prune_cell()
