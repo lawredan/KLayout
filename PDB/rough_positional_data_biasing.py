@@ -4,6 +4,7 @@ import klayout.db as db
 import pya
 import pandas as pd
 from tqdm import tqdm #For timing execution of the loop
+import math as math
 
 #Define the function
 def rough_positional_data_biasing(bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas', mesh:str='Test_Mesh.csv', target_layer:int=1,output_file:str='Test RDP.oas'):
@@ -91,7 +92,8 @@ def rough_positional_data_biasing(bias_file:str='NCAR_Universal_SPC_EBeam_Full.o
     return layout.write(output_file)
 
 
-def rpdb(mode:str="rpdb",bias_type:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas',correction_file:str='Test_Mesh.csv',target_layer:int=1,output_file:str='TesterRDP.oas'):
+def rpdb(mode:str="rpdb",bias_type:str="flatten",bias_file:str='NCAR_Universal_SPC_EBeam_Full.oas',correction_file:str='Test_Mesh.csv',target_layer:int=1,
+         coarse_mesh:float=30,fine_mesh:float=15,output_file:str='TesterRDP.oas'):
     """
     Biases the features in a layout positionally, either by global position on the mask, or by local density.
 
@@ -125,6 +127,8 @@ def rpdb(mode:str="rpdb",bias_type:str="flatten",bias_file:str='NCAR_Universal_S
     bottom = layout_bounding.bottom
     right = layout_bounding.right
     top = layout_bounding.top
+    width = right-left
+    height = top-bottom
 
     print(f'{left},{bottom},{right},{top}')
     
@@ -214,7 +218,39 @@ def rpdb(mode:str="rpdb",bias_type:str="flatten",bias_file:str='NCAR_Universal_S
         print("Finished Mesh Loop")
 
     if mode=="PECdb":
-         True
+         
+         #Calculate the mesh values and placement
+         x_mesh_count = math.ceil(width/fine_mesh)
+         mesh_width = x_mesh_count*fine_mesh
+         width_delta = mesh_width-width
+         new_left = left-(width_delta/2)
+         new_right = right+(width_delta/2)
+
+         y_mesh_count = math.ceil(height/fine_mesh)
+         mesh_height = y_mesh_count*fine_mesh
+         height_delta = mesh_height-height
+         new_top = top+(height_delta/2)
+         new_bottom = bottom-(height_delta/2)
+
+         #Define locations for density calculations
+         initial_center_x = new_left + fine_mesh/2
+         initial_center_y = new_top - fine_mesh/2
+         mesh_coords = []
+
+         print(f'X count = {x_mesh_count}; Y count = {y_mesh_count}')
+
+         for i in range(0,x_mesh_count-1):
+              for j in range(0,y_mesh_count-1):
+                   mesh_coords.append([initial_center_x+fine_mesh*i,initial_center_y-fine_mesh*j])
+        
+         #Define mesh regions
+         fine_mesh_box = db.DBox(-fine_mesh/2,-fine_mesh/2,fine_mesh/2,fine_mesh/2)
+         fine_mesh_region = db.Region(fine_mesh_box)
+         coarse_mesh_box = db.DBox(-coarse_mesh/2,-coarse_mesh/2,coarse_mesh/2,coarse_mesh/2)
+         coarse_mesh_region = db.Region(coarse_mesh_box)
+
+         #need to use polygons to get actual area
+
 
     #Remove the old top cell
     top_cell.prune_cell()
@@ -224,4 +260,4 @@ def rpdb(mode:str="rpdb",bias_type:str="flatten",bias_file:str='NCAR_Universal_S
     return layout.write(output_file)
 
 #rough_positional_data_biasing()
-rpdb()
+rpdb("PECdb")
