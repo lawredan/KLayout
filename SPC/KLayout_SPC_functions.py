@@ -188,7 +188,7 @@ Return definitions:
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
 def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool=True,metro_spacing:float=8,
-                 stagger:bool=False,HH:bool=False,HH_amount:float=0,HH_position:str="Edge"):
+                 stagger:bool=False,HH:bool=False,HH_amount:float=0):
     
 #### Function definition ####
     """
@@ -231,12 +231,10 @@ Parameter definitions:
     @param HH -- Determines if hammerhead OPC features will be added to the 2D structures.
 
     @param HH_amount -- Defines how large the hammerhead should be (in um). Hammerheads are currently centered on the left and right edges of the 2D structure.
-
-    @param HH_powition -- Defines where the hammer heads are placed in relation to the X feature edges. Accepts "Edge", "Outside", and "Inside". For an X2Y of 1, will also place hammer heads on the Y edges.
-
+\n
 ---
 \n
-Return definitions:
+    Return definitions:
     
     @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
@@ -313,6 +311,7 @@ Return definitions:
     c_bottom = -ySize/2
     c_top = ySize/2
 
+
     #Create the main feature shape and insert it into the ContCell
     cont_iso = db.DBox(c_left, c_bottom, c_right, c_top)
     ContCell.shapes(l_cont).insert(cont_iso)
@@ -320,27 +319,15 @@ Return definitions:
     #Check for Hammer Head and apply if desired
     #Applies hammer heads centered on the left and right edges of the contact feature, and replaces the existing contact feature with the hammerhead-ed feature.
     if HH:
-         if HH_position in ["Edge","Outside","Inside"]: pass
-         else: raise TypeError("Error: Hammer Head position must be 'Edge', 'Outside', or 'Inside'")
-         #print("hammer time")
-         if HH_position == "Edge":
-            LeftHH = db.DBox(c_left-HH_amount/2,c_bottom-HH_amount/2,c_left+HH_amount/2,c_top+HH_amount/2)
-            RightHH = db.DBox(c_right-HH_amount/2,c_bottom-HH_amount/2,c_right+HH_amount/2,c_top+HH_amount/2)
-            if x2y == 1:
-                TopHH = db.DBox(c_left-HH_amount/2,c_top-HH_amount/2,c_right+HH_amount/2,c_top+HH_amount/2)
-                BottomHH = db.DBox(c_left-HH_amount/2,c_bottom-HH_amount/2,c_right+HH_amount/2,c_bottom+HH_amount/2)
-         elif HH_position == "Outside":
-            LeftHH = db.DBox(c_left-HH_amount,c_bottom-HH_amount/2,c_left,c_top+HH_amount/2)
-            RightHH = db.DBox(c_right,c_bottom-HH_amount/2,c_right+HH_amount,c_top+HH_amount/2)
-            if x2y == 1:
-                TopHH = db.DBox(c_left-HH_amount/2,c_top,c_right+HH_amount/2,c_top+HH_amount)
-                BottomHH = db.DBox(c_left-HH_amount/2,c_bottom-HH_amount,c_right+HH_amount/2,c_bottom)
-         elif HH_position == "Inside":
-            LeftHH = db.DBox(c_left,c_bottom-HH_amount/2,c_left+HH_amount,c_top+HH_amount/2)
-            RightHH = db.DBox(c_right-HH_amount,c_bottom-HH_amount/2,c_right,c_top+HH_amount/2)
-            if x2y == 1:
-                TopHH = db.DBox(c_left-HH_amount/2,c_top-HH_amount,c_right+HH_amount/2,c_top)
-                BottomHH = db.DBox(c_left-HH_amount/2,c_bottom,c_right+HH_amount/2,c_bottom+HH_amount)            
+         if ySize<0.1:
+            HH_width = ySize*0.3
+         else:
+            HH_width = 0.03
+         LeftHH = db.DBox(c_left,c_bottom-HH_amount,c_left+HH_width,c_top+HH_amount)
+         RightHH = db.DBox(c_right-HH_width,c_bottom-HH_amount,c_right,c_top+HH_amount)
+         if x2y == 1:
+            TopHH = db.DBox(c_left-HH_amount,c_top-HH_width,c_right+HH_amount,c_top)
+            BottomHH = db.DBox(c_left-HH_amount,c_bottom,c_right+HH_amount,c_bottom+HH_width)            
          ContCell.shapes(l_cont).insert(LeftHH)
          ContCell.shapes(l_cont).insert(RightHH)
          if x2y == 1:
@@ -501,7 +488,7 @@ Return definitions:
 
     #Rename new cell
     if HH:
-        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_{HH_amount}nm_{HH_position}_HH_metro_{metro_structure}")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_{HH_amount}nm_metro_{metro_structure}")
     else:
         output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{x2y}to1_x2y_{angle}degrees_stagger_{stagger}_metro_{metro_structure}")
     

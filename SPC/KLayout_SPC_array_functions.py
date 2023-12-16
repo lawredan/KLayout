@@ -538,7 +538,7 @@ def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
 
 def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                         cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],
-                        stagger:list=[],HH_list:list=[],HH_amount:list=[],HH_position:list=[],min_size_limit:float=0):
+                        stagger:list=[],HH_list:list=[],HH_amount:list=[],min_size_limit:float=0):
     
     DotArray = layout.create_cell("HD_Stagger_Array")
 
@@ -550,8 +550,8 @@ def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,To
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
             if size[i] >= min_size_limit:
-                holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i],metro_spacing[i],
-                                    stagger[i],HH_list[j],HH_amount[j],HH_position[i])
+                holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[i],cell_size,angle[j],x2y[j],metro_structure[i],metro_spacing[i],
+                                    stagger[i],HH_list[j],HH_amount[j])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))

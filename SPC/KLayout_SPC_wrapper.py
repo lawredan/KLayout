@@ -647,7 +647,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     cellname = "HD_HH_Cell"
 
     #Define array parameters
-    tone=["D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C"]
+    tone=["D","D","D","D","D","D","D","D","D","D","C","C","C","C","C","C","C","C","C","C"]
     if not negative_resist_tone:
         for i in range(len(tone)):
             if tone[i] == "D":
@@ -656,25 +656,24 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
                 tone[i] = "D"
 
     size=[0.04, 0.04, 0.04, 0.06, 0.06, 0.06, 0.08, 0.08, 0.08, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4]
-    pitch=[0.01,0.01,0.01,0.01,0.4,0.4,0.4,0.4,0.01,0.01,0.01,0.01,0.01,0.4,0.4,0.4,0.4,0.01]
+    pitch=[0.01,0.3,0.5,0.01,0.3,0.5,0.01,0.3,0.5,0.01,0.3,0.5,0.01,0.3,0.5,0.01,0.3,0.5]
     angle=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     if not offangle_features:
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    x2y=[1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,3]
+    x2y=[1,1,1,1,2,2,2,3,3,3,1,1,1,1,2,2,2,3,3,3]
     metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
-    HH_list = [False,True,True,True,False,True,True,True,True,False,True,True,True,False,True,True,True,True]
-    HH_amount = [0,0.004,0.008,0.012,0,0.004,0.008,0.012,0.008,0,0.004,0.008,0.012,0,0.004,0.008,0.012,0.008]
-    HH_position = ["Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside","Inside","Edge","Outside"]
+    HH_list = [False,True,True,True,False,True,True,False,True,True,False,True,True,True,False,True,True,False,True,True]
+    HH_amount = [0,0.004,0.008,0.012,0,0.004,0.008,0,0.004,0.008,0,0.004,0.008,0.012,0,0.004,0.008,0,0.004,0.008]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
     HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,
-                        stagger,HH_list,HH_amount,HH_position,min_size_limit)
+                        stagger,HH_list,HH_amount,min_size_limit)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -806,11 +805,11 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 print(f"Starting process...")
 fullstartTime=time.time()
 
-#KLayout_SPC_Wrapper("EBeam",False,0,True,True)
-#KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
-#KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
-#KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
-#KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
+KLayout_SPC_Wrapper("EBeam",False,0,True,True)
+KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
+KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
+KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
+KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
 KLayout_SPC_Wrapper("EBeam",True,0,True,True)
 KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
 KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
