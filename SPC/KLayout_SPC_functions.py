@@ -14,38 +14,38 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 ---
 \n
 Parameter definitions:
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
     
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
     
-    @param size -- Defines the width of the feature (in um).
+    size -- Defines the width of the feature (in um).
     
-    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
     
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
     
-    @param angle -- Defines the angle of the feature (in degrees).
+    angle -- Defines the angle of the feature (in degrees).
     
-    @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+    metro_structure -- Determines whether metrology structure(s) are added to the cell.
     
-    @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
+    metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
 \n
 ---
 \n
 Return definitions:
-    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used (in um).
+    size -- Provides the feature size used (in um).
     
-    @return pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
+    pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
     
-    @return angle -- Provides the angle used (in degrees).
+    angle -- Provides the angle used (in degrees).
     
-    @return metro_structure -- Provides whether or not metro structure(s) were included.
+    metro_structure -- Provides whether or not metro structure(s) were included.
     """
 
 #### Setup ####
@@ -200,25 +200,25 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 \n
 Parameter definitions:
 
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
 
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
 
-    @param size -- Defines the width of the feature (in um).
+    size -- Defines the width of the feature (in um).
 
-    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
 
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
 
-    @param angle -- Defines the angle of the feature (in degrees).
+    angle -- Defines the angle of the feature (in degrees).
 
-    @param x2y -- Defines the ratio between X and Y dimensions. A '1' indicates equal X and Y dimensions. Changing this value will affect the X dimension only to satisfy the ratio.
+    x2y -- Defines the ratio between X and Y dimensions. A '1' indicates equal X and Y dimensions. Changing this value will affect the X dimension only to satisfy the ratio.
 
-    @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+    metro_structure -- Determines whether metrology structure(s) are added to the cell.
 
-    @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
+    metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
 
-    @param stagger -- Determines whether the array will be staggered.
+    stagger -- Determines whether the array will be staggered.
 \n      "False" arrays the features orthogonally.
 \n      x _ x _ x
 \n      x _ x _ x
@@ -228,29 +228,29 @@ Parameter definitions:
 \n      x _ x _ x
 \n      _ x _ x _
 \n
-    @param HH -- Determines if hammerhead OPC features will be added to the 2D structures.
+    HH -- Determines if hammerhead OPC features will be added to the 2D structures.
 
-    @param HH_amount -- Defines how large the hammerhead should be (in um). Hammerheads are currently centered on the left and right edges of the 2D structure.
+    HH_amount -- Defines how large the hammerhead should be (in um). Hammerheads are currently centered on the left and right edges of the 2D structure.
 \n
 ---
 \n
     Return definitions:
     
-    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used (in um).
+    size -- Provides the feature size used (in um).
     
-    @return pitch_type -- Provides the resulting pitch type: iso, dense, or donut.
+    pitch_type -- Provides the resulting pitch type: iso, dense, or donut.
     
-    @return angle -- Provides the angle used (in degrees).
+    angle -- Provides the angle used (in degrees).
 
-    @return x2y -- Provides the X:Y ratio used.
+    x2y -- Provides the X:Y ratio used.
     
-    @return metro_structure -- Provides whether or not metro structure(s) were included.
+    metro_structure -- Provides whether or not metro structure(s) were included.
 
     """
 #NOTE: Angled mode is currently configured up to 180 degrees, but metro structures do not currently work for angles besides 0 degrees!
@@ -536,45 +536,45 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 \n
 Parameter definitions:
 
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
 
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
 
-    @param size -- Defines the width of the primary feature (in um).
+    size -- Defines the width of the primary feature (in um).
 
-    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
 
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
 
-    @param angle -- Defines the angle of the feature (in degrees). Note: Angle support only for iso structures.
+    angle -- Defines the angle of the feature (in degrees). Note: Angle support only for iso structures.
 
-    @param sraf_size -- Defines the width of the 1D assist structure(s) (in um).
+    sraf_size -- Defines the width of the 1D assist structure(s) (in um).
 
-    @param sraf_step -- Defines the spacing between 1D assist structures and adjacent structures (in um).
+    sraf_step -- Defines the spacing between 1D assist structures and adjacent structures (in um).
 
-    @param sraf_num -- Defines the number of assist features to include. Assist features are adjacent to all four sides of the primary line/space.
+    sraf_num -- Defines the number of assist features to include. Assist features are adjacent to all four sides of the primary line/space.
 
 ---
 \n
 Return definitions:
     
-    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used (in um).
+    size -- Provides the feature size used (in um).
     
-    @return pitch_type -- Provides the resulting pitch type: iso or dense.
+    pitch_type -- Provides the resulting pitch type: iso or dense.
     
-    @return angle -- Provides the angle used (in degrees).
+    angle -- Provides the angle used (in degrees).
     
-    @return sraf_num -- Provides the number of 1D assist features used.
+    sraf_num -- Provides the number of 1D assist features used.
 
-    @return sraf_size -- Provides the width of the 1D assist features (in um).
+    sraf_size -- Provides the width of the 1D assist features (in um).
 
-    @return sraf_step -- Provides the spacing between 1D assist features (in um).
+    sraf_step -- Provides the spacing between 1D assist features (in um).
 
     """
 #NOTE:Angle support only for iso structure, No Metro structures needed
@@ -736,42 +736,42 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 ---
 \n
 Parameter definitions:
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
     
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
     
-    @param size -- Defines the width of the feature (in um).
+    size -- Defines the width of the feature (in um).
     
-    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
     
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
     
-    @param angle -- Defines the angle of the feature (in degrees).
+    angle -- Defines the angle of the feature (in degrees).
 
-    @param end_spacing -- Defines the distance between the feature ends (in um).
+    end_spacing -- Defines the distance between the feature ends (in um).
     
-    @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+    metro_structure -- Determines whether metrology structure(s) are added to the cell.
     
-    @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
+    metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
 \n
 ---
 \n
 Return definitions:
-    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used (in um).
+    size -- Provides the feature size used (in um).
     
-    @return pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
+    pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
     
-    @return angle -- Provides the angle used (in degrees).
+    angle -- Provides the angle used (in degrees).
 
-    @return end_spacing -- Provides the end spacing used (in um).
+    end_spacing -- Provides the end spacing used (in um).
     
-    @return metro_structure -- Provides whether or not metro structure(s) were included.
+    metro_structure -- Provides whether or not metro structure(s) were included.
     """
 
 #### Setup ####
@@ -917,41 +917,41 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 ---
 \n
 Parameter definitions:
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
     
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
     
-    @param size -- Defines the width of the feature (in um).
+    size -- Defines the width of the feature (in um).
     
-    @param inner_r -- Defines the inner radius start point for the spiral from the center of the cell (in um).
+    inner_r -- Defines the inner radius start point for the spiral from the center of the cell (in um).
 
-    @param outer_r -- Defines the outer radius ending point for the spiral from the center of the cell (in um). This value must be greater than 'inner_r' but less than half of 'cell_size'.
+    outer_r -- Defines the outer radius ending point for the spiral from the center of the cell (in um). This value must be greater than 'inner_r' but less than half of 'cell_size'.
 
-    @param spacing -- Defines the distance between the spiral's coils (in um).
+    spacing -- Defines the distance between the spiral's coils (in um).
 
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
     
-    @param rampancy -- Determines if spiral is uniform. 'True' will cause the spiral spacing to accelarate outwards, 'False' will keep the spiral spacing uniform.
+    rampancy -- Determines if spiral is uniform. 'True' will cause the spiral spacing to accelarate outwards, 'False' will keep the spiral spacing uniform.
 \n
 ---
 \n
 Return definitions:
 
-    @return Spiral_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    Spiral_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return Spiral_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    Spiral_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used (in um).
+    size -- Provides the feature size used (in um).
     
-    @return spacing -- Provides the spiral spacing used (in um).
+    spacing -- Provides the spiral spacing used (in um).
 
-    @return inner_r -- Provides the inner radius used (in um).
+    inner_r -- Provides the inner radius used (in um).
 
-    @return outer_r -- Provides the outer radius used (in um).
+    outer_r -- Provides the outer radius used (in um).
 
-    @return rampancy -- Provides whether rampancy was applied.
+    rampancy -- Provides whether rampancy was applied.
     
     """
 
@@ -1028,39 +1028,39 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 ---
 \n
 Parameter definitions:
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
     
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
     
-    @param initial_size -- Defines the initial width of the feature (in um).
+    initial_size -- Defines the initial width of the feature (in um).
 
-    @param step_size -- Defines the distance to proceed before determining the new width (in um).
+    step_size -- Defines the distance to proceed before determining the new width (in um).
 
-    @param power -- Defines the factor to multiply by at each step size to determine width. A higher power yields a horn with a steep curve.
+    power -- Defines the factor to multiply by at each step size to determine width. A higher power yields a horn with a steep curve.
 
-    @param spacing -- Defines the stopping distance for the structure in relation to cell edges and the opposite horn (in um).
+    spacing -- Defines the stopping distance for the structure in relation to cell edges and the opposite horn (in um).
 
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
     
-    @param angle -- Defines the angle of the structure (in degrees).
+    angle -- Defines the angle of the structure (in degrees).
 \n
 ---
 \n
 Return definitions:
 
-    @return Horn_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    Horn_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return Horn_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    Horn_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return initial_size -- Provides the initial feature width used (in um).
+    initial_size -- Provides the initial feature width used (in um).
     
-    @return spacing -- Provides the structure spacing limit from adjacent structures (in um).
+    spacing -- Provides the structure spacing limit from adjacent structures (in um).
 
-    @return angle -- Provides the angle used (in degrees).
+    angle -- Provides the angle used (in degrees).
 
-    @return power -- Provides the power factor applied.
+    power -- Provides the power factor applied.
     
     """
    
@@ -1145,7 +1145,7 @@ Return definitions:
 
     return Horn_region,HornCell.name,tone,initial_size,spacing,angle,power
 
-def StepLadder_cell(name:str="StepLadder_Cell",tone:str="D",size:float=0.100,steplength:float=0.100,pitch:float=0.500,cell_size:float=25,uppercorner:bool=True,metro_structure:bool=True,metro_spacing:float=8):
+def StairStep_cell(name:str="StairStep_Cell",tone:str="D",size:float=0.100,steplength:float=0.100,stepheight:float=0.200,pitch:float=0.500,cell_size:float=25,uppercornerright:bool=True,metro_structure:bool=True,metro_spacing:float=8):
     
 #### Function definition ####
     """
@@ -1156,40 +1156,42 @@ Uses 'klayout.db' and 'math' Python modules. Returns design information to be pl
 ---
 \n
 Parameter definitions:
-    @param name -- Defines the cell name.
+    name -- Defines the cell name.
     
-    @param tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    tone -- Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
     
-    @param size -- Defines the width of the feature (in um).
+    size -- Defines the width of the feature (in um).
     
-    @param steplength -- Defines the step length of the stairs (in um).
+    steplength -- Defines the step length of the stairs (in um).
 
-    @param pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
+    stepheight -- Defines the step length of the stairs (in um).
+
+    pitch -- Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure. A size:pitch > 0.75 will result in a 3-bar structure.
     
-    @param cell_size -- Defines the size of the square cell area (in um).
+    cell_size -- Defines the size of the square cell area (in um).
     
-    @param uppercorner -- Defines the upper corner of the stairs; true is right, false is left.
+    uppercornerright -- Defines the upper corner of the stairs; true is right, false is left.
     
-    @param metro_structure -- Determines whether metrology structure(s) are added to the cell.
+    metro_structure -- Determines whether metrology structure(s) are added to the cell.
     
-    @param metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
+    metro_spacing -- Defines the distance from cell center that metro structure(s) will be added (in um).
 \n
 ---
 \n
 Return definitions:
-    @return output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
     
-    @return output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
     
-    @return tone -- Provides the tone used to create the cell.
+    tone -- Provides the tone used to create the cell.
     
-    @return size -- Provides the feature size used (in um).
+    size -- Provides the feature size used (in um).
     
-    @return pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
+    pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
     
-    @return angle -- Provides the angle used (in degrees).
+    angle -- Provides the angle used (in degrees).
     
-    @return metro_structure -- Provides whether or not metro structure(s) were included.
+    metro_structure -- Provides whether or not metro structure(s) were included.
     """
 
 #### Setup ####
@@ -1202,7 +1204,7 @@ Return definitions:
     layout.dbu = 0.001 #um, database units
 
     #Define initial layers
-    l_line = layout.layer(1,0) #line layer, sacrificial
+    ly_stairstep = layout.layer(1,0) #line layer, sacrificial
 
     #Check pitch of the LS array
     pitch_check = size/pitch
@@ -1214,34 +1216,38 @@ Return definitions:
     else:
         pitch_type = f"{pitch}umPitch"
 
-
 #### Cell creation and shape assignment ####
 
     #Create the topcell and subsidiary cells
     TopCell = layout.create_cell(f"Initial_cell")
-    LineCell = layout.create_cell(f"{size}um_line")
+    StairStepCell = layout.create_cell(f"{size}um_stairstep_{steplength}um_x_{stepheight}um_y")
 
-    while current_radius<outer_r:
-           if rampancy:
-              pts.append(db.DPoint(current_radius*math.cos(current_angle),current_radius*math.sin(current_angle)))
-              current_radius = (current_radius**1.005)+dr
-              current_angle = (current_angle+da)%(2*math.pi)
-           else:
-              pts.append(db.DPoint(current_radius*math.cos(current_angle),current_radius*math.sin(current_angle)))
-              current_radius += dr
-              current_angle = (current_angle+da)%(2*math.pi)
-        
-    spiral_path = db.DPath(pts,size)
-    SpiralCell.shapes(l_spiral).insert(spiral_path)
+    #Setting up figure variables and arraying directions
+    pts =[]
+    starting_x = -cell_size
+    starting_y = -cell_size
+    current_point = db.DPoint(starting_x,starting_y)
+    pts.append(current_point)
+    xsteps = math.ceil(2*cell_size/steplength)
+    ysteps = math.ceil(2*cell_size/stepheight)  
+    xstepdir = xsteps>ysteps
 
-    #Define line dimensions. Top+Bottom is 2x cell size in order to provide extra length for angled features to fill the cell area.
-    l_left = -size/2
-    l_right = size/2
-    l_2bottom = -cell_size
-    l_2top = cell_size
+    #Defining the stairstep shape and its positioning
+    current_step=1
+    num_steps = max(xsteps,ysteps)
+    while current_step<=num_steps:
+        pts.append(db.DPoint(starting_x+current_step*steplength,starting_y+(current_step-1)*stepheight))
+        pts.append(db.DPoint(starting_x+current_step*steplength,starting_y+current_step*stepheight))
+        current_step+=1
 
-    #Create the main feature shape and insert it into the LineCell cell
-    LineCell.shapes(l_line).insert(db.DBox(l_left, l_2bottom, l_right, l_2top))
+    stairstep_path = db.DPath(pts,size)
+    StairStepCell.shapes(ly_stairstep).insert(stairstep_path)
+
+    shape_right = StairStepCell.bbox().right
+    shape_left = StairStepCell.bbox().left
+    shape_top = StairStepCell.bbox().top
+    shape_bottom = StairStepCell.bbox().bottom
+    StairStepCell.transform(db.Trans(db.Trans.R0,-(shape_right+shape_left)/2,-(shape_top+shape_bottom)))
 
     #Creates formatting regions for use later on
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
@@ -1253,93 +1259,79 @@ Return definitions:
     #Checks density to determine how to build the cell
     if iso:
         #Create instance array of the iso line (1 feature) and instert into the TopCell
-        ls_iso = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
-        TopCell.insert(ls_iso)
-
-    elif bar3:
-        #Create the two sides of the 3-bar feature
-        Bar3Cell = layout.create_cell(f"{size}um_3bar_structure")
-        Bar3Cell.shapes(l_line).insert(db.DBox(-cell_size,-cell_size,3*l_left,cell_size))
-        Bar3Cell.shapes(l_line).insert(db.DBox(3*l_right,-cell_size,cell_size,cell_size))
-        
-        #Add instances of both the iso line and the two 3-bar polygons into the TopCell
-        ls_3bar_line = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0))
-        TopCell.insert(ls_3bar_line)    
-        ls_3bar_edge = db.DCellInstArray(Bar3Cell,db.DTrans(db.DTrans.M0,0,0))
-        TopCell.insert(ls_3bar_edge)
+        stairstep_iso = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0))
+        TopCell.insert(stairstep_iso)
 
     else:
         #Otherwise, assumes a dense pattern.            
-        #Instances a left and right array of the LineCell to span the TopCell region.
-        #Trigonometry used to calculate step sizes to preserve pitch when angled.
-        ls_array_right = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((pitch*math.cos(rad_angle)),-pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
-        ls_array_left = db.DCellInstArray(LineCell,db.DTrans(db.DTrans.M0,0,0),db.DVector((-pitch*math.cos(rad_angle)),pitch*math.sin(rad_angle)),db.DVector(0,0),math.ceil(cell_size/pitch),0)
-        TopCell.insert(ls_array_right)
-        TopCell.insert(ls_array_left)
+        #Instances a left and right or up and down array of the cell to span more than the TopCell region.
+        if xstepdir:
+            stairstep_array_positive = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(pitch,0),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+            stairstep_array_negative = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(-pitch,0),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+        else:
+            stairstep_array_positive = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(0,pitch),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+            stairstep_array_negative = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(0,-pitch),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+                
+        TopCell.insert(stairstep_array_positive)
+        TopCell.insert(stairstep_array_negative)
 
 
 #### Add metro structures if applicable ####
 
     if metro_structure:
-        #Metro structure is a line jog/bridge placed 'metro_spacing'um above and below the center of the cell, then inserts it as an instance array into the TopCell
-        MetroCell = layout.create_cell(f"{size}um_line_metro_structure")
-        y_metro_size = min(0.25,size) #Defines a reasonable size for the metro structure
-        MetroShape = db.DBox(-size/1.9,-y_metro_size,size/1.9,y_metro_size)
-        MetroCell.shapes(l_line).insert(MetroShape)
-        sqrt_calc = math.sqrt(((size)**2)+(metro_spacing**2))
-        extra_angle = -size/metro_spacing
-        metro_insert = db.DCellInstArray(MetroCell,db.DTrans(db.DTrans.M0,sqrt_calc*math.sin(rad_angle+extra_angle),sqrt_calc*math.cos(rad_angle+extra_angle)),
-                                         db.DVector(-2*metro_spacing*math.sin(rad_angle),-2*metro_spacing*math.cos(rad_angle)),
-                                         db.DVector(2*size*math.cos(rad_angle),-2*size*math.sin(rad_angle)),2,2)
-        TopCell.insert(metro_insert)
+        pass
 
 
 #### Angle transformations, sliver removal, and output ####
     
     #Apply angle rotation for all cells in the TopCell
-    t = db.ICplxTrans(1,angle,0,0,0)
-    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
+    if uppercornerright:
+        pass
+    else:
+        t = db.DTrans(db.DTrans.M0,0,0)
+        [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
 
     #Clip a new cell that covers just the extents of the defined cell size, and eliminate resultant child cells that contain slivers
     output_cell = layout.clip(TopCell,CellBox)
     listicle = []
     sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
     size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
-    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_line).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_line).height()<size_check.bbox().height()]
+    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(ly_stairstep).width()<size_check.bbox().width() or layout.cell(j).dbbox(ly_stairstep).height()<size_check.bbox().height()]
     [layout.cell(k).prune_cell() for k in listicle]
 
     #Rename new cell, prune old cell
     if metro_structure:
-        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees_w_metro")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_UL2LR_{uppercornerright}_w_metro")
     else:
-        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_{angle}degrees")
+        output_cell.name = (f"{name}_{tone}_{size}umSize_{pitch_type}_UL2LR_{uppercornerright}")
     
     TopCell.prune_cell()
 
     #Flatten the structure to export as a region
     output_cell.flatten(-1,True)
-    output_region = db.Region(output_cell.shapes(l_line))
+    output_region = db.Region(output_cell.shapes(ly_stairstep))
 
     #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
     if tone == "C":
          sacrifice_cell = layout.create_cell("Sacrificial")
-         sacrifice_cell.shapes(l_line).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
+         sacrifice_cell.shapes(ly_stairstep).insert(output_region)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(ly_stairstep,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
          output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("LS_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("StairStep_Tester.oas")
 
-    return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
+    #return output_region,output_cell.name,tone,size,pitch_type,metro_structure
 
 #print("test")
 
 #contact_cell("Test","C",0.04,0.0615,35,0,1,True,8,False,False,0.004,"Inside")
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
+#StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
