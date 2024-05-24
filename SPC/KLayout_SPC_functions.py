@@ -1321,13 +1321,204 @@ Return definitions:
          sacrifice_cell.prune_cell()
 
     #Export GDS (can comment out if not testing)
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("StairStep_Tester.oas")
+
+    return output_region,output_cell.name,tone,size,pitch_type,metro_structure
+
+def Polygon_cell(name:str="Polygon_Cell",tone:str="D",vertices:int=6,size:float=0.200,inner_r:float=1,pitch:float=0.500,cell_size:float=25,angle:float=0,hollow:bool=True):
+    
+#### Function definition ####
+    """
+@brief Function for generating a cell containing line or space stepladder structure(s).
+\n
+Uses 'klayout.db' and 'math' Python modules. Returns design information to be placed into a 'klayout.db.Layout'.
+\n
+---
+\n
+Parameter definitions:
+    name -- String; Defines the cell name.
+    
+    tone -- String; Defines the feature tone, either "D" (feature is polygon) or "C" (feature is empty space).
+    
+    size -- Float; Defines the width of the feature (in um).
+    
+    inner_r -- Float; Defines the initial inner polygon radius (in um).
+
+    vertices -- Integer; Defines the integer number of polygon vertices. Values below 3 are invalid; values above 20 will default to a circle feature.
+
+    pitch -- Float; Defines the combined width of the feature (size) and the spacing to an adjacent feature (in um). The defined feature will be arrayed across the cell extents based on this value. A size:pitch < 0.05 will result in an isolated structure.
+    
+    cell_size -- Float; Defines the size of the square cell area (in um).
+
+    angle -- Float; Determines the polygon angle (in degrees).
+    
+    hollow -- Boolean; determines if inner polygon is hollow or not
+\n
+---
+\n
+Return definitions:
+    output_region -- Provides the region of polygons within the cell. For more information on regions see module info for 'klayout.db.Region'.
+    
+    output_cell.name -- Provides the formatted name of the cell based on the arguements provided to the function.
+    
+    tone -- Provides the tone used to create the cell.
+    
+    size -- Provides the feature size used (in um).
+    
+    pitch_type -- Provides the resulting pitch type: iso, dense, or 3bar.
+    
+    angle -- Provides the angle used (in degrees).
+    
+    metro_structure -- Provides whether or not metro structure(s) were included.
+    """
+
+#### Setup ####
+    #Initial tone check
+    if tone in ["D","C"]: pass
+    else: raise TypeError("Error: Tone must be (D)ark or (C)lear)")
+
+    #Initial vertices check
+    if vertices>2: pass
+    else: raise TypeError("Error: Vertices must number greater than 2")
+
+    #Initial pitch check
+    if pitch>size: pass
+    else: raise TypeError("Error: Pitch must be larger than size")
+
+    #Create a layout for use
+    layout = db.Layout()
+    layout.dbu = 0.001 #um, database units
+
+    #Define initial layers
+    ly_polygon = layout.layer(1,0) #polygon layer, sacrificial
+
+    #Check pitch of the LS array
+    pitch_check = size/pitch
+    iso = pitch_check < 0.05 #boolean
+
+    #Determine naming based on density
+    if iso:
+        pitch_type = 'iso'
+    else:
+        pitch_type = f"{pitch}umPitch"
+
+    #Determine polygon or circle
+    poly_check = vertices<=20
+
+#### Cell creation and shape assignment ####
+
+    #Create the topcell and subsidiary cells
+    TopCell = layout.create_cell(f"Initial_cell")
+    if poly_check:
+        PolygonCell = layout.create_cell(f"{size}um_{vertices}side_polygon_{inner_r}um_innerradius_{pitch}um_pitch")
+    else:
+        PolygonCell = layout.create_cell(f"{size}um_circle_{inner_r}um_innerradius_{pitch}um_pitch")
+
+    #Creates formatting regions for use later on
+    CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
+    CellBox_region = db.Region(1000*CellBox)
+
+
+#### Generate the cell features and insert into the polygoncell ####
+
+    #Define inner polygon and some internal variables
+    if not poly_check:
+        vertices=360
+    
+    inner_pts=[]
+    
+    for i in range(0,vertices+2): #Plus 2 is to fully complete the border
+        inner_pts.append(db.DPoint(inner_r*math.cos(i*(360/vertices)*(math.pi/180)),inner_r*math.sin(i*(360/vertices)*(math.pi/180))))
+
+    if hollow:
+        inner_poly = db.DPath(inner_pts,size)
+    else:
+        inner_poly = db.DPolygon(inner_pts,True)
+    
+    PolygonCell.shapes(ly_polygon).insert(inner_poly)
+
+
+    if hollow:     #alters inner_r value based on hollow-ness
+        pass
+    else:
+        inner_r -= size/2
+
+    #pitch_correction = size*math.sin((math.pi/180)*(180*(vertices-2)/vertices))
+    #pitch_correction = (pitch/math.cos(math.pi/((180*(vertices-2)/vertices)/2)))
+    pitch_correction = (pitch*math.cos(math.pi/((180*(vertices-2)/vertices)/2)))
+    #pitch_correction = 0
+
+    poly_draw_count=1
+    poly_number_count= math.floor(((cell_size/2)-inner_r)/(pitch+pitch_correction))
+
+    #Adds radiating polygon paths if not iso
+    if not iso:
+        while poly_draw_count<poly_number_count:
+            poly_pts=[]
+            for k in range(0,vertices+2):
+                poly_pts.append(db.DPoint((inner_r+(poly_draw_count*(pitch+pitch_correction)))*math.cos(k*(360/vertices)*(math.pi/180)),
+                                          (inner_r+(poly_draw_count*(pitch+pitch_correction)))*math.sin(k*(360/vertices)*(math.pi/180))))
+            poly_poly = db.DPath(poly_pts,size)
+            PolygonCell.shapes(ly_polygon).insert(poly_poly)
+            poly_draw_count+=1
+    
+
+    shape_right = PolygonCell.bbox().right
+    shape_left = PolygonCell.bbox().left
+    shape_top = PolygonCell.bbox().top
+    shape_bottom = PolygonCell.bbox().bottom
+    PolygonCell.transform(db.Trans(db.Trans.R0,-(shape_right+shape_left)/2,-(shape_top+shape_bottom)))
+
+    TopCell.insert(db.DCellInstArray(PolygonCell,db.DVector(0,0)))
+
+
+#### Angle transformations, sliver removal, and output ####
+    
+    #Apply angle rotation for all cells in the TopCell
+    t = db.ICplxTrans(1,angle,0,0,0)
+    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
+
+    #Clip a new cell that covers just the extents of the defined cell size, and eliminate resultant child cells that contain slivers
+    output_cell = layout.clip(TopCell,CellBox)
+    listicle = []
+    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
+    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
+    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(ly_polygon).width()<size_check.bbox().width() or layout.cell(j).dbbox(ly_polygon).height()<size_check.bbox().height()]
+    [layout.cell(k).prune_cell() for k in listicle]
+
+    #Rename new cell, prune old cell
+    if poly_check:
+        output_cell.name = (f"{name}_{tone}_{vertices}side_polygon_{inner_r}um_innerradius_{pitch_type}")
+    else:
+        output_cell.name = (f"{name}_{tone}_{size}um_circle_{inner_r}um_innerradius_{pitch_type}")
+    
+    TopCell.prune_cell()
+
+    #Flatten the structure to export as a region
+    output_cell.flatten(-1,True)
+    output_region = db.Region(output_cell.shapes(ly_polygon))
+
+    #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
+    if tone == "C":
+         sacrifice_cell = layout.create_cell("Sacrificial")
+         sacrifice_cell.shapes(ly_polygon).insert(output_region)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(ly_polygon,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
+         output_region = db.Region(no_sliver_shapes)
+         output_region = CellBox_region - output_region
+         sacrifice_cell.prune_cell()
+
+    #Export GDS (can comment out if not testing)
     layout.clear()
     RLayer = layout.layer(1,0)
     RCell = layout.create_cell("Region")
     RCell.shapes(RLayer).insert(output_region)
-    layout.write("StairStep_Tester.oas")
+    layout.write("Polygon_Tester.oas")
 
-    #return output_region,output_cell.name,tone,size,pitch_type,metro_structure
+    #return output_region,output_cell.name,tone,size,pitch_type
 
 #print("test")
 
@@ -1335,3 +1526,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
+Polygon_cell("Polygon_Cell","D",5,0.5,1,1,25,0,True)
