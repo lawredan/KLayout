@@ -12,7 +12,7 @@ from KLayout_PDM_functions import *
 from KLayout_SPC_array_functions import *
 
 
-def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:float,curve_features:bool,offangle_features:bool):
+def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:float,curve_features:bool,offangle_features:bool,Tester:bool=False):
 
     """
     @brief This file is used to actually generate a layout.
@@ -24,10 +24,14 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     """
 
     #### Initial setup ####
-
-    newdir=f"{date.today()}_USPC"
-    if not os.path.exists(newdir):
-        os.mkdir(newdir)
+    if Tester:
+        newdir="Testing Location"
+        if not os.path.exists(newdir):
+            os.mkdir(newdir)
+    else:
+        newdir=f"{date.today()}_USPC"
+        if not os.path.exists(newdir):
+            os.mkdir(newdir)
 
     #Create the layout
     layout = db.Layout()
@@ -850,10 +854,11 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 print(f"Starting process...")
 fullstartTime=time.time()
 
-Tester=True
+
+Tester = True
 
 if Tester:
-    KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
+    KLayout_SPC_Wrapper("Laser",False,0.24,True,True,True)
 else:
     KLayout_SPC_Wrapper("EBeam",False,0,True,True)
     KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)

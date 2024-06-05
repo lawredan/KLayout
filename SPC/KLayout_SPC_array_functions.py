@@ -632,7 +632,7 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
 
     #Row 3: Stairstep Dark
     size = [0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0]
-    pitch = [0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5]
+    pitch = [0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25]
     for i in range(0,len(size)):
         if size[i] >= min_size_limit:
             holder=StairStep_cell(cellname,tone[row],size[i],size[i],size[i],size[i]/pitch[i],cell_size,True,False)
@@ -647,9 +647,9 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     current_y+=(spacing+cell_size)
     row+=1
     
-    #Row 4: Staristep Clear (0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0)
+    #Row 4: Stairstep Clear
     size = [0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0]
-    pitch = [0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5]
+    pitch = [0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25]
     for i in range(0,len(size)):
         if size[i] >= min_size_limit:
             holder=StairStep_cell(cellname,tone[row],size[i],size[i],size[i],size[i]/pitch[i],cell_size,True,False)
@@ -681,11 +681,94 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     current_y+=(spacing+cell_size)
     row+=1
 
-    #Row 7: CR Squares Clear (Hollow) (0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0)
-    #Row 8: CR Squares Dark (Solid) (0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0)
-    #Row 9: CR Squares Clear (Solid) (0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0)
+    #Row 7: CR Squares Clear (Hollow)
+    size = [0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0]
+    pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=Polygon_cell(cellname,tone[row],4,size[i],size[i]/2,size[i]/pitch[i],cell_size,45,True)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
+    #Row 8: CR Squares Dark (Solid)
+    size = [0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0]
+    pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=Polygon_cell(cellname,tone[row],4,size[i],size[i]/2,size[i]/pitch[i],cell_size,45,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
+    #Row 9: CR Squares Clear (Solid)
+    size = [0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0]
+    pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=Polygon_cell(cellname,tone[row],4,size[i],size[i]/2,size[i]/pitch[i],cell_size,45,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
     #Row 10: Solid Shapes Dark (3,3,3,4,4,4,5,5,5,6,6,6,8,8,8,100,100,100)
+    size = [0.1,0.5,2,0.1,0.5,2,0.1,0.5,2,0.1,0.5,2,0.1,0.5,2,0.1,0.5,2]
+    vertices = [3,3,3,4,4,4,5,5,5,6,6,6,8,8,8,100,100,100]
+    pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
+
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,45,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
     #Row 10: Solid Shapes Clear (3,3,3,4,4,4,5,5,5,6,6,6,8,8,8,100,100,100)
+    size = [0.1,0.5,2,0.1,0.5,2,0.1,0.5,2,0.1,0.5,2,0.1,0.5,2,0.1,0.5,2]
+    vertices = [3,3,3,4,4,4,5,5,5,6,6,6,8,8,8,100,100,100]
+    pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
+
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,45,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
    
     #Add text description of Array
     parameters = {

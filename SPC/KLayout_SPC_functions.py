@@ -1525,7 +1525,7 @@ Return definitions:
     #RCell.shapes(RLayer).insert(output_region)
     #layout.write("Polygon_Tester.oas")
 
-    return output_region,output_cell.name,tone,size,pitch_type
+    return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
