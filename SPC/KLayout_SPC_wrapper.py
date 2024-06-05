@@ -3,6 +3,10 @@ import math
 import klayout.db as db
 import time
 import pandas as pd
+import pathlib
+import os
+import shutil
+from datetime import date
 from KLayout_SPC_functions import *
 from KLayout_PDM_functions import *
 from KLayout_SPC_array_functions import *
@@ -20,6 +24,10 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     """
 
     #### Initial setup ####
+
+    newdir=f"{date.today()}_USPC"
+    if not os.path.exists(newdir):
+        os.mkdir(newdir)
 
     #Create the layout
     layout = db.Layout()
@@ -710,9 +718,13 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     else: oasis_tone = "PCAR"
 
     if min_size_limit>0:
-        layout.write(f"{oasis_tone}_Universal_SPC_{naming}_{min_size_limit}um_limit.oas")
+        LayoutName = f"{oasis_tone}_Universal_SPC_{naming}_{min_size_limit}um_limit.oas"
     else:
-        layout.write(f"{oasis_tone}_Universal_SPC_{naming}_Full.oas")
+        LayoutName = f"{oasis_tone}_Universal_SPC_{naming}_Full.oas"
+
+    layout.write(LayoutName)
+    shutil.copy(LayoutName,newdir)
+    os.remove(LayoutName)
 
     xtime = time.time()-startTime
     print(f"Finished writing file after {xtime} sec")
@@ -782,7 +794,9 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             site+=1
         
         f.write('end,')
-
+    
+    shutil.copy(f,newdir)
+    os.remove(f)
 
     #### Write the PDM coordinate file ####
     pdm_xcoords = []
@@ -794,7 +808,16 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         pdm_name.append(pdm_coords[z][2])
 
     df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
-    df.to_csv(f'USPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv' if min_size_limit>0 else f'USPC_PDM_Coordinates_{naming}_Full.csv')
+
+    if min_size_limit>0:
+        CoordName = f'USPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv'
+    else:
+        CoordName = f'USPC_PDM_Coordinates_{naming}_Full.csv'
+
+    CoordFile = df.to_csv(CoordName)
+
+    shutil.copy(CoordFile,newdir)
+    os.remove(f)
 
     zTime = time.time() - initialTime
     print(f"Entire process finished in {zTime/60}min!")
