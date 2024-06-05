@@ -188,7 +188,7 @@ Return definitions:
     return output_region,output_cell.name,tone,size,pitch_type,angle,metro_structure
 
 def contact_cell(name:str="cont_Cell",tone:str="D",size:float=0.05,pitch:float=0.100,cell_size:float=25,angle:float=0,x2y:float=1,metro_structure:bool=True,metro_spacing:float=8,
-                 stagger:bool=False,HH:bool=False,HH_amount:float=0):
+                 stagger:bool=False,HH:bool=False,HH_amount:float=0,HH_double:bool=False):
     
 #### Function definition ####
     """
@@ -231,6 +231,8 @@ Parameter definitions:
     HH -- Determines if hammerhead OPC features will be added to the 2D structures.
 
     HH_amount -- Defines how large the hammerhead should be (in um). Hammerheads are currently centered on the left and right edges of the 2D structure.
+
+    HH_Double -- If True, places HH on both feature edge pairs (X and Y). If False, HH is only on one of the edge pairs.
 \n
 ---
 \n
@@ -326,13 +328,15 @@ Parameter definitions:
          LeftHH = db.DBox(c_left,c_bottom-HH_amount,c_left+HH_width,c_top+HH_amount)
          RightHH = db.DBox(c_right-HH_width,c_bottom-HH_amount,c_right,c_top+HH_amount)
          if x2y == 1:
-            TopHH = db.DBox(c_left-HH_amount,c_top-HH_width,c_right+HH_amount,c_top)
-            BottomHH = db.DBox(c_left-HH_amount,c_bottom,c_right+HH_amount,c_bottom+HH_width)            
+            if HH_double:
+                TopHH = db.DBox(c_left-HH_amount,c_top-HH_width,c_right+HH_amount,c_top)
+                BottomHH = db.DBox(c_left-HH_amount,c_bottom,c_right+HH_amount,c_bottom+HH_width)            
          ContCell.shapes(l_cont).insert(LeftHH)
          ContCell.shapes(l_cont).insert(RightHH)
          if x2y == 1:
-            ContCell.shapes(l_cont).insert(TopHH)
-            ContCell.shapes(l_cont).insert(BottomHH)
+            if HH_double:
+                ContCell.shapes(l_cont).insert(TopHH)
+                ContCell.shapes(l_cont).insert(BottomHH)
          hammer_region = db.Region(ContCell.shapes(l_cont))
          hammer_region=hammer_region.merged()
          ContCell.shapes(l_cont).clear()
@@ -1455,7 +1459,7 @@ Return definitions:
 
     #Defines number of polygons to draw
     poly_draw_count=1
-    poly_number_count= math.floor(((cell_size/2)-inner_r)/(pitch*pitch_scale))
+    poly_number_count= 2*math.floor(((cell_size/2)-inner_r)/(pitch*pitch_scale))
 
 
     #Adds radiating polygon paths if not iso
@@ -1529,4 +1533,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
-#Polygon_cell("Polygon_Cell","D",50,0.5,1,1,25,0,False)
+#Polygon_cell("Polygon_Cell","C",4,0.5,1,1,25,0,False)

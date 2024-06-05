@@ -575,6 +575,131 @@ def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,To
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
 
+#Warning, large
+def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
+                        cell_size:float=25,negative_resist_tone:bool=True,min_size_limit:float=0):
+    
+    MiscArray = layout.create_cell("Misc_Array")
+
+    initial_x = offset
+    initial_y = offset
+    current_x = initial_x
+    current_y = initial_y
+
+    #Define tone by rows
+    tone=["D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C"]
+    if not negative_resist_tone:
+        for i in range(len(tone)):
+            if tone[i] == "D":
+                tone[i] = "C"
+            elif tone[i] == "C":
+                tone[i] = "D"
+    row=0
+
+    #18x18
+
+    #Row 1: Large 1D Dark
+    size = [1,1.5,2,2.5,3,4,5,6,7,8,9,10,12,14,15,16,18,20]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=LS_cell(cellname,tone[row],size[i],0.001,cell_size,0,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
+    #Row 2: Large 1D Clear
+    size = [1,1.5,2,2.5,3,4,5,6,7,8,9,10,12,14,15,16,18,20]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=LS_cell(cellname,tone[row],size[i],0.001,cell_size,0,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
+    #Row 3: Stairstep Dark
+    size = [0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0]
+    pitch = [0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=StairStep_cell(cellname,tone[row],size[i],size[i],size[i],size[i]/pitch[i],cell_size,True,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+    
+    #Row 4: Staristep Clear (0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0)
+    size = [0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0]
+    pitch = [0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5,0.001, 0.2, 0.5]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=StairStep_cell(cellname,tone[row],size[i],size[i],size[i],size[i]/pitch[i],cell_size,True,False)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
+    #Row 6: CR Squares Dark (Hollow)
+    size = [0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0]
+    pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
+    for i in range(0,len(size)):
+        if size[i] >= min_size_limit:
+            holder=Polygon_cell(cellname,tone[row],4,size[i],size[i]/2,size[i]/pitch[i],cell_size,45,True)
+            tempcell=layout.create_cell(holder[1])
+            tempcell.shapes(layer).insert(holder[0])
+            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+            MiscArray.insert(temparray)
+            name = holder[1:]
+            spc_coords.append([current_x+xpos,current_y+ypos,name])
+        current_x+=(spacing+cell_size)
+    current_x=initial_x
+    current_y+=(spacing+cell_size)
+    row+=1
+
+    #Row 7: CR Squares Clear (Hollow) (0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0)
+    #Row 8: CR Squares Dark (Solid) (0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0)
+    #Row 9: CR Squares Clear (Solid) (0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0)
+    #Row 10: Solid Shapes Dark (3,3,3,4,4,4,5,5,5,6,6,6,8,8,8,100,100,100)
+    #Row 10: Solid Shapes Clear (3,3,3,4,4,4,5,5,5,6,6,6,8,8,8,100,100,100)
+   
+    #Add text description of Array
+    parameters = {
+        "layer": db.LayerInfo(layer,0),
+        "text": f"{arrayname}",
+        "mag": 25.0
+        }
+    
+    TextCell = layout.create_cell("TEXT","Basic",parameters)
+    MiscArray.insert(db.CellInstArray(TextCell.cell_index(),db.DTrans(180,False,1000*(offset-cell_size/2),0)))
+
+    TopCell.insert(db.DCellInstArray(MiscArray,db.DVector(xpos,ypos)))
+
+
 #Warning, massive....
 def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coords:list=[],xpos:float=0,ypos:float=0,negative_resist_tone:bool=True,min_size_limit:float=0):
     ContArray = layout.create_cell("PDM_Array")

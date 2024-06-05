@@ -687,6 +687,22 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
 
 
+    #### Misc Cell ####--------------------------------------------------------------------------------------------------------------------------
+
+    #Define array position
+    ArrayX = start_pos_x+0*x_step_size
+    ArrayY = start_pos_y+5*y_step_size
+
+    #Define names
+    arrayname = "Miscellaneous"
+    cellname = "Misc_Cell"
+
+    #Write the cell
+    print(f"Writing {arrayname}...")
+    startTime=time.time()
+    Misc_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,negative_resist_tone,min_size_limit)
+    xtime = time.time()-startTime
+    print(f"Done w/ {arrayname} after {xtime} sec...")
 
 
     #### PDM Array ####--------------------------------------------------------------------------------------------------------------------------
@@ -834,16 +850,21 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 print(f"Starting process...")
 fullstartTime=time.time()
 
-#KLayout_SPC_Wrapper("EBeam",False,0,True,True)
-#KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
-#KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
-#KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
-KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
-#KLayout_SPC_Wrapper("EBeam",True,0,True,True)
-#KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
-#KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
-#KLayout_SPC_Wrapper("EBeam",True,0.24,False,False)
-#KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
+Tester=True
+
+if Tester:
+    KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
+else:
+    KLayout_SPC_Wrapper("EBeam",False,0,True,True)
+    KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
+    KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
+    KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
+    KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
+    KLayout_SPC_Wrapper("EBeam",True,0,True,True)
+    KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
+    KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
+    KLayout_SPC_Wrapper("EBeam",True,0.24,False,False)
+    KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
 
 xfinaltime = time.time()-fullstartTime
 print(f"Full process completed after {xfinaltime/60}min!")
