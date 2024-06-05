@@ -731,7 +731,13 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
 
     #### Write the MFX file: ####
-    with open(f'USPC_coord_file_{naming}_{min_size_limit}um.mfx' if min_size_limit>0 else f'USPC_coord_file_{naming}_Full.mfx','w') as f:
+
+    if min_size_limit>0:
+        MFXName = f'USPC_coord_file_{naming}_{min_size_limit}um.mfx'
+    else:
+        MFXName = f'USPC_coord_file_{naming}_Full.mfx'
+
+    with open(MFXName,'w') as f:
         
         #Set up initial lines in text file
         f.write('mfxjob,')
@@ -795,8 +801,8 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         
         f.write('end,')
     
-    shutil.copy(f,newdir)
-    os.remove(f)
+    shutil.copy(MFXName,newdir)
+    os.remove(MFXName)
 
     #### Write the PDM coordinate file ####
     pdm_xcoords = []
@@ -810,14 +816,14 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     df = pd.DataFrame({'X Coord':pdm_xcoords,'Y Coord':pdm_ycoords,'Name':pdm_name})
 
     if min_size_limit>0:
-        CoordName = f'USPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv'
+        CoordFile = f'USPC_PDM_Coordinates_{naming}_{min_size_limit}um.csv'
     else:
-        CoordName = f'USPC_PDM_Coordinates_{naming}_Full.csv'
-
-    CoordFile = df.to_csv(CoordName)
+        CoordFile = f'USPC_PDM_Coordinates_{naming}_Full.csv'
+    
+    df.to_csv(CoordFile)
 
     shutil.copy(CoordFile,newdir)
-    os.remove(f)
+    os.remove(CoordFile)
 
     zTime = time.time() - initialTime
     print(f"Entire process finished in {zTime/60}min!")
@@ -828,16 +834,16 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 print(f"Starting process...")
 fullstartTime=time.time()
 
-KLayout_SPC_Wrapper("EBeam",False,0,True,True)
-KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
-KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
-KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
+#KLayout_SPC_Wrapper("EBeam",False,0,True,True)
+#KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
+#KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
+#KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
 KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
-KLayout_SPC_Wrapper("EBeam",True,0,True,True)
-KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
-KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
-KLayout_SPC_Wrapper("EBeam",True,0.24,False,False)
-KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
+#KLayout_SPC_Wrapper("EBeam",True,0,True,True)
+#KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
+#KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
+#KLayout_SPC_Wrapper("EBeam",True,0.24,False,False)
+#KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
 
 xfinaltime = time.time()-fullstartTime
 print(f"Full process completed after {xfinaltime/60}min!")
