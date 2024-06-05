@@ -1346,7 +1346,7 @@ Parameter definitions:
     
     size -- Float; Defines the width of the feature (in um).
     
-    inner_r -- Float; Defines the initial inner polygon radius (in um).
+    inner_r -- Float; Defines the initial inner polygon radius (in um), from center to vertice.
 
     vertices -- Integer; Defines the integer number of polygon vertices. Values below 3 are invalid; values above 20 will default to a circle feature.
 
@@ -1441,32 +1441,35 @@ Return definitions:
     
     PolygonCell.shapes(ly_polygon).insert(inner_poly)
 
+    #Corrects the pitch so that it applies the pitch from the polygon edge, not from the polygon vertex
+    pitch_angle = (180*(vertices-2)/vertices)/2
+    pitch_leg = pitch*math.sin((math.pi/180)*pitch_angle)
+    pitch_scale = pitch/pitch_leg
 
-    if hollow:     #alters inner_r value based on hollow-ness
+    #Alter inner_r value based on hollow-ness, correcting for edge pitch instead of vertex pitch for non-hollow structure
+    if hollow:     
         pass
     else:
-        inner_r -= size/2
+        inner_r -= (size/2)/math.sin((math.pi/180)*pitch_angle)
 
-    #pitch_correction = size*math.sin((math.pi/180)*(180*(vertices-2)/vertices))
-    #pitch_correction = (pitch/math.cos(math.pi/((180*(vertices-2)/vertices)/2)))
-    pitch_correction = (pitch*math.cos(math.pi/((180*(vertices-2)/vertices)/2)))
-    #pitch_correction = 0
 
+    #Defines number of polygons to draw
     poly_draw_count=1
-    poly_number_count= math.floor(((cell_size/2)-inner_r)/(pitch+pitch_correction))
+    poly_number_count= math.floor(((cell_size/2)-inner_r)/(pitch*pitch_scale))
+
 
     #Adds radiating polygon paths if not iso
     if not iso:
         while poly_draw_count<poly_number_count:
             poly_pts=[]
             for k in range(0,vertices+2):
-                poly_pts.append(db.DPoint((inner_r+(poly_draw_count*(pitch+pitch_correction)))*math.cos(k*(360/vertices)*(math.pi/180)),
-                                          (inner_r+(poly_draw_count*(pitch+pitch_correction)))*math.sin(k*(360/vertices)*(math.pi/180))))
+                poly_pts.append(db.DPoint((inner_r+(poly_draw_count*(pitch*pitch_scale)))*math.cos(k*(360/vertices)*(math.pi/180)),
+                                          (inner_r+(poly_draw_count*(pitch*pitch_scale)))*math.sin(k*(360/vertices)*(math.pi/180))))
             poly_poly = db.DPath(poly_pts,size)
             PolygonCell.shapes(ly_polygon).insert(poly_poly)
             poly_draw_count+=1
     
-
+    #Centers the cell
     shape_right = PolygonCell.bbox().right
     shape_left = PolygonCell.bbox().left
     shape_top = PolygonCell.bbox().top
@@ -1512,13 +1515,13 @@ Return definitions:
          sacrifice_cell.prune_cell()
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Polygon_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Polygon_Tester.oas")
 
-    #return output_region,output_cell.name,tone,size,pitch_type
+    return output_region,output_cell.name,tone,size,pitch_type
 
 #print("test")
 
@@ -1526,4 +1529,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
-Polygon_cell("Polygon_Cell","D",5,0.5,1,1,25,0,True)
+#Polygon_cell("Polygon_Cell","D",50,0.5,1,1,25,0,False)
