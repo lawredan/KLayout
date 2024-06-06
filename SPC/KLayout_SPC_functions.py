@@ -1474,11 +1474,11 @@ Return definitions:
             poly_draw_count+=1
     
     #Centers the cell
-    shape_right = PolygonCell.bbox().right
-    shape_left = PolygonCell.bbox().left
-    shape_top = PolygonCell.bbox().top
-    shape_bottom = PolygonCell.bbox().bottom
-    PolygonCell.transform(db.Trans(db.Trans.R0,-(shape_right+shape_left)/2,-(shape_top+shape_bottom)))
+    #shape_right = PolygonCell.bbox().right
+    #shape_left = PolygonCell.bbox().left
+    #shape_top = PolygonCell.bbox().top
+    #shape_bottom = PolygonCell.bbox().bottom
+    #PolygonCell.transform(db.Trans(db.Trans.R0,-(shape_right+shape_left)/2,-(shape_top+shape_bottom)))
 
     TopCell.insert(db.DCellInstArray(PolygonCell,db.DVector(0,0)))
 
