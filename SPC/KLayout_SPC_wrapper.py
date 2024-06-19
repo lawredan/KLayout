@@ -855,7 +855,8 @@ print(f"Starting process...")
 fullstartTime=time.time()
 
 
-Tester = True
+### Use this to test or run the full dataset ###
+Tester = False
 
 if Tester:
     KLayout_SPC_Wrapper("Laser",False,0.24,True,True,True)
