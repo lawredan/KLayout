@@ -88,7 +88,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
                 tone[i] = "D"
 
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
-    pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
+    pitch=[1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01,1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
     if not offangle_features:
         for i in range(len(angle)):
@@ -128,7 +128,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
                 tone[i] = "D"
 
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
-    pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
+    pitch=[1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01,1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
     if not offangle_features:
         for i in range(len(angle)):
@@ -329,7 +329,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
                 tone[i] = "D"
 
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
-    pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
+    pitch=[1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01,1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
     if not offangle_features:
         for i in range(len(angle)):
@@ -369,7 +369,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
                 tone[i] = "D"
 
     size=[0.03,0.04,0.05,0.06,0.07,0.08,0.1,0.12,0.16,0.2,0.3,0.4,0.5,0.6,0.8,1.0,2.0,4.0]
-    pitch=[1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01,1,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.01]
+    pitch=[1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01,1,0.8,0.65,0.5,0.35,0.2,0.15,0.1,0.01]
     angle = [0,0,0,0,0,0,0,0,0,90,90,90,90,90,90,90,90,90]
     if not offangle_features:
         for i in range(len(angle)):
@@ -856,7 +856,7 @@ fullstartTime=time.time()
 
 
 ### Use this to test or run the full dataset ###
-Tester = True
+Tester = False
 
 if Tester:
     KLayout_SPC_Wrapper("Laser",False,0.24,True,True,True)

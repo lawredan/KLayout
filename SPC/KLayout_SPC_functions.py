@@ -63,7 +63,7 @@ Return definitions:
     #Check pitch of the LS array
     pitch_check = size/pitch
     iso = pitch_check < 0.05 #boolean
-    bar3 = pitch_check > 0.75 #boolean
+    bar3 = pitch_check > 0.81 #boolean
 
     #Determine naming based on density
     if iso:
@@ -284,7 +284,7 @@ Parameter definitions:
     
     if pitch_check < 0.05:
          iso = True
-    elif pitch_check > 0.75:
+    elif pitch_check > 0.81:
          donut = True
     else:
          dense=True
