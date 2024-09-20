@@ -159,21 +159,21 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     cellname = "Litho_Gain_Cell"
 
     #Define array parameters
-    tone=["D","D","C","C","D","D","C","C","D","D","C","C","D","D","C","C"]
-    if not negative_resist_tone:
-        for i in range(len(tone)):
-            if tone[i] == "D":
-                tone[i] = "C"
-            elif tone[i] == "C":
-                tone[i] = "D"
+    tone=["D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D","D"]
+    #if not negative_resist_tone:
+    #    for i in range(len(tone)):
+    #        if tone[i] == "D":
+    #            tone[i] = "C"
+    #        elif tone[i] == "C":
+    #            tone[i] = "D"
 
     size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
-    pitch=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
-    angle=[0,90,0,90,0,90,0,90,45,135,45,135,45,135,45,135]
+    pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
+    angle=[0,0,90,90,0,0,90,90,0,0,90,90,0,0,90,90]
     if not offangle_features:
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -856,7 +856,7 @@ fullstartTime=time.time()
 
 
 ### Use this to test or run the full dataset ###
-Tester = False
+Tester = True
 
 if Tester:
     KLayout_SPC_Wrapper("Laser",False,0.24,True,True,True)
