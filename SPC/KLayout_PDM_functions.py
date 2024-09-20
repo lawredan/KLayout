@@ -16,8 +16,8 @@ def contact_pdm(tone:str="C",size:float=0.26,pitch:float=0.78,cell_size:float=20
     else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Defect number check
-    if defect_num >5 or defect_num<0:
-        return TypeError(f"Error: Choose an appropriate defect number:0-Control Cell, 1-Missing Feature, 2-Half Missing Feature, 3-Small Extension, 4-Corner Extension, 5-Bridged Feature")
+    if defect_num >6 or defect_num<0:
+        return TypeError(f"Error: Choose an appropriate defect number:0-Control Cell, 1-Missing Feature, 2-Half Missing Feature, 3-Small Extension, 4-Corner Extension, 5-Bridged Feature, 6-Etch Block")
 
     if defect_num == 1:
         defecttype = "Missing_Feature"
@@ -28,7 +28,9 @@ def contact_pdm(tone:str="C",size:float=0.26,pitch:float=0.78,cell_size:float=20
     elif defect_num == 4:
         defecttype = "Corner_Extension"
     elif defect_num == 5:
-        defecttype = "Bridged_Feature"
+        defecttype = "Bridged_Feature"    
+    elif defect_num == 6:
+        defecttype = "Etch_Block"
     else: defecttype="Control"
 
     #Create the layout
@@ -105,6 +107,13 @@ def contact_pdm(tone:str="C",size:float=0.26,pitch:float=0.78,cell_size:float=20
          AddingRegion = Target | AddingRegion
          TopCell.shapes(l_cont).clear()
          TopCell.shapes(l_cont).insert(AddingRegion)          
+    elif defect_num == 6:
+         AddingFeature = db.DBox(-5*size,-5*size,5*size,5*size)
+         AddingRegion = db.Region(1000*AddingFeature)
+         Target = db.Region(TopCell.shapes(l_cont))
+         AddingRegion = Target | AddingRegion
+         TopCell.shapes(l_cont).clear()
+         TopCell.shapes(l_cont).insert(AddingRegion)  
 
     #Flip the tone if needed
     if tone == "C":
@@ -112,6 +121,13 @@ def contact_pdm(tone:str="C",size:float=0.26,pitch:float=0.78,cell_size:float=20
          Clear_region = CellRegion - Cell_shapes
          TopCell.shapes(l_cont).clear()
          TopCell.shapes(l_cont).insert(Clear_region)
+         if defect_num == 6:
+            AddingFeature = db.DBox(-5*size,-5*size,5*size,5*size)
+            AddingRegion = db.Region(1000*AddingFeature)
+            Target = db.Region(TopCell.shapes(l_cont))
+            AddingRegion = Target | AddingRegion
+            TopCell.shapes(l_cont).clear()
+            TopCell.shapes(l_cont).insert(AddingRegion) 
 
     
     TopCell.name = (f"Cont_Array_{tone}_{size}umSize_{pitch}pitch_w_{defecttype}")
@@ -136,8 +152,8 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
     else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Defect number check
-    if defect_num >5 or defect_num<0:
-        return TypeError(f"Error: Choose an appropriate defect number:0-Control Cell, 1-Missing Line, 2-Half Missing Feature, 3-Small Extension, 4-Bridged Line, 5-Combination Defect")
+    if defect_num >6 or defect_num<0:
+        return TypeError(f"Error: Choose an appropriate defect number:0-Control Cell, 1-Missing Line, 2-Half Missing Feature, 3-Small Extension, 4-Bridged Line, 5-Combination Defect, 6-Etch Block")
 
     if defect_num == 1:
         defecttype = "Missing_Line"
@@ -149,6 +165,8 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
         defecttype = "Bridged_Line"
     elif defect_num == 5:
         defecttype = "Combination_Defect"
+    elif defect_num == 6:
+        defecttype = "Etch_Block"
     else: defecttype="Control"
 
     if horiz:
@@ -235,7 +253,13 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
          FinalRegion = AddingRegion - MissingRegion
          TopCell.shapes(l_line).clear()
          TopCell.shapes(l_line).insert(FinalRegion)  
-
+    elif defect_num == 6:
+         AddingFeature = db.DBox(-5*size,-5*size,5*size,5*size)
+         AddingRegion = db.Region(1000*AddingFeature)
+         Target = db.Region(TopCell.shapes(l_line))
+         AddingRegion = Target | AddingRegion
+         TopCell.shapes(l_line).clear()
+         TopCell.shapes(l_line).insert(AddingRegion) 
 
 #### Angle transformations, sliver removal, and output ####
     
@@ -249,6 +273,13 @@ def LS_PDM(tone:str="D",size:float=0.260,pitch:float=0.520,cell_size:float=20,ho
          Clear_region = CellRegion - Cell_shapes
          TopCell.shapes(l_line).clear()
          TopCell.shapes(l_line).insert(Clear_region)
+         if defect_num == 6:
+            AddingFeature = db.DBox(-5*size,-5*size,5*size,5*size)
+            AddingRegion = db.Region(1000*AddingFeature)
+            Target = db.Region(TopCell.shapes(l_line))
+            AddingRegion = Target | AddingRegion
+            TopCell.shapes(l_line).clear()
+            TopCell.shapes(l_line).insert(AddingRegion) 
 
     TopCell.name = (f"LS_Array_{tone}_{size}umSize_{angle}degrees_w_{defecttype}")
 
@@ -272,8 +303,8 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
     else: return TypeError("Error: Tone must be (D)ark or (C)lear)")
 
     #Defect number check
-    if defect_num >5 or defect_num<0:
-        return TypeError(f"Error: Choose an appropriate defect number:0-Control Cell, 1-Missing Line, 2-Half Missing Feature, 3-Small Extension, 4-Bridged Line, 5-Combination Defect")
+    if defect_num >6 or defect_num<0:
+        return TypeError(f"Error: Choose an appropriate defect number:0-Control Cell, 1-Missing Line, 2-Half Missing Feature, 3-Small Extension, 4-Bridged Line, 5-Combination Defect, 6-Etch Block")
 
     if defect_num == 1:
         defecttype = "Missing_Line"
@@ -285,6 +316,8 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
         defecttype = "Missing_SRAF"
     elif defect_num == 5:
         defecttype = "Shifted_SRAF"
+    elif defect_num == 6:
+        defecttype = "Etch_Block"
     else: defecttype="Control"
 
     if horiz:
@@ -396,6 +429,13 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
          FinalRegion = AddingRegion - MissingRegion
          TopCell.shapes(l_line).clear()
          TopCell.shapes(l_line).insert(FinalRegion)
+    elif defect_num == 6:
+         AddingFeature = db.DBox(-5*size,-5*size,5*size,5*size)
+         AddingRegion = db.Region(1000*AddingFeature)
+         Target = db.Region(TopCell.shapes(l_line))
+         AddingRegion = Target | AddingRegion
+         TopCell.shapes(l_line).clear()
+         TopCell.shapes(l_line).insert(AddingRegion) 
 
 #### Angle transformations, sliver removal, and output ####
     
@@ -409,6 +449,13 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
          Clear_region = CellRegion - Cell_shapes
          TopCell.shapes(l_line).clear()
          TopCell.shapes(l_line).insert(Clear_region)
+         if defect_num == 6:
+            AddingFeature = db.DBox(-5*size,-5*size,5*size,5*size)
+            AddingRegion = db.Region(1000*AddingFeature)
+            Target = db.Region(TopCell.shapes(l_line))
+            AddingRegion = Target | AddingRegion
+            TopCell.shapes(l_line).clear()
+            TopCell.shapes(l_line).insert(AddingRegion) 
 
     TopCell.name = (f"Line_w_SRAF_{tone}_{size}umSize_{angle}degrees_{sraf_num}SRAFs_{sraf_size}um_size_w_{defecttype}")
 

@@ -848,6 +848,20 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_x=initial_x
         current_y+=(spacing+cell_size)
 
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
 
 #### Contacts ####
     if negative_resist_tone: tone="C"
@@ -927,7 +941,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
-
+    
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
     
     size = 0.18
     pitch = 0.18+0.36
@@ -1006,7 +1034,22 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
-    
+
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=contact_pdm(tone,size,pitch,cell_size,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
 #### Vert Line Space ####
 
     if negative_resist_tone:tone = "D"
@@ -1091,6 +1134,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_x=initial_x
         current_y+=(spacing+cell_size)
 
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
     size = 0.18
     pitch = 0.18*2
     horiz = False
@@ -1170,6 +1228,20 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_x=initial_x
         current_y+=(spacing+cell_size)
 
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
 
 #### Horiz Line Space ####
 
@@ -1254,6 +1326,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
             current_x+=(spacing+cell_size)
         current_x=initial_x
         current_y+=(spacing+cell_size)
+    
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
 
     size = 0.18
     pitch = 0.18*2
@@ -1320,6 +1407,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,5,5,5,5,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if size>=min_size_limit:
+                holder=LS_PDM(tone,size,pitch,cell_size,horiz,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
@@ -1421,6 +1523,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_x=initial_x
         current_y+=(spacing+cell_size)
 
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if sraf_size>=min_size_limit:
+                holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
     size = 0.18
     pitch = 0.26*2
     sraf_size = 0.054
@@ -1488,6 +1605,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,5,5,5,5,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if sraf_size>=min_size_limit:
+                holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if sraf_size>=min_size_limit:
@@ -1589,6 +1721,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_x=initial_x
         current_y+=(spacing+cell_size)
 
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if sraf_size>=min_size_limit:
+                holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
     size = 0.18
     pitch = 0.26*2
     sraf_size = 0.054
@@ -1656,6 +1803,21 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
         current_y+=(spacing+cell_size)
 
     defect_num=[5,5,5,5,5,0,0,0,0,0]
+    for j in range(0,row_per_def):
+        for i in range(0,len(defect_num)):
+            if sraf_size>=min_size_limit:
+                holder=SRAF_PDM(tone,size,pitch,cell_size,horiz,sraf_size,sraf_step,sraf_num,defect_num[i],spacing)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                ContArray.insert(temparray)
+                name = holder[1]
+                pdm_coords.append([current_x+xpos,current_y+ypos,name])
+            current_x+=(spacing+cell_size)
+        current_x=initial_x
+        current_y+=(spacing+cell_size)
+
+    defect_num=[6,6,6,6,6,0,0,0,0,0]
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if sraf_size>=min_size_limit:
