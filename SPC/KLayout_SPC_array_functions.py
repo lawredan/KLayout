@@ -84,7 +84,7 @@ def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db
     TopCell.insert(db.DCellInstArray(SpaceArray,db.DVector(xpos,ypos)))
 
 def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                     cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
+                     cell_size:float=25,tone:list=[],size:list=[],fracture:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
 
     LithoGainArray = layout.create_cell("GainArray")
 
@@ -96,7 +96,7 @@ def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCe
     for j in tqdm(range(0,len(size))):
         for i in range(0,len(pitch)):
             if size[j] >= min_size_limit:
-                holder=LS_cell(cellname,tone[j],size[j],size[j]/pitch[i],cell_size,angle[j],metro_structure[i],metro_spacing[i])
+                holder=LS_fracture_cell(cellname,tone[j],size[j],fracture[j][i],size[j]/pitch[i],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))

@@ -168,6 +168,59 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #            tone[i] = "D"
 
     size=[0.8,0.8,0.8,0.8,0.35,0.35,0.35,0.35,0.25,0.25,0.25,0.25,0.1,0.1,0.1,0.1]
+    
+    Shot1 = 800
+    Step1 = 100
+    Ratio1 = Step1/Shot1
+
+    Shot2 = 350
+    Step2 = 25
+    Ratio2 = Step2/Shot2
+
+    Shot3 = 250
+    Step3 = 25
+    Ratio3 = Step3/Shot3
+
+    Shot4 = 100
+    Step4 = 10
+    Ratio4 = Step4/Shot4
+
+    fracture=[[1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
+              [1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
+              [1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
+              [1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
+              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
+              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
+              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
+              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
+              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
+              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
+              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
+              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
+              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4]]
+
+    #fracture=[[1*Ratio1,1*Ratio1,1*Ratio1,1*Ratio1,1*Ratio2,1*Ratio2,1*Ratio2,1*Ratio2,1*Ratio3,1*Ratio3,1*Ratio3,1*Ratio3,1*Ratio4,1*Ratio4,1*Ratio4,1*Ratio4],
+    #          [2*Ratio1,2*Ratio1,2*Ratio1,2*Ratio1,2*Ratio2,2*Ratio2,2*Ratio2,2*Ratio2,2*Ratio3,2*Ratio3,2*Ratio3,2*Ratio3,2*Ratio4,2*Ratio4,2*Ratio4,2*Ratio4],
+    #          [3*Ratio1,3*Ratio1,3*Ratio1,3*Ratio1,3*Ratio2,3*Ratio2,3*Ratio2,3*Ratio2,3*Ratio3,3*Ratio3,3*Ratio3,3*Ratio3,3*Ratio4,3*Ratio4,3*Ratio4,3*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio2,4*Ratio2,4*Ratio2,4*Ratio2,4*Ratio3,4*Ratio3,4*Ratio3,4*Ratio3,4*Ratio4,4*Ratio4,4*Ratio4,4*Ratio4],
+    #          [5*Ratio1,5*Ratio1,5*Ratio1,5*Ratio1,5*Ratio2,5*Ratio2,5*Ratio2,5*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [6*Ratio1,6*Ratio1,6*Ratio1,6*Ratio1,6*Ratio2,6*Ratio2,6*Ratio2,6*Ratio2,6*Ratio3,6*Ratio3,6*Ratio3,6*Ratio3,6*Ratio4,6*Ratio4,6*Ratio4,6*Ratio4],
+    #          [7*Ratio1,7*Ratio1,7*Ratio1,7*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio3,7*Ratio3,7*Ratio3,7*Ratio3,7*Ratio4,7*Ratio4,7*Ratio4,7*Ratio4],
+    #          [8*Ratio1,8*Ratio1,8*Ratio1,8*Ratio1,8*Ratio2,8*Ratio2,8*Ratio2,8*Ratio2,8*Ratio3,8*Ratio3,8*Ratio3,8*Ratio3,8*Ratio4,8*Ratio4,8*Ratio4,8*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,9*Ratio2,9*Ratio2,9*Ratio2,9*Ratio2,9*Ratio3,9*Ratio3,9*Ratio3,9*Ratio3,9*Ratio4,9*Ratio4,9*Ratio4,9*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,10*Ratio2,10*Ratio2,10*Ratio2,10*Ratio2,10*Ratio3,10*Ratio3,10*Ratio3,10*Ratio3,10*Ratio4,10*Ratio4,10*Ratio4,10*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,11*Ratio2,11*Ratio2,11*Ratio2,11*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,12*Ratio2,12*Ratio2,12*Ratio2,12*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,13*Ratio2,13*Ratio2,13*Ratio2,13*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,14*Ratio2,14*Ratio2,14*Ratio2,14*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
+    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4]]
+
     pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
     angle=[0,0,90,90,0,0,90,90,0,0,90,90,0,0,90,90]
     if not offangle_features:
@@ -179,7 +232,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,fracture,pitch,angle,metro_structure,metro_spacing,min_size_limit)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -856,7 +909,7 @@ fullstartTime=time.time()
 
 
 ### Use this to test or run the full dataset ###
-Tester = False
+Tester = True
 
 if Tester:
     KLayout_SPC_Wrapper("Laser",False,0.24,True,True,True)
