@@ -172,57 +172,34 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     Shot1 = 800
     Step1 = 100
     Ratio1 = Step1/Shot1
+    R1_Order = [8,7,6,5,4,3,2,1,8,8,8,8,8,8,8,8,8,8]
+    R1_Order = [Ratio1*z for z in R1_Order]
 
     Shot2 = 350
     Step2 = 25
     Ratio2 = Step2/Shot2
+    R2_Order = [14,13,12,11,10,9,8,7,6,5,4,3,2,1,14,14,14,14]
+    R2_Order = [Ratio2*z for z in R2_Order]
 
     Shot3 = 250
     Step3 = 25
     Ratio3 = Step3/Shot3
+    R3_Order = [10,9,8,7,6,5,4,3,2,1,10,10,10,10,10,10,10,10]
+    R3_Order = [Ratio3*z for z in R3_Order]
+
 
     Shot4 = 100
     Step4 = 10
     Ratio4 = Step4/Shot4
+    R4_Order = [10,9,8,7,6,5,4,3,2,1,10,10,10,10,10,10,10,10]
+    R4_Order = [Ratio4*z for z in R4_Order]
 
-    fracture=[[1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
-              [1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
-              [1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
-              [1*Ratio1,2*Ratio1,3*Ratio1,4*Ratio1,5*Ratio1,6*Ratio1,7*Ratio1,8*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1],
-              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
-              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
-              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
-              [1*Ratio2,2*Ratio2,3*Ratio2,4*Ratio2,5*Ratio2,6*Ratio2,7*Ratio2,8*Ratio2,9*Ratio2,10*Ratio2,11*Ratio2,12*Ratio2,13*Ratio2,14*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2],
-              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
-              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
-              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
-              [1*Ratio3,2*Ratio3,3*Ratio3,4*Ratio3,5*Ratio3,6*Ratio3,7*Ratio3,8*Ratio3,9*Ratio3,10*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3],
-              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-              [1*Ratio4,2*Ratio4,3*Ratio4,4*Ratio4,5*Ratio4,6*Ratio4,7*Ratio4,8*Ratio4,9*Ratio4,10*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4]]
 
-    #fracture=[[1*Ratio1,1*Ratio1,1*Ratio1,1*Ratio1,1*Ratio2,1*Ratio2,1*Ratio2,1*Ratio2,1*Ratio3,1*Ratio3,1*Ratio3,1*Ratio3,1*Ratio4,1*Ratio4,1*Ratio4,1*Ratio4],
-    #          [2*Ratio1,2*Ratio1,2*Ratio1,2*Ratio1,2*Ratio2,2*Ratio2,2*Ratio2,2*Ratio2,2*Ratio3,2*Ratio3,2*Ratio3,2*Ratio3,2*Ratio4,2*Ratio4,2*Ratio4,2*Ratio4],
-    #          [3*Ratio1,3*Ratio1,3*Ratio1,3*Ratio1,3*Ratio2,3*Ratio2,3*Ratio2,3*Ratio2,3*Ratio3,3*Ratio3,3*Ratio3,3*Ratio3,3*Ratio4,3*Ratio4,3*Ratio4,3*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio2,4*Ratio2,4*Ratio2,4*Ratio2,4*Ratio3,4*Ratio3,4*Ratio3,4*Ratio3,4*Ratio4,4*Ratio4,4*Ratio4,4*Ratio4],
-    #          [5*Ratio1,5*Ratio1,5*Ratio1,5*Ratio1,5*Ratio2,5*Ratio2,5*Ratio2,5*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [6*Ratio1,6*Ratio1,6*Ratio1,6*Ratio1,6*Ratio2,6*Ratio2,6*Ratio2,6*Ratio2,6*Ratio3,6*Ratio3,6*Ratio3,6*Ratio3,6*Ratio4,6*Ratio4,6*Ratio4,6*Ratio4],
-    #          [7*Ratio1,7*Ratio1,7*Ratio1,7*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio3,7*Ratio3,7*Ratio3,7*Ratio3,7*Ratio4,7*Ratio4,7*Ratio4,7*Ratio4],
-    #          [8*Ratio1,8*Ratio1,8*Ratio1,8*Ratio1,8*Ratio2,8*Ratio2,8*Ratio2,8*Ratio2,8*Ratio3,8*Ratio3,8*Ratio3,8*Ratio3,8*Ratio4,8*Ratio4,8*Ratio4,8*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,9*Ratio2,9*Ratio2,9*Ratio2,9*Ratio2,9*Ratio3,9*Ratio3,9*Ratio3,9*Ratio3,9*Ratio4,9*Ratio4,9*Ratio4,9*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,10*Ratio2,10*Ratio2,10*Ratio2,10*Ratio2,10*Ratio3,10*Ratio3,10*Ratio3,10*Ratio3,10*Ratio4,10*Ratio4,10*Ratio4,10*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,11*Ratio2,11*Ratio2,11*Ratio2,11*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,12*Ratio2,12*Ratio2,12*Ratio2,12*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,13*Ratio2,13*Ratio2,13*Ratio2,13*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,14*Ratio2,14*Ratio2,14*Ratio2,14*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4],
-    #          [4*Ratio1,4*Ratio1,4*Ratio1,4*Ratio1,7*Ratio2,7*Ratio2,7*Ratio2,7*Ratio2,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio3,5*Ratio4,5*Ratio4,5*Ratio4,5*Ratio4]]
+
+    fracture=[R1_Order,R1_Order,R1_Order,R1_Order,R2_Order,R2_Order,R2_Order,R2_Order,R3_Order,R3_Order,R3_Order,R4_Order,R4_Order,R4_Order,R4_Order]
 
     pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
-    angle=[0,0,90,90,0,0,90,90,0,0,90,90,0,0,90,90]
+    angle=[180,180,270,270,180,180,270,270,180,180,270,270,180,180,270,270]
     if not offangle_features:
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
