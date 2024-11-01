@@ -100,7 +100,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    Line_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -140,7 +140,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    Space_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -196,10 +196,10 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
 
 
-    fracture=[R1_Order,R1_Order,R1_Order,R1_Order,R2_Order,R2_Order,R2_Order,R2_Order,R3_Order,R3_Order,R3_Order,R4_Order,R4_Order,R4_Order,R4_Order]
+    fracture=[R1_Order,R1_Order,R1_Order,R1_Order,R2_Order,R2_Order,R2_Order,R2_Order,R3_Order,R3_Order,R3_Order,R3_Order,R4_Order,R4_Order,R4_Order,R4_Order]
 
     pitch=[0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005,0.005]
-    angle=[180,180,270,270,180,180,270,270,180,180,270,270,180,180,270,270]
+    angle=[0,0,270,270,0,0,270,270,0,0,270,270,0,0,270,270]
     if not offangle_features:
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
@@ -209,7 +209,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,fracture,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    Litho_Gain_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,fracture,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -250,7 +250,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit)
+    Dot_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -291,7 +291,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit)
+    Hole_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -331,7 +331,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    AnyAngle_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -371,7 +371,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    Line_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -410,7 +410,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    Space_Fidcol_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -451,7 +451,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    LineSpaceEnd_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure,metro_spacing,min_size_limit)
+    LineSpaceEnd_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,end_spacing,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -492,7 +492,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num,min_size_limit)
+    LS_SRAF_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,sraf_factor,sraf_step_factor,sraf_num,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -548,7 +548,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         startTime=time.time()
         Curvilinear_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,
                         spiral_tone,spiral_size,spiral_inner_r,spiral_outer_r,spiral_spacing,spiral_rampancy,
-                        horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle,min_size_limit)
+                        horn_tone,horn_initial_size,horn_step_size,horn_power,horn_spacing,horn_angle,min_size_limit,negative_resist_tone)
 
         xtime = time.time()-startTime
         print(f"Done w/ {arrayname} after {xtime} sec...")
@@ -589,7 +589,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    LCDU_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -629,7 +629,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit)
+    LS_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -670,7 +670,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit)
+    HD_Repeat_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -715,7 +715,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     print(f"Writing {arrayname}...")
     startTime=time.time()
     HD_HH_Stagger_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,tone,size,pitch,angle,x2y,metro_structure,metro_spacing,
-                        stagger,HH_list,HH_amount,min_size_limit)
+                        stagger,HH_list,HH_amount,min_size_limit,negative_resist_tone)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
