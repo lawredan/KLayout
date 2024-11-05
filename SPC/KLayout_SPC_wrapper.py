@@ -37,12 +37,27 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     layout = db.Layout()
     layout.dbu=0.001 #um
 
-    #Create the initial structures, including masking layer
+    #Create the initial structures, including masking layer and border
     TopCell = layout.create_cell("TopCell")
     layer = layout.layer(1,0)
     mask_ly = layout.layer(2,0)
-    TopBox = db.DBox(0,0,2398.6,4405)
+    mask_border = layout.layer(3,0)
+
+    LL_X = 0
+    LL_Y = 0
+    UR_X = 2398.6
+    UR_Y = 4405
+
+    TopBox = db.DBox(LL_X,LL_Y,UR_X,UR_Y)
     TopCell.shapes(mask_ly).insert(TopBox)
+
+    MaskBorderCoords = [db.DPoint(LL_X,LL_Y),
+                        db.DPoint(LL_X,UR_Y),
+                        db.DPoint(UR_X,UR_Y),
+                        db.DPoint(UR_X,LL_Y),
+                        db.DPoint(LL_X,LL_Y)]
+    MaskBorder = db.DPath(MaskBorderCoords,0.5)
+    TopCell.shapes(mask_border).insert(MaskBorder)
 
     #Lists for coordinate storage during construction
     spc_coords = []
