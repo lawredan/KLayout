@@ -12,8 +12,7 @@ Changing these is currently done manually, and needs to be done carefully to avo
 """
 
 def Line_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-               cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-               negative_resist_tone:bool=True):
+               cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
 
     LineArray = layout.create_cell("LineArray")
 
@@ -53,8 +52,7 @@ def Line_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-                negative_resist_tone:bool=True):
+                cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
 
     SpaceArray = layout.create_cell("SpaceArray")
 
@@ -95,7 +93,7 @@ def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db
 
 def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                      cell_size:float=25,tone:list=[],size:list=[],fracture:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],
-                     min_size_limit:float=0,negative_resist_tone:bool=True):
+                     min_size_limit:float=0):
 
     LithoGainArray = layout.create_cell("GainArray")
 
@@ -134,8 +132,7 @@ def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCe
     TopCell.insert(db.DCellInstArray(LithoGainArray,db.DVector(xpos,ypos)))
 
 def Dot_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-              cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-              negative_resist_tone:bool=True):
+              cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     DotArray = layout.create_cell("DotArray")
 
@@ -175,8 +172,7 @@ def Dot_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.C
     TopCell.insert(db.DCellInstArray(DotArray,db.DVector(xpos,ypos)))
 
 def Hole_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-               cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-               negative_resist_tone:bool=True):
+               cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     HoleArray = layout.create_cell("HoleArray")
 
@@ -216,8 +212,7 @@ def Hole_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     TopCell.insert(db.DCellInstArray(HoleArray,db.DVector(xpos,ypos)))
 
 def AnyAngle_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                   cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-                   negative_resist_tone:bool=True):
+                   cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     LineArray = layout.create_cell("AnyAngleArray")
 
@@ -257,8 +252,7 @@ def AnyAngle_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def Line_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                      cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-                      negative_resist_tone:bool=True):
+                      cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     LineArray = layout.create_cell("LineFidcolArray")
 
@@ -298,8 +292,7 @@ def Line_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def Space_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                       cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-                       negative_resist_tone:bool=True):
+                       cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
 
     SpaceArray = layout.create_cell("SpaceFidcolArray")
 
@@ -340,7 +333,7 @@ def Space_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
 
 def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                        cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],end_spacing:list=[],metro_structure:list=[],metro_spacing:list=[],
-                       min_size_limit:float=0,negative_resist_tone:bool=True):
+                       min_size_limit:float=0):
     
     LineArray = layout.create_cell("LineSpaceEndArray")
 
@@ -380,8 +373,7 @@ def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                  cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],min_size_limit:float=0,
-                  negative_resist_tone:bool=True):
+                  cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],sraf_factor:list=[],sraf_step_factor:list=[],sraf_num:list=[],min_size_limit:float=0):
     
     LineArray = layout.create_cell("LS_SRAF_Array")
 
@@ -422,8 +414,7 @@ def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:
 
 def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                       cell_size:float=25,spiral_tone:list=[],spiral_size:list=[],spiral_inner_r:list=[],spiral_outer_r:list=[],spiral_spacing:list=[],spiral_rampancy:list=[],
-                      horn_tone:list=[],horn_initial_size:list=[],horn_step_size:list=[],horn_power:list=[],horn_spacing:list=[],horn_angle:list=[],min_size_limit:float=0,
-                      negative_resist_tone:bool=True):
+                      horn_tone:list=[],horn_initial_size:list=[],horn_step_size:list=[],horn_power:list=[],horn_spacing:list=[],horn_angle:list=[],min_size_limit:float=0):
     
     CurveArray = layout.create_cell("Curve_Array")
 
@@ -479,8 +470,7 @@ def Curvilinear_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
     TopCell.insert(db.DCellInstArray(CurveArray,db.DVector(xpos,ypos)))
 
 def LCDU_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-               cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-               negative_resist_tone:bool=True):
+               cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     LineArray = layout.create_cell("LCDU_Array")
 
@@ -520,8 +510,7 @@ def LCDU_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                    cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-                    negative_resist_tone:bool=True):
+                    cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     LineArray = layout.create_cell("LSRepeatArray")
 
@@ -561,8 +550,7 @@ def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
     TopCell.insert(db.DCellInstArray(LineArray,db.DVector(xpos,ypos)))
 
 def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                    cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0,
-                    negative_resist_tone:bool=True):
+                    cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],min_size_limit:float=0):
     
     DotArray = layout.create_cell("HDRepeatArray")
 
@@ -603,7 +591,7 @@ def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
 
 def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
                         cell_size:float=25,tone:list=[],size:list=[],pitch:list=[],angle:list=[],x2y:list=[],metro_structure:list=[],metro_spacing:list=[],
-                        stagger:list=[],HH_list:list=[],HH_amount:list=[],min_size_limit:float=0,negative_resist_tone:bool=True):
+                        stagger:list=[],HH_list:list=[],HH_amount:list=[],min_size_limit:float=0):
     
     DotArray = layout.create_cell("HD_Stagger_Array")
 
