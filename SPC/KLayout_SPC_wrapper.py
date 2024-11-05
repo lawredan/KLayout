@@ -889,7 +889,7 @@ fullstartTime=time.time()
 Tester = True
 
 if Tester:
-    KLayout_SPC_Wrapper("Laser",False,0.24,True,True,True)
+    KLayout_SPC_Wrapper("EBeam",False,0.1,True,True,True)
 else:
     KLayout_SPC_Wrapper("EBeam",False,0,True,True)
     KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)

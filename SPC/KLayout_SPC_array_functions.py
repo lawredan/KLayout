@@ -24,10 +24,10 @@ def Line_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            NativeTone1 = negative_resist_tone and tone[j]=="D"
-            NativeTone2 = not(negative_resist_tone) and tone[j]=="C"
-            NativeTone = NativeTone1 and NativeTone2
-            ResolutionChecker = (NativeTone and size[i] >= min_size_limit) or (not(NativeTone) and size[i]/pitch[j]-size[i] >= min_size_limit)
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
             if ResolutionChecker:
                 holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
@@ -65,7 +65,11 @@ def Space_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -102,7 +106,11 @@ def Litho_Gain_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCe
 
     for j in tqdm(range(0,len(size))):
         for i in range(0,len(pitch)):
-            if size[j] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[j] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[j] >= min_size_limit) and ((size[j]/pitch[i]-size[j]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_fracture_cell(cellname,tone[j],size[j],fracture[j][i],size[j]/pitch[i],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -138,7 +146,11 @@ def Dot_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.C
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[i]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -175,7 +187,11 @@ def Hole_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[i]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -212,7 +228,11 @@ def AnyAngle_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[i]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -249,7 +269,11 @@ def Line_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopC
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -286,7 +310,11 @@ def Space_Fidcol_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -323,7 +351,11 @@ def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
 
     for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[i]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LEnd_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],size[i]*end_spacing[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -360,7 +392,11 @@ def LS_SRAF_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:
 
     for j in tqdm(range(0,len(angle))):
         for i in range(0,len(size)):
-            if (size[i] >= min_size_limit) and ((sraf_factor[j]*size[i])>= min_size_limit):
+            if tone[i]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit) and ((sraf_factor[j]*size[i])>= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit) and ((sraf_factor[j]*size[i])>= min_size_limit)
+            if ResolutionChecker:
                 holder=SRAF_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[i],sraf_factor[j]*size[i],sraf_step_factor[j]*size[i],sraf_num[j])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -455,7 +491,11 @@ def LCDU_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[i],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -492,7 +532,11 @@ def LS_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=LS_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -529,7 +573,11 @@ def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
@@ -566,7 +614,11 @@ def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,To
 
     for j in tqdm(range(0,len(pitch))):
         for i in range(0,len(size)):
-            if size[i] >= min_size_limit:
+            if tone[j]=="D":
+                ResolutionChecker = (size[i] >= min_size_limit)
+            else:
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+            if ResolutionChecker:
                 holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[i],cell_size,angle[j],x2y[j],metro_structure[i],metro_spacing[i],
                                     stagger[i],HH_list[j],HH_amount[j])
                 tempcell=layout.create_cell(holder[1])
@@ -651,7 +703,11 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     size = [0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0]
     pitch = [0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25]
     for i in range(0,len(size)):
-        if size[i] >= min_size_limit:
+        if tone[row]=="D":
+            ResolutionChecker = (size[i] >= min_size_limit)
+        else:
+            ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+        if ResolutionChecker:
             holder=StairStep_cell(cellname,tone[row],size[i],size[i],size[i],size[i]/pitch[i],cell_size,True,False)
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
@@ -668,7 +724,11 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     size = [0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.4 ,0.4 ,0.4, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0, 1.0, 1.0]
     pitch = [0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25,0.001,0.15,0.25]
     for i in range(0,len(size)):
-        if size[i] >= min_size_limit:
+        if tone[row]=="D":
+            ResolutionChecker = (size[i] >= min_size_limit)
+        else:
+            ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+        if ResolutionChecker:
             holder=StairStep_cell(cellname,tone[row],size[i],size[i],size[i],size[i]/pitch[i],cell_size,True,False)
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
@@ -685,7 +745,11 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     size = [0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0]
     pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
     for i in range(0,len(size)):
-        if size[i] >= min_size_limit:
+        if tone[row]=="D":
+            ResolutionChecker = (size[i] >= min_size_limit)
+        else:
+            ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+        if ResolutionChecker:
             holder=Polygon_cell(cellname,tone[row],4,size[i],size[i]/2,size[i]/pitch[i],cell_size,45,False)
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
@@ -702,7 +766,11 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     size = [0.04,0.04,0.04,0.06,0.06,0.06,0.1,0.1,0.1,0.3,0.3,0.3,0.5,0.5,0.5,1.0,1.0,1.0]
     pitch = [0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5,0.1,0.2,0.5]
     for i in range(0,len(size)):
-        if size[i] >= min_size_limit:
+        if tone[row]=="D":
+            ResolutionChecker = (size[i] >= min_size_limit)
+        else:
+            ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+        if ResolutionChecker:
             holder=Polygon_cell(cellname,tone[row],4,size[i],size[i]/2,size[i]/pitch[i],cell_size,45,False)
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
@@ -722,7 +790,11 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     angle = [0,0,0,45,45,45,0,0,0,60,60,60,67.5,67.5,67.5,0,0,0]
 
     for i in range(0,len(size)):
-        if size[i] >= min_size_limit:
+        if tone[row]=="D":
+            ResolutionChecker = (size[i] >= min_size_limit)
+        else:
+            ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+        if ResolutionChecker:
             holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,-angle[i],False)
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
@@ -742,7 +814,11 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
     angle = [0,0,0,45,45,45,0,0,0,60,60,60,67.5,67.5,67.5,0,0,0]
 
     for i in range(0,len(size)):
-        if size[i] >= min_size_limit:
+        if tone[row]=="D":
+            ResolutionChecker = (size[i] >= min_size_limit)
+        else:
+            ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
+        if ResolutionChecker:
             holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,-angle[i],False)
             tempcell=layout.create_cell(holder[1])
             tempcell.shapes(layer).insert(holder[0])
