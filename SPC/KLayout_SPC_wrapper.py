@@ -790,7 +790,10 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
     #Adding spc title into pattern
 
-    SPC_Name = f"{oasis_tone} {naming} {min_size_limit}um V1"
+    if min_size_limit>0:
+        SPC_Name = f"{oasis_tone} {naming} {min_size_limit}um V1"
+    else:
+        SPC_Name = f"{oasis_tone} {naming} Full V1"
 
     parameters = {
         "layer": db.LayerInfo(0,0),
