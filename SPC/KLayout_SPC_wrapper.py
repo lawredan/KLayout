@@ -43,6 +43,8 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     mask_ly = layout.layer(2,0)
     mask_border = layout.layer(3,0)
 
+    #Establish a masking layer and border
+    BorderWidth = 0.5 #um
     LL_X = 0
     LL_Y = 0
     UR_X = 2398.6
@@ -51,12 +53,17 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     TopBox = db.DBox(LL_X,LL_Y,UR_X,UR_Y)
     TopCell.shapes(mask_ly).insert(TopBox)
 
-    MaskBorderCoords = [db.DPoint(LL_X,LL_Y),
-                        db.DPoint(LL_X,UR_Y),
-                        db.DPoint(UR_X,UR_Y),
-                        db.DPoint(UR_X,LL_Y),
-                        db.DPoint(LL_X,LL_Y)]
-    MaskBorder = db.DPath(MaskBorderCoords,0.5)
+    BLL_X = LL_X+BorderWidth/2
+    BLL_Y = LL_Y+BorderWidth/2
+    BUR_X = UR_X-BorderWidth/2
+    BUR_Y = UR_Y-BorderWidth/2
+
+    MaskBorderCoords = [db.DPoint(BLL_X,BLL_Y),
+                        db.DPoint(BLL_X,BUR_Y),
+                        db.DPoint(BUR_X,BUR_Y),
+                        db.DPoint(BUR_X,BLL_Y),
+                        db.DPoint(BLL_X-BorderWidth/2,BLL_Y)]
+    MaskBorder = db.DPath(MaskBorderCoords,BorderWidth)
     TopCell.shapes(mask_border).insert(MaskBorder)
 
     #Lists for coordinate storage during construction
@@ -64,8 +71,8 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     pdm_coords = []
 
     #Define number of cells in array
-    array_x_num = 18
-    array_y_num = 18
+    #array_x_num = 18
+    #array_y_num = 18
 
     #Define array conditions
     spacing = 2 #um
@@ -80,7 +87,6 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
 
     print("Beginning cell creation process...")
     initialTime = time.time()
-
 
 
     #### Line Array ####--------------------------------------------------------------------------------------------------------------------------
@@ -781,6 +787,21 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     print("Writing .oas file...")
     if negative_resist_tone: oasis_tone = "NCAR"
     else: oasis_tone = "PCAR"
+
+    #Adding spc title into pattern
+
+    SPC_Name = f"{oasis_tone} {naming} {min_size_limit}um V1"
+
+    parameters = {
+        "layer": db.LayerInfo(0,0),
+        "text": f"{SPC_Name}",
+        "mag": 50.0
+        }
+    
+    SPCTextCell = layout.create_cell("TEXT","Basic",parameters)
+    TopCell.insert(db.CellInstArray(SPCTextCell.cell_index(),db.DTrans(180,False,1000*(LL_X+57.5),1000*(UR_Y-50))))
+
+    #Naming the file
 
     if min_size_limit>0:
         LayoutName = f"{oasis_tone}_Universal_SPC_{naming}_{min_size_limit}um_limit.oas"
