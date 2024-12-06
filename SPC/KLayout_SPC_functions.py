@@ -1422,67 +1422,68 @@ Return definitions:
 
     #Create the topcell and subsidiary cells
     TopCell = layout.create_cell(f"Initial_cell")
-    StairStepCell = layout.create_cell(f"{size}um_stairstep_{steplength}um_x_{stepheight}um_y")
+    StairStepperCell = layout.create_cell("Stepper")
 
     #Setting up figure variables and arraying directions
-    pts =[]
-    starting_x = -cell_size
-    starting_y = -cell_size
-    current_point = db.DPoint(starting_x,starting_y)
-    pts.append(current_point)
-    xsteps = math.ceil(2*cell_size/steplength)
-    ysteps = math.ceil(2*cell_size/stepheight)  
+    #pts =[]
+    starting_x = -cell_size+0.5
+    starting_y = -cell_size+0.5
+    #current_point = db.DPoint(starting_x,starting_y)
+    #pts.append(current_point)
+    xsteps = math.floor(2*(cell_size-0.5)/steplength)
+    ysteps = math.floor(2*(cell_size-0.5)/stepheight)  
     xstepdir = xsteps>ysteps
-
-    #Defining the stairstep shape and its positioning
-    current_step=1
-    num_steps = max(xsteps,ysteps)
-    while current_step<=num_steps:
-        pts.append(db.DPoint(starting_x+current_step*steplength,starting_y+(current_step-1)*stepheight))
-        pts.append(db.DPoint(starting_x+current_step*steplength,starting_y+current_step*stepheight))
-        current_step+=1
-
-    stairstep_path = db.DPath(pts,size)
-    StairStepCell.shapes(ly_stairstep).insert(stairstep_path)
-
-    shape_right = StairStepCell.bbox().right
-    shape_left = StairStepCell.bbox().left
-    shape_top = StairStepCell.bbox().top
-    shape_bottom = StairStepCell.bbox().bottom
-    StairStepCell.transform(db.Trans(db.Trans.R0,-(shape_right+shape_left)/2,-(shape_top+shape_bottom)))
 
     #Creates formatting regions for use later on
     CellBox = db.DBox((-cell_size/2),-cell_size/2,(cell_size/2),cell_size/2)
     CellBox_region = db.Region(1000*CellBox)
 
+    #Defining the stairstep shape and its positioning, and removes slivers
+    StepBox = db.DBox(starting_x,starting_y,starting_x+steplength,starting_y+stepheight)
+    StairStepperCell.shapes(ly_stairstep).insert(StepBox)
+
+    current_step=1
+    num_steps = max(xsteps,ysteps)
+    while current_step<=num_steps:
+        StepBox1=db.DBox(starting_x+current_step*steplength,starting_y+(current_step-1)*stepheight,starting_x+(current_step+1)*steplength,starting_y+current_step*stepheight)
+        StairStepperCell.shapes(ly_stairstep).insert(StepBox1)
+        StepBox2=db.DBox(starting_x+current_step*steplength,starting_y+(current_step)*stepheight,starting_x+(current_step+1)*steplength,starting_y+(current_step+1)*stepheight)
+        StairStepperCell.shapes(ly_stairstep).insert(StepBox2)
+        current_step+=1    
+
+    shape_right = StairStepperCell.bbox().right
+    shape_left = StairStepperCell.bbox().left
+    shape_top = StairStepperCell.bbox().top
+    shape_bottom = StairStepperCell.bbox().bottom
+    StairStepperCell.transform(db.Trans(db.Trans.R0,-(shape_right+shape_left)/2,-(shape_top+shape_bottom)))
+
 
 #### Generate the cell features ####
+
+    StairArrayerCell = layout.create_cell(f"{size}um_stairstep_{steplength}um_x_{stepheight}um_y")
 
     #Checks density to determine how to build the cell
     if iso:
         #Create instance array of the iso line (1 feature) and instert into the TopCell
-        stairstep_iso = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0))
-        TopCell.insert(stairstep_iso)
+        stairstep_iso = db.DCellInstArray(StairStepperCell,db.DTrans(db.DTrans.R0,0,0))
+        StairArrayerCell.insert(stairstep_iso)
 
     else:
         #Otherwise, assumes a dense pattern.            
         #Instances a left and right or up and down array of the cell to span more than the TopCell region.
         if xstepdir:
-            stairstep_array_positive = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(pitch,0),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
-            stairstep_array_negative = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(-pitch,0),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+            stairstep_array_positive = db.DCellInstArray(StairStepperCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(pitch,0),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+            stairstep_array_negative = db.DCellInstArray(StairStepperCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(-pitch,0),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
         else:
-            stairstep_array_positive = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(0,pitch),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
-            stairstep_array_negative = db.DCellInstArray(StairStepCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(0,-pitch),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+            stairstep_array_positive = db.DCellInstArray(StairStepperCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(0,pitch),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
+            stairstep_array_negative = db.DCellInstArray(StairStepperCell,db.DTrans(db.DTrans.R0,0,0),db.DVector(0,-pitch),db.DVector(0,0),math.ceil(2*cell_size/pitch),0)
                 
-        TopCell.insert(stairstep_array_positive)
-        TopCell.insert(stairstep_array_negative)
+        StairArrayerCell.insert(stairstep_array_positive)
+        StairArrayerCell.insert(stairstep_array_negative)
 
 
-#### Add metro structures if applicable ####
-
-    if metro_structure:
-        pass
-
+    StairStepFinal = db.DCellInstArray(StairArrayerCell,db.DTrans(db.DTrans.R0,0,0))
+    TopCell.insert(StairStepFinal)
 
 #### Angle transformations, sliver removal, and output ####
     
@@ -1514,13 +1515,18 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(ly_stairstep))
 
     #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
+
+    sacrifice_cell = layout.create_cell("Sacrificial")
+    sacrifice_cell.shapes(ly_stairstep).insert(output_region)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(ly_stairstep,((cell_size-4*size)/cell_size)*CellBox) #Using size to limit sliver formation
+    output_region = db.Region(no_sliver_shapes)
+    
     if tone == "C":
-         sacrifice_cell = layout.create_cell("Sacrificial")
-         sacrifice_cell.shapes(ly_stairstep).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(ly_stairstep,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
-         output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
-         sacrifice_cell.prune_cell()
+    else:
+         output_region = CellBox_region & output_region
+    
+    sacrifice_cell.prune_cell()
 
     #Export GDS (can comment out if not testing)
     #layout.clear()

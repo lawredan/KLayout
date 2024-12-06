@@ -925,7 +925,7 @@ fullstartTime=time.time()
 
 
 ### Use this to test or run the full dataset ###
-Tester = False
+Tester = True
 
 if Tester:
     KLayout_SPC_Wrapper("EBeam",False,0.1,True,True,True)
