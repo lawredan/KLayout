@@ -2,6 +2,39 @@
 import math
 import klayout.db as db
 
+### Helper Functions ###
+
+def CorrectToneOutput(layout,output_region,layer,cell_size,size,CellBox,CellBox_region,tone):
+    sacrifice_cell = layout.create_cell("Sacrificial")
+    sacrifice_cell.shapes(layer).insert(output_region)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(layer,((cell_size-min(4*size,1))/cell_size)*CellBox)
+    output_region = db.Region(no_sliver_shapes)
+
+    if tone == "C":
+         output_region = CellBox_region - output_region
+    else:
+         output_region = CellBox_region & output_region
+         
+         
+    sacrifice_cell.prune_cell()
+    return output_region
+
+def SliverChecker(angle,layout,TopCell,CellBox,size,layer):
+    #Apply angle rotation for all cells
+    t = db.ICplxTrans(1,angle,0,0,0)
+    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
+
+    #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
+    output_cell = layout.clip(TopCell,CellBox)
+    listicle = []
+    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
+    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
+    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(layer).width()<size_check.bbox().width() or layout.cell(j).dbbox(layer).height()<size_check.bbox().height()]
+    [layout.cell(k).prune_cell() for k in listicle]
+
+    return output_cell
+
+
 #### SPC Cell Functions ####
 def LS_cell(name:str="LS_Cell",tone:str="D",size:float=0.100,pitch:float=0.500,cell_size:float=25,angle:float=0,metro_structure:bool=True,metro_spacing:float=8):
     
@@ -145,17 +178,8 @@ Return definitions:
 
 #### Angle transformations, sliver removal, and output ####
     
-    #Apply angle rotation for all cells in the TopCell
-    t = db.ICplxTrans(1,angle,0,0,0)
-    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
-
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate resultant child cells that contain slivers
-    output_cell = layout.clip(TopCell,CellBox)
-    listicle = []
-    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
-    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
-    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_line).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_line).height()<size_check.bbox().height()]
-    [layout.cell(k).prune_cell() for k in listicle]
+    #Fixes slivers
+    output_cell = SliverChecker(angle,layout,TopCell,CellBox,size,l_line)
 
     #Rename new cell, prune old cell
     if metro_structure:
@@ -169,14 +193,8 @@ Return definitions:
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(l_line))
 
-    #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
-    if tone == "C":
-         sacrifice_cell = layout.create_cell("Sacrificial")
-         sacrifice_cell.shapes(l_line).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
-         output_region = db.Region(no_sliver_shapes)
-         output_region = CellBox_region - output_region
-         sacrifice_cell.prune_cell()
+    #Flip the tone if clear (room for improvement with sliver guard)
+    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
     #layout.clear()
@@ -341,17 +359,8 @@ Return definitions:
 
 #### Angle transformations, sliver removal, and output ####
     
-    #Apply angle rotation for all cells in the TopCell
-    t = db.ICplxTrans(1,angle,0,0,0)
-    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
-
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate resultant child cells that contain slivers
-    output_cell = layout.clip(TopCell,CellBox)
-    listicle = []
-    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
-    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
-    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_line).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_line).height()<size_check.bbox().height()]
-    [layout.cell(k).prune_cell() for k in listicle]
+    #Fixes slivers
+    output_cell = SliverChecker(angle,layout,TopCell,CellBox,size,l_line)
 
     #Rename new cell, prune old cell
     if metro_structure:
@@ -367,14 +376,8 @@ Return definitions:
     #if fracture<1 and 0<fracture:
     #    output_region + db.Region(db.DBox(l_left2, l_2bottom, l_right2, l_2top))
 
-    #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
-    if tone == "C":
-         sacrifice_cell = layout.create_cell("Sacrificial")
-         sacrifice_cell.shapes(l_line).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
-         output_region = db.Region(no_sliver_shapes)
-         output_region = CellBox_region - output_region
-         sacrifice_cell.prune_cell()
+    #Flip the tone if clear (room for improvement with sliver guard)
+    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
     #layout.clear()
@@ -1068,17 +1071,8 @@ Return definitions:
 
 #### Angle transformations, sliver removal, and output ####
     
-    #Apply angle rotation for all cells
-    t = db.ICplxTrans(1,angle,0,0,0)
-    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
-
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate subcells that contain slivers
-    output_cell = layout.clip(TopCell,CellBox)
-    listicle = []
-    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
-    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
-    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(l_line).width()<size_check.bbox().width() or layout.cell(j).dbbox(l_line).height()<size_check.bbox().height()]
-    [layout.cell(k).prune_cell() for k in listicle]
+    #Fixes slivers
+    output_cell = SliverChecker(angle,layout,TopCell,CellBox,size,l_line)
 
     #Rename new cell, prune old cell
     if metro_structure:
@@ -1092,13 +1086,7 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(l_line))
 
     #Flip the tone if clear (room for improvement with sliver guard)
-    if tone == "C":
-         sacrifice_cell = layout.create_cell("Sacrificial")
-         sacrifice_cell.shapes(l_line).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_line,((cell_size-min(4*size,1))/cell_size)*CellBox)
-         output_region = db.Region(no_sliver_shapes)
-         output_region = CellBox_region - output_region
-         sacrifice_cell.prune_cell()
+    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS
     #layout.write("LEnd_Tester.gds")
@@ -1689,17 +1677,7 @@ Return definitions:
 
 #### Angle transformations, sliver removal, and output ####
     
-    #Apply angle rotation for all cells in the TopCell
-    t = db.ICplxTrans(1,angle,0,0,0)
-    [layout.cell(i).transform(t) for i in TopCell.each_child_cell()]
-
-    #Clip a new cell that covers just the extents of the defined cell size, and eliminate resultant child cells that contain slivers
-    output_cell = layout.clip(TopCell,CellBox)
-    listicle = []
-    sliver_checker = min(size/2,0.3/2) #defines sliver size based on minimum of feature size and a fixed value in um
-    size_check = db.DBox(-sliver_checker,-sliver_checker,sliver_checker,sliver_checker)
-    [listicle.append(j) for j in output_cell.each_child_cell() if layout.cell(j).dbbox(ly_polygon).width()<size_check.bbox().width() or layout.cell(j).dbbox(ly_polygon).height()<size_check.bbox().height()]
-    [layout.cell(k).prune_cell() for k in listicle]
+    output_cell = SliverChecker(angle,layout,TopCell,CellBox,size,ly_polygon)
 
     #Rename new cell, prune old cell
     if poly_check:
@@ -1713,14 +1691,7 @@ Return definitions:
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(ly_polygon))
 
-    #Flips the tone if clear, and removes any resultant slivers based on cell size (this has room for improvement)
-    if tone == "C":
-         sacrifice_cell = layout.create_cell("Sacrificial")
-         sacrifice_cell.shapes(ly_polygon).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(ly_polygon,((cell_size-0.4)/cell_size)*CellBox) #0.4um from reasonable resolution size
-         output_region = db.Region(no_sliver_shapes)
-         output_region = CellBox_region - output_region
-         sacrifice_cell.prune_cell()
+    output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
     #layout.clear()

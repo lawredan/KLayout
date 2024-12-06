@@ -115,7 +115,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -155,7 +155,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
     
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -346,7 +346,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -386,7 +386,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -426,7 +426,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     print(f"Writing {arrayname}...")
@@ -466,7 +466,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             angle[i] = (angle[i]//45)*45
 
     end_spacing = [0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,0.75,1.0,1.5,2.0,0.5,1.0,2.0]
-    metro_structure=[True,True,True,True,True,True,True,False,False,True,True,True,True,True,True,True,False,False]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -604,7 +604,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -644,7 +644,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
         for i in range(len(angle)):
             angle[i] = (angle[i]//45)*45
 
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -925,7 +925,7 @@ fullstartTime=time.time()
 
 
 ### Use this to test or run the full dataset ###
-Tester = True
+Tester = False
 
 if Tester:
     KLayout_SPC_Wrapper("EBeam",False,0.1,True,True,True)
