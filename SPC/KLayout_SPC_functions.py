@@ -1698,13 +1698,13 @@ Return definitions:
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Polygon_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Polygon_Tester.oas")
 
-    #return output_region,output_cell.name,tone,size,pitch_type,angle
+    return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
@@ -1712,4 +1712,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
-Polygon_cell("Polygon_Cell","D",22,0.1,0.1/2,0.2,25,0,False)
+#Polygon_cell("Polygon_Cell","D",22,0.1,0.1/2,0.2,25,0,False)
