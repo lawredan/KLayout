@@ -7,7 +7,7 @@ import klayout.db as db
 def CorrectToneOutput(layout,output_region,layer,cell_size,size,CellBox,CellBox_region,tone):
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(layer).insert(output_region)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(layer,((cell_size-min(4*size,1))/cell_size)*CellBox)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(layer,((cell_size-min(4*size,1))/cell_size)*CellBox)
     output_region = db.Region(no_sliver_shapes)
 
     if tone == "C":
@@ -1626,15 +1626,18 @@ Return definitions:
         vertices=360
     
     inner_pts=[]
-    
-    for i in range(0,vertices+2): #Plus 2 is to fully complete the border
-        inner_pts.append(db.DPoint(inner_r*math.cos(i*(360/vertices)*(math.pi/180)),inner_r*math.sin(i*(360/vertices)*(math.pi/180))))
 
-    if hollow:
-        inner_poly = db.DPath(inner_pts,size)
-    else:
-        inner_poly = db.DPolygon(inner_pts,True)
-    
+    inner_angle = (vertices-2)*(math.pi)/(vertices*2)
+    inner_r_factor = math.sin(inner_angle)
+
+    for i in range(0,vertices+2): #Plus 2 is to fully complete the border
+        if hollow:
+            inner_pts.append(db.DPoint(inner_r*math.cos(i*(360/vertices)*(math.pi/180)),inner_r*math.sin(i*(360/vertices)*(math.pi/180))))
+            inner_poly = db.DPath(inner_pts,size)
+        else:
+            inner_pts.append(db.DPoint((1/inner_r_factor)*inner_r*math.cos(i*(360/vertices)*(math.pi/180)),(1/inner_r_factor)*inner_r*math.sin(i*(360/vertices)*(math.pi/180))))
+            inner_poly = db.DPolygon(inner_pts,True)
+
     PolygonCell.shapes(ly_polygon).insert(inner_poly)
 
     #Corrects the pitch so that it applies the pitch from the polygon edge, not from the polygon vertex
@@ -1690,17 +1693,18 @@ Return definitions:
     #Flatten the structure to export as a region
     output_cell.flatten(-1,True)
     output_region = db.Region(output_cell.shapes(ly_polygon))
+    output_region.merge()
 
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("Polygon_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("Polygon_Tester.oas")
 
-    return output_region,output_cell.name,tone,size,pitch_type,angle
+    #return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
@@ -1708,4 +1712,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
-#Polygon_cell("Polygon_Cell","C",4,0.5,1,1,25,0,False)
+Polygon_cell("Polygon_Cell","D",22,0.1,0.1/2,0.2,25,0,False)

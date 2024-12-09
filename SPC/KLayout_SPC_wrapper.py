@@ -265,7 +265,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             angle[i] = (angle[i]//45)*45
 
     x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[True,False,False,False,False,False,False,False,True,True,False,False,False,False,False,False,False,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -306,7 +306,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             angle[i] = (angle[i]//45)*45
 
     x2y=[1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3]
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[True,False,False,False,False,False,False,False,True,True,False,False,False,False,False,False,False,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -685,7 +685,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             angle[i] = (angle[i]//45)*45
 
     x2y=[1,1,1,2,2,2,3,3,3,1,1,1,2,2,2,3,3,3]
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[True,False,True,True,False,True,True,False,True,True,False,True,True,False,True,True,False,True]
     metro_spacing = [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
 
     #Write the cell
@@ -726,7 +726,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
             angle[i] = (angle[i]//45)*45
 
     x2y=[1,1,1,1,2,2,2,3,3,3,1,1,1,1,2,2,2,3,3,3]
-    metro_structure=[True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
+    metro_structure=[True,False,False,True,False,False,True,False,False,True,False,False,True,False,False,True,False,False]
     stagger = [True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True]
     HH_list = [False,True,True,True,False,True,True,False,True,True,False,True,True,True,False,True,True,False,True,True]
     HH_amount = [0,0.004,0.008,0.012,0,0.004,0.008,0,0.004,0.008,0,0.004,0.008,0.012,0,0.004,0.008,0,0.004,0.008]

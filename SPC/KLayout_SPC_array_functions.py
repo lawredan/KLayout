@@ -347,7 +347,7 @@ def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
             if tone[i]=="D":
                 ResolutionChecker = (size[i] >= min_size_limit)
             else:
-                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit) and (end_spacing[j] >= min_size_limit)
             if ResolutionChecker:
                 holder=LEnd_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],size[i]*end_spacing[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
