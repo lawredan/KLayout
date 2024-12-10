@@ -4,7 +4,7 @@ import klayout.db as db
 
 ### Helper Functions ###
 
-def CorrectToneOutput(layout,output_region,layer,cell_size,size,CellBox,CellBox_region,tone):
+def CorrectToneOutput(layout:db.Layout,output_region,layer,cell_size,size,CellBox,CellBox_region,tone):
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(layer).insert(output_region)
     no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(layer,((cell_size-min(4*size,1))/cell_size)*CellBox)
@@ -1654,7 +1654,7 @@ Return definitions:
 
     #Defines number of polygons to draw
     poly_draw_count=1
-    poly_number_count= 2*math.floor(((cell_size/2)-inner_r)/(pitch*pitch_scale))
+    poly_number_count= math.floor(((cell_size/2)-inner_r)/(pitch*pitch_scale))
 
 
     #Adds radiating polygon paths if not iso
@@ -1698,13 +1698,13 @@ Return definitions:
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("Polygon_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("Polygon_Tester.oas")
 
-    return output_region,output_cell.name,tone,size,pitch_type,angle
+    #return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
@@ -1712,4 +1712,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
-#Polygon_cell("Polygon_Cell","D",22,0.1,0.1/2,0.2,25,0,False)
+Polygon_cell("Polygon_Cell","D",8,0.2,0.2/2,0.4,35,22.5,False)

@@ -148,7 +148,7 @@ def Dot_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.C
             else:
                 ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
             if ResolutionChecker:
-                holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i],metro_spacing[i])
+                holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[j],metro_spacing[j])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -188,7 +188,7 @@ def Hole_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
             else:
                 ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
             if ResolutionChecker:
-                holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[i],metro_spacing[i])
+                holder=contact_cell(cellname,tone[i],size[i],round(size[i]/pitch[j],4),cell_size,angle[j],x2y[i],metro_structure[j],metro_spacing[j])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -566,7 +566,7 @@ def HD_Repeat_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCel
             else:
                 ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit)
             if ResolutionChecker:
-                holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[i],metro_spacing[i])
+                holder=contact_cell(cellname,tone[j],size[i],size[i]/pitch[j],cell_size,angle[j],x2y[j],metro_structure[j],metro_spacing[j])
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
