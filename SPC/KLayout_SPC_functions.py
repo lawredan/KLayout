@@ -4,11 +4,11 @@ import klayout.db as db
 
 ### Helper Functions ###
 
-def CorrectToneOutput(layout:db.Layout,output_region,layer,cell_size,size,CellBox,CellBox_region,tone):
+def CorrectToneOutput(layout:db.Layout,output_region,layer,cell_size,pitch,CellBox,CellBox_region,tone):
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(layer).insert(output_region)
-    CellBox = db.DBox((-cell_size/2)+1,(-cell_size/2)+1,(cell_size/2)-1,(cell_size/2)-1)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(layer,((cell_size-1)/cell_size)*CellBox)
+    CellBox = db.DBox((-cell_size/2),(-cell_size/2),(cell_size/2),(cell_size/2))
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(layer,((cell_size-2*pitch)/cell_size)*CellBox)
     output_region = db.Region(no_sliver_shapes)
 
     if tone == "C":
@@ -195,7 +195,7 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(l_line))
 
     #Flip the tone if clear (room for improvement with sliver guard)
-    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,size,CellBox,CellBox_region,tone)
+    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
     #layout.clear()
@@ -378,7 +378,7 @@ Return definitions:
     #    output_region + db.Region(db.DBox(l_left2, l_2bottom, l_right2, l_2top))
 
     #Flip the tone if clear (room for improvement with sliver guard)
-    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,size,CellBox,CellBox_region,tone)
+    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
     #layout.clear()
@@ -701,20 +701,16 @@ Parameter definitions:
     output_region = db.Region(output_cell.shapes(l_cont))
     output_region = output_region.merge()
     
+    #Initial Sliver removal
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(l_cont).insert(output_region)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2)/cell_size)*CellBox)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2*min(xPitch,yPitch))/cell_size)*CellBox)
     output_region = db.Region(no_sliver_shapes)
     output_region = CellBox_region & output_region
 
     #Flip the tone if clear, with sliver check based on portion of cell size (room for improvement here...)
     if tone == "C" and not donut:
-         sacrifice_cell = layout.create_cell("Sacrificial")
-         output_region = CellBox_region - output_region
-         sacrifice_cell.shapes(l_cont).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2)/cell_size)*CellBox)
-         output_region = db.Region(no_sliver_shapes)
-         sacrifice_cell.prune_cell()
+         output_region = CorrectToneOutput(layout,output_region,l_cont,cell_size,min(xPitch,yPitch),CellBox,CellBox_region,tone)
     elif tone == "D" and donut:
          output_region = CellBox_region - output_region
 
@@ -1087,7 +1083,7 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(l_line))
 
     #Flip the tone if clear (room for improvement with sliver guard)
-    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,size,CellBox,CellBox_region,tone)
+    output_region = CorrectToneOutput(layout,output_region,l_line,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS
     #layout.write("LEnd_Tester.gds")
@@ -1510,7 +1506,7 @@ Return definitions:
     no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(ly_stairstep,(cell_size-1/cell_size)*CellBox) #Using size to limit sliver formation
     output_region = db.Region(no_sliver_shapes)
     
-    output_region = CorrectToneOutput(layout,output_region,ly_stairstep,cell_size,size,CellBox,CellBox_region,tone)
+    output_region = CorrectToneOutput(layout,output_region,ly_stairstep,cell_size,pitch,CellBox,CellBox_region,tone)
     
     sacrifice_cell.prune_cell()
 
@@ -1693,7 +1689,7 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(ly_polygon))
     output_region.merge()
 
-    output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,size,CellBox,CellBox_region,tone)
+    output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
     #layout.clear()
