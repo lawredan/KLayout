@@ -710,10 +710,10 @@ Parameter definitions:
     #Flip the tone if clear, with sliver check based on portion of cell size (room for improvement here...)
     if tone == "C" and not donut:
          sacrifice_cell = layout.create_cell("Sacrificial")
+         output_region = CellBox_region - output_region
          sacrifice_cell.shapes(l_cont).insert(output_region)
          no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2)/cell_size)*CellBox)
          output_region = db.Region(no_sliver_shapes)
-         output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
     elif tone == "D" and donut:
          output_region = CellBox_region - output_region
