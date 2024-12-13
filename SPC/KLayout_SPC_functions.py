@@ -704,7 +704,7 @@ Parameter definitions:
     #Initial Sliver removal
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(l_cont).insert(output_region)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2*min(xPitch,yPitch))/cell_size)*CellBox)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2*max(xPitch,yPitch))/cell_size)*CellBox)
     output_region = db.Region(no_sliver_shapes)
     output_region = CellBox_region & output_region
 
@@ -1648,7 +1648,7 @@ Return definitions:
 
     #Defines number of polygons to draw
     poly_draw_count=1
-    poly_number_count= math.floor(((cell_size/2)-inner_r)/(pitch*pitch_scale))
+    poly_number_count= math.ceil(((cell_size/2)-inner_r)/(pitch*pitch_scale))
 
 
     #Adds radiating polygon paths if not iso
