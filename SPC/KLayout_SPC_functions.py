@@ -7,7 +7,8 @@ import klayout.db as db
 def CorrectToneOutput(layout:db.Layout,output_region,layer,cell_size,size,CellBox,CellBox_region,tone):
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(layer).insert(output_region)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(layer,((cell_size-min(4*size,1))/cell_size)*CellBox)
+    CellBox = db.DBox((-cell_size/2)+1,(-cell_size/2)+1,(cell_size/2)-1,(cell_size/2)-1)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(layer,((cell_size-1)/cell_size)*CellBox)
     output_region = db.Region(no_sliver_shapes)
 
     if tone == "C":
@@ -702,7 +703,7 @@ Parameter definitions:
     
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(l_cont).insert(output_region)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-min(4*xSize,cell_size*0.05))/cell_size)*CellBox)
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2)/cell_size)*CellBox)
     output_region = db.Region(no_sliver_shapes)
     output_region = CellBox_region & output_region
 
@@ -710,7 +711,7 @@ Parameter definitions:
     if tone == "C" and not donut:
          sacrifice_cell = layout.create_cell("Sacrificial")
          sacrifice_cell.shapes(l_cont).insert(output_region)
-         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_touching(l_cont,((cell_size-min(4*xSize,cell_size*0.05))/cell_size)*CellBox)
+         no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(l_cont,((cell_size-2)/cell_size)*CellBox)
          output_region = db.Region(no_sliver_shapes)
          output_region = CellBox_region - output_region
          sacrifice_cell.prune_cell()
@@ -1506,13 +1507,10 @@ Return definitions:
 
     sacrifice_cell = layout.create_cell("Sacrificial")
     sacrifice_cell.shapes(ly_stairstep).insert(output_region)
-    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(ly_stairstep,((cell_size-4*size)/cell_size)*CellBox) #Using size to limit sliver formation
+    no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(ly_stairstep,(cell_size-1/cell_size)*CellBox) #Using size to limit sliver formation
     output_region = db.Region(no_sliver_shapes)
     
-    if tone == "C":
-         output_region = CellBox_region - output_region
-    else:
-         output_region = CellBox_region & output_region
+    output_region = CorrectToneOutput(layout,output_region,ly_stairstep,cell_size,size,CellBox,CellBox_region,tone)
     
     sacrifice_cell.prune_cell()
 
@@ -1698,18 +1696,18 @@ Return definitions:
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,size,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Polygon_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Polygon_Tester.oas")
 
-    #return output_region,output_cell.name,tone,size,pitch_type,angle
+    return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
-#contact_cell("Test","C",0.04,0.0615,35,0,1,True,8,False,False,0.004,"Inside")
+#contact_cell("Test","C",0.5,1,35,0,3,False,8,False,False,0.004,False)
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
-#StairStep_cell("StairStep_Cell","D",0.1,0.3,0.1,1,25,False,True,8)
-Polygon_cell("Polygon_Cell","D",8,0.2,0.2/2,0.4,35,22.5,False)
+#StairStep_cell("StairStep_Cell","D",0.2,0.4,0.3,2,35,False,True,8)
+#Polygon_cell("Polygon_Cell","D",8,0.2,0.2/2,0.4,35,22.5,False)
