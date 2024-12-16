@@ -1689,6 +1689,9 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(ly_polygon))
     output_region.merge()
 
+    if size/pitch<0.05:
+        pitch=2
+
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
