@@ -1506,6 +1506,10 @@ Return definitions:
     no_sliver_shapes = sacrifice_cell.begin_shapes_rec_overlapping(ly_stairstep,(cell_size-1/cell_size)*CellBox) #Using size to limit sliver formation
     output_region = db.Region(no_sliver_shapes)
     
+
+    if size/pitch<0.05:
+        pitch=1
+
     output_region = CorrectToneOutput(layout,output_region,ly_stairstep,cell_size,pitch,CellBox,CellBox_region,tone)
     
     sacrifice_cell.prune_cell()
@@ -1689,24 +1693,21 @@ Return definitions:
     output_region = db.Region(output_cell.shapes(ly_polygon))
     output_region.merge()
 
-    if size/pitch<0.05:
-        pitch=2
-
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
-    #layout.clear()
-    #RLayer = layout.layer(1,0)
-    #RCell = layout.create_cell("Region")
-    #RCell.shapes(RLayer).insert(output_region)
-    #layout.write("Polygon_Tester.oas")
+    layout.clear()
+    RLayer = layout.layer(1,0)
+    RCell = layout.create_cell("Region")
+    RCell.shapes(RLayer).insert(output_region)
+    layout.write("Polygon_Tester.oas")
 
-    return output_region,output_cell.name,tone,size,pitch_type,angle
+    #return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
 #contact_cell("Test","C",0.5,1,35,0,3,False,8,False,False,0.004,False)
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
-#StairStep_cell("StairStep_Cell","D",0.2,0.4,0.3,2,35,False,True,8)
+#StairStep_cell("StairStep_Cell","C",0.2,0.1,0.1,5,35,False,True,8)
 #Polygon_cell("Polygon_Cell","D",8,0.2,0.2/2,0.4,35,22.5,False)
