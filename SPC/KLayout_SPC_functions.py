@@ -1696,13 +1696,13 @@ Return definitions:
     output_region = CorrectToneOutput(layout,output_region,ly_polygon,cell_size,pitch,CellBox,CellBox_region,tone)
 
     #Export GDS (can comment out if not testing)
-    layout.clear()
-    RLayer = layout.layer(1,0)
-    RCell = layout.create_cell("Region")
-    RCell.shapes(RLayer).insert(output_region)
-    layout.write("Polygon_Tester.oas")
+    #layout.clear()
+    #RLayer = layout.layer(1,0)
+    #RCell = layout.create_cell("Region")
+    #RCell.shapes(RLayer).insert(output_region)
+    #layout.write("Polygon_Tester.oas")
 
-    #return output_region,output_cell.name,tone,size,pitch_type,angle
+    return output_region,output_cell.name,tone,size,pitch_type,angle
 
 #print("test")
 
