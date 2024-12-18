@@ -1627,16 +1627,15 @@ Return definitions:
 
     inner_angle = (vertices-2)*(math.pi)/(vertices*2)
     inner_r_factor = math.sin(inner_angle)
+    inner_r_final = inner_r * (1/inner_r_factor)
 
     for i in range(0,vertices+2): #Plus 2 is to fully complete the border
         if hollow:
-            inner_pts.append(db.DPoint(inner_r*math.cos(i*(360/vertices)*(math.pi/180)),inner_r*math.sin(i*(360/vertices)*(math.pi/180))))
-            inner_poly = db.DPath(inner_pts,size)
+            pass
         else:
-            inner_pts.append(db.DPoint((1/inner_r_factor)*inner_r*math.cos(i*(360/vertices)*(math.pi/180)),(1/inner_r_factor)*inner_r*math.sin(i*(360/vertices)*(math.pi/180))))
+            inner_pts.append(db.DPoint(inner_r_final*math.cos(i*(360/vertices)*(math.pi/180)),inner_r_final*math.sin(i*(360/vertices)*(math.pi/180))))
             inner_poly = db.DPolygon(inner_pts,True)
-
-    PolygonCell.shapes(ly_polygon).insert(inner_poly)
+            PolygonCell.shapes(ly_polygon).insert(inner_poly)
 
     #Corrects the pitch so that it applies the pitch from the polygon edge, not from the polygon vertex
     pitch_angle = (180*(vertices-2)/vertices)/2
@@ -1647,12 +1646,13 @@ Return definitions:
     if hollow:     
         pass
     else:
-        inner_r -= (size/2)/math.sin((math.pi/180)*pitch_angle)
+        #inner_r -= (size/2)/math.sin((math.pi/180)*pitch_angle)
+        pass
 
 
     #Defines number of polygons to draw
     poly_draw_count=1
-    poly_number_count= math.ceil(((cell_size/2)-inner_r)/(pitch*pitch_scale))
+    poly_number_count= math.ceil(((cell_size/2)-inner_r_final)/(pitch*pitch_scale))
 
 
     #Adds radiating polygon paths if not iso
@@ -1660,8 +1660,8 @@ Return definitions:
         while poly_draw_count<poly_number_count:
             poly_pts=[]
             for k in range(0,vertices+2):
-                poly_pts.append(db.DPoint((inner_r+(poly_draw_count*(pitch*pitch_scale)))*math.cos(k*(360/vertices)*(math.pi/180)),
-                                          (inner_r+(poly_draw_count*(pitch*pitch_scale)))*math.sin(k*(360/vertices)*(math.pi/180))))
+                poly_pts.append(db.DPoint(((poly_draw_count*(pitch*pitch_scale)))*math.cos(k*(360/vertices)*(math.pi/180)),
+                                          ((poly_draw_count*(pitch*pitch_scale)))*math.sin(k*(360/vertices)*(math.pi/180))))
             poly_poly = db.DPath(poly_pts,size)
             PolygonCell.shapes(ly_polygon).insert(poly_poly)
             poly_draw_count+=1
@@ -1710,4 +1710,4 @@ Return definitions:
 #LS_cell("LS_Test","C",0.04,0.04/0.3,35)
 #Horn_cell("Horn test","D")
 #StairStep_cell("StairStep_Cell","C",0.2,0.1,0.1,5,35,False,True,8)
-#Polygon_cell("Polygon_Cell","D",8,0.2,0.2/2,0.4,35,22.5,False)
+#Polygon_cell("Polygon_Cell","D",8,0.2,0.2/2,0.4,35,45,False)

@@ -347,7 +347,7 @@ def LineSpaceEnd_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,Top
             if tone[i]=="D":
                 ResolutionChecker = (size[i] >= min_size_limit)
             else:
-                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit) and (end_spacing[j] >= min_size_limit)
+                ResolutionChecker = (size[i] >= min_size_limit) and ((size[i]/pitch[j]-size[i]) >= min_size_limit) and (size[i]*end_spacing[j] >= min_size_limit)
             if ResolutionChecker:
                 holder=LEnd_cell(cellname,tone[i],size[i],size[i]/pitch[j],cell_size,angle[j],size[i]*end_spacing[j],metro_structure[i],metro_spacing[i])
                 tempcell=layout.create_cell(holder[1])
@@ -1927,7 +1927,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -1944,7 +1944,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -1961,7 +1961,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -1978,7 +1978,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -1995,7 +1995,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -2018,7 +2018,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -2035,7 +2035,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -2052,7 +2052,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -2069,7 +2069,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
@@ -2086,7 +2086,7 @@ def PDM_Array(arrayname:str,layout:db.Layout,layer:int,TopCell:db.Cell,pdm_coord
     for j in range(0,row_per_def):
         for i in range(0,len(defect_num)):
             if size>=min_size_limit:
-                holder=FullField_PDM(tone,size,cell_size,defect_num[i],spacing)
+                holder=FullField_PDM(tone,size,cell_size,defect_num[i],min_size_limit)
                 tempcell=layout.create_cell(holder[1])
                 tempcell.shapes(layer).insert(holder[0])
                 temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))

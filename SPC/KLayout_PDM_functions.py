@@ -467,7 +467,7 @@ def SRAF_PDM(tone:str="D",size:float=0.260,pitch:float=1.880,cell_size:float=20,
 
     return Top_region,TopCell.name
 
-def FullField_PDM(tone:str="C",size:float=0.520,cell_size:float=20,defect_num:int=2,spacing:float=1):
+def FullField_PDM(tone:str="C",size:float=0.520,cell_size:float=20,defect_num:int=2,min_size_limit:float=1):
 
 #### Setup ####
 
@@ -524,7 +524,7 @@ def FullField_PDM(tone:str="C",size:float=0.520,cell_size:float=20,defect_num:in
     pos = []
     neg = []
     size_store = []
-    while current_size > 0.06:
+    while current_size > min_size_limit:
         pos.append(db.DPoint(current_radius*math.cos(current_angle),current_radius*math.sin(current_angle)))
         neg.append(db.DPoint(-current_radius*math.cos(current_angle),-current_radius*math.sin(current_angle)))
         current_radius += dr
