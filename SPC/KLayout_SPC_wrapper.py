@@ -755,7 +755,7 @@ def KLayout_SPC_Wrapper(naming:str,negative_resist_tone:bool,min_size_limit:floa
     #Write the cell
     print(f"Writing {arrayname}...")
     startTime=time.time()
-    Misc_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,negative_resist_tone,min_size_limit)
+    Misc_Array(arrayname,cellname,layout,layer,TopCell,spc_coords,ArrayX,ArrayY,spacing,offset,cell_size,negative_resist_tone,min_size_limit,curve_features)
     xtime = time.time()-startTime
     print(f"Done w/ {arrayname} after {xtime} sec...")
 
@@ -930,16 +930,16 @@ Tester = False
 if Tester:
     KLayout_SPC_Wrapper("EBeam",False,0.1,True,True,True)
 else:
-    KLayout_SPC_Wrapper("EBeam",False,0,True,True)
-    KLayout_SPC_Wrapper("EBeam",False,0.05,True,True)
-    KLayout_SPC_Wrapper("EBeam",False,0.1,False,False)
-    KLayout_SPC_Wrapper("EBeam",False,0.24,False,False)
-    KLayout_SPC_Wrapper("Laser",False,0.24,True,True)
-    KLayout_SPC_Wrapper("EBeam",True,0,True,True)
-    KLayout_SPC_Wrapper("EBeam",True,0.05,True,True)
-    KLayout_SPC_Wrapper("EBeam",True,0.1,False,False)
-    KLayout_SPC_Wrapper("EBeam",True,0.24,False,False)
-    KLayout_SPC_Wrapper("Laser",True,0.24,True,True)
+    KLayout_SPC_Wrapper("EBeam",False,0,True,True,False)
+    KLayout_SPC_Wrapper("EBeam",False,0.05,False,True,False)
+    KLayout_SPC_Wrapper("EBeam",False,0.1,False,False,False)
+    KLayout_SPC_Wrapper("EBeam",False,0.24,False,False,False)
+    KLayout_SPC_Wrapper("Laser",False,0.24,True,True,False)
+    KLayout_SPC_Wrapper("EBeam",True,0,True,True,False)
+    KLayout_SPC_Wrapper("EBeam",True,0.05,False,True,False)
+    KLayout_SPC_Wrapper("EBeam",True,0.1,False,False,False)
+    KLayout_SPC_Wrapper("EBeam",True,0.24,False,False,False)
+    KLayout_SPC_Wrapper("Laser",True,0.24,True,True,False)
 
 xfinaltime = time.time()-fullstartTime
 print(f"Full process completed after {xfinaltime/60}min!")

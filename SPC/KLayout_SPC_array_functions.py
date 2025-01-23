@@ -634,7 +634,7 @@ def HD_HH_Stagger_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,To
 
 #Warning, large
 def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.Cell,spc_coords:list=[],xpos:float=0,ypos:float=0,spacing:float=5,offset:float=50,
-                        cell_size:float=25,negative_resist_tone:bool=True,min_size_limit:float=0):
+                        cell_size:float=25,negative_resist_tone:bool=True,min_size_limit:float=0,curve_features:bool=True):
     
     MiscArray = layout.create_cell("Misc_Array")
 
@@ -783,13 +783,16 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
         else:
             ResolutionChecker = (size[i] >= min_size_limit) #and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
         if ResolutionChecker:
-            holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,-angle[i],False)
-            tempcell=layout.create_cell(holder[1])
-            tempcell.shapes(layer).insert(holder[0])
-            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
-            MiscArray.insert(temparray)
-            name = holder[1:]
-            spc_coords.append([current_x+xpos,current_y+ypos,name])
+            if (not curve_features) and (vertices[i]>8):
+                pass
+            else:
+                holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,-angle[i],False)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                MiscArray.insert(temparray)
+                name = holder[1:]
+                spc_coords.append([current_x+xpos,current_y+ypos,name])
         current_x+=(spacing+cell_size)
     current_x=initial_x
     current_y+=(spacing+cell_size)
@@ -807,13 +810,16 @@ def Misc_Array(arrayname:str,cellname:str,layout:db.Layout,layer:int,TopCell:db.
         else:
             ResolutionChecker = (size[i] >= min_size_limit) #and ((size[i]/pitch[i]-size[i]) >= min_size_limit)
         if ResolutionChecker:
-            holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,-angle[i],False)
-            tempcell=layout.create_cell(holder[1])
-            tempcell.shapes(layer).insert(holder[0])
-            temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
-            MiscArray.insert(temparray)
-            name = holder[1:]
-            spc_coords.append([current_x+xpos,current_y+ypos,name])
+            if (not curve_features) and (vertices[i]>8):
+                pass
+            else:
+                holder=Polygon_cell(cellname,tone[row],vertices[i],size[i],size[i]/2,size[i]/pitch[i],cell_size,-angle[i],False)
+                tempcell=layout.create_cell(holder[1])
+                tempcell.shapes(layer).insert(holder[0])
+                temparray=db.DCellInstArray(tempcell,db.DVector(current_x,current_y))
+                MiscArray.insert(temparray)
+                name = holder[1:]
+                spc_coords.append([current_x+xpos,current_y+ypos,name])
         current_x+=(spacing+cell_size)
     current_x=initial_x
     current_y+=(spacing+cell_size)
