@@ -926,20 +926,22 @@ fullstartTime=time.time()
 
 ### Use this to test or run the full dataset ###
 Tester = False
+Curve_toggle = True
+Off_angle_toggle = True
 
 if Tester:
-    KLayout_SPC_Wrapper("EBeam",False,0.1,True,True,True)
+    KLayout_SPC_Wrapper("EBeam",False,0.1,Curve_toggle,Off_angle_toggle,Tester)
 else:
-    KLayout_SPC_Wrapper("EBeam",False,0,True,True,False)
-    KLayout_SPC_Wrapper("EBeam",False,0.05,False,True,False)
-    KLayout_SPC_Wrapper("EBeam",False,0.1,False,False,False)
-    KLayout_SPC_Wrapper("EBeam",False,0.24,False,False,False)
-    KLayout_SPC_Wrapper("Laser",False,0.24,True,True,False)
-    KLayout_SPC_Wrapper("EBeam",True,0,True,True,False)
-    KLayout_SPC_Wrapper("EBeam",True,0.05,False,True,False)
-    KLayout_SPC_Wrapper("EBeam",True,0.1,False,False,False)
-    KLayout_SPC_Wrapper("EBeam",True,0.24,False,False,False)
-    KLayout_SPC_Wrapper("Laser",True,0.24,True,True,False)
+    KLayout_SPC_Wrapper("EBeam",False,0,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("EBeam",False,0.05,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("EBeam",False,0.1,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("EBeam",False,0.24,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("Laser",False,0.24,Curve_toggle,Off_angle_toggle,Tester)
+    KLayout_SPC_Wrapper("EBeam",True,0,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("EBeam",True,0.05,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("EBeam",True,0.1,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("EBeam",True,0.24,Curve_toggle,Off_angle_toggle,Tester)
+    #KLayout_SPC_Wrapper("Laser",True,0.24,Curve_toggle,Off_angle_toggle,Tester)
 
 xfinaltime = time.time()-fullstartTime
 print(f"Full process completed after {xfinaltime/60}min!")
