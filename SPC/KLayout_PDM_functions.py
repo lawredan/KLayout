@@ -526,8 +526,8 @@ def FullField_PDM(tone:str="C",size:float=0.520,cell_size:float=20,defect_num:in
     size_store = []
     
     #Corrects if no min-size limit defined
-    if min_size_limit<=40:
-         min_size_limit=40
+    if min_size_limit<=0.04:
+         min_size_limit=0.04
     
     #Places the defect features
     while current_size > min_size_limit:
