@@ -926,7 +926,7 @@ fullstartTime=time.time()
 
 ### Use this to test or run the full dataset ###
 Tester = False
-Curve_toggle = False
+Curve_toggle = True
 Off_angle_toggle = True
 
 if Tester:
